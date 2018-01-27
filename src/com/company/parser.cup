@@ -1,0 +1,81 @@
+/* Essa parte eu copiei desse link: https://github.com/moy/JFlex/blob/master/jflex/examples/cup/ycalc.cup
+e me baseei também no repo de michelly */
+/* Import the class java_cup.runtime.*  */
+import java_cup.runtime.*;
+
+/* Parser code to change the way the parser reports errors (include
+   line and column number of the error). */
+parser code {:
+
+    /* Change the method report_error so it will display the line and
+       column of where the error occurred in the input as well as the
+       reason for the error which is passed into the method in the
+       String 'message'. */
+    public void report_error(String message, Object info) {
+
+        /* Create a StringBuilder called 'm' with the string 'Error' in it. */
+        StringBuilder m = new StringBuilder("Error");
+
+        /* Check if the information passed to the method is the same
+           type as the type java_cup.runtime.Symbol. */
+        if (info instanceof java_cup.runtime.Symbol) {
+            /* Declare a java_cup.runtime.Symbol object 's' with the
+               information in the object info that is being typecasted
+               as a java_cup.runtime.Symbol object. */
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+
+            /* Check if the line number in the input is greater or
+               equal to zero. */
+            if (s.left >= 0) {
+                /* Add to the end of the StringBuilder error message
+                   the line number of the error in the input. */
+                m.append(" in line "+(s.left+1));
+                /* Check if the column number in the input is greater
+                   or equal to zero. */
+                if (s.right >= 0)
+                    /* Add to the end of the StringBuilder error message
+                       the column number of the error in the input. */
+                    m.append(", column "+(s.right+1));
+            }
+        }
+
+        /* Add to the end of the StringBuilder error message created in
+           this method the message that was passed into this method. */
+        m.append(" : "+message);
+
+        /* Print the contents of the StringBuilder 'm', which contains
+           an error message, out on a line. */
+        System.err.println(m);
+    }
+
+    /* Change the method report_fatal_error so when it reports a fatal
+       error it will display the line and column number of where the
+       fatal error occurred in the input as well as the reason for the
+       fatal error which is passed into the method in the object
+       'message' and then exit.*/
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
+:};
+
+terminal	IDENTIFIER I_CONSTANT F_CONSTANT STRING_LITERAL FUNC_NAME SIZEOF
+terminal	PTR_OP INC_OP DEC_OP LEFT_OP RIGHT_OP LE_OP GE_OP EQ_OP NE_OP
+terminal	AND_OP OR_OP MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN
+terminal	SUB_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN
+terminal	XOR_ASSIGN OR_ASSIGN
+terminal	TYPEDEF_NAME ENUMERATION_CONSTANT
+
+terminal	TYPEDEF EXTERN STATIC AUTO REGISTER INLINE
+terminal	CONST RESTRICT VOLATILE
+
+/* Parece que aqui você pode definir o tipo também, tipo...
+terminal Integer INT; terminal Long LONG, mas isso eu não entendi muito bem. */
+
+terminal	BOOL CHAR SHORT INT LONG SIGNED UNSIGNED FLOAT DOUBLE VOID
+terminal	COMPLEX IMAGINARY
+terminal	STRUCT UNION ENUM ELLIPSIS
+
+terminal	CASE DEFAULT IF ELSE SWITCH WHILE DO FOR GOTO CONTINUE BREAK RETURN
+
+terminal	ALIGNAS ALIGNOF ATOMIC GENERIC NORETURN STATIC_ASSERT THREAD_LOCAL
