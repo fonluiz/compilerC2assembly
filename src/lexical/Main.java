@@ -1,4 +1,4 @@
-package com.company;
+package lexical;
 import java.io.*;
 
 public class Main {
