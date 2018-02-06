@@ -1,3 +1,5 @@
 .idea
 compilerC2assembly.iml
 /bin/
+.classpath
+.project
