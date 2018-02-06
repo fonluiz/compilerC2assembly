@@ -6,115 +6,96 @@
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int SHORT = 43;
-  public static final int SIGNED = 46;
-  public static final int LEFT_ASSIGN = 24;
+  public static final int SHORT = 31;
+  public static final int SIGNED = 34;
+  public static final int LEFT_ASSIGN = 20;
   public static final int IDENTIFIER = 2;
-  public static final int BOOL = 41;
-  public static final int MOD_ASSIGN = 21;
-  public static final int OR_OP = 18;
-  public static final int GT = 95;
-  public static final int ENUMERATION_CONSTANT = 30;
-  public static final int SUB_ASSIGN = 23;
-  public static final int AND_OP = 17;
-  public static final int CONST = 37;
-  public static final int REGISTER = 35;
-  public static final int ENUM = 55;
-  public static final int IMAGINARY = 52;
-  public static final int RBRACK = 84;
-  public static final int SIZEOF = 7;
-  public static final int INC_OP = 9;
-  public static final int COMMA = 77;
-  public static final int RBRACE = 80;
-  public static final int GE_OP = 14;
-  public static final int RPAREN = 82;
-  public static final int DEC_OP = 10;
-  public static final int AND_ASSIGN = 26;
-  public static final int LBRACK = 83;
-  public static final int LT = 94;
-  public static final int FUNC_NAME = 6;
-  public static final int DOUBLE = 49;
-  public static final int LBRACE = 79;
-  public static final int STRUCT = 53;
-  public static final int LE_OP = 13;
-  public static final int LPAREN = 81;
-  public static final int NOT = 87;
-  public static final int XOR_ASSIGN = 27;
-  public static final int INLINE = 36;
-  public static final int FLOAT = 48;
-  public static final int GOTO = 65;
-  public static final int F_CONSTANT = 4;
-  public static final int COMP = 88;
-  public static final int EQ = 99;
-  public static final int RIGHT_ASSIGN = 25;
-  public static final int MOD = 93;
-  public static final int GENERIC = 72;
-  public static final int ADD_ASSIGN = 22;
-  public static final int PLUS = 89;
-  public static final int LONG = 45;
-  public static final int QUESTION = 98;
-  public static final int _LOCAL = 76;
-  public static final int WHILE = 62;
-  public static final int UNION = 54;
-  public static final int MUL_ASSIGN = 19;
-  public static final int TYPEDEF_NAME = 29;
-  public static final int CHAR = 42;
-  public static final int PTR_OP = 8;
-  public static final int SWITCH = 61;
-  public static final int DO = 63;
-  public static final int FOR = 64;
-  public static final int DIV = 91;
-  public static final int VOID = 50;
-  public static final int EXTERN = 32;
-  public static final int MULT = 92;
-  public static final int RETURN = 68;
-  public static final int THREAD = 75;
-  public static final int ELSE = 60;
-  public static final int RESTRICT = 38;
-  public static final int BREAK = 67;
-  public static final int DOT = 85;
-  public static final int INT = 44;
-  public static final int STRING_LITERAL = 5;
-  public static final int SEMICOLON = 100;
+  public static final int MOD_ASSIGN = 17;
+  public static final int OR_OP = 14;
+  public static final int SUB_ASSIGN = 19;
+  public static final int AND_OP = 13;
+  public static final int PARAR = 64;
+  public static final int CONST = 38;
+  public static final int PARAL = 63;
+  public static final int SEMI = 57;
+  public static final int REGISTER = 29;
+  public static final int ENUM = 43;
+  public static final int SIZEOF = 5;
+  public static final int INC_OP = 7;
+  public static final int COMMA = 60;
+  public static final int GE_OP = 12;
+  public static final int DEC_OP = 8;
+  public static final int AND_ASSIGN = 71;
+  public static final int DOUBLE = 37;
+  public static final int STRUCT = 41;
+  public static final int COND = 83;
+  public static final int LE_OP = 11;
+  public static final int NOT = 69;
+  public static final int TILDE = 70;
+  public static final int XOR_ASSIGN = 22;
+  public static final int FLOAT = 36;
+  public static final int GOTO = 53;
+  public static final int MUL = 76;
+  public static final int CURLYR = 59;
+  public static final int RIGHT_ASSIGN = 21;
+  public static final int CURLYL = 58;
+  public static final int MODULUS = 78;
+  public static final int ADD_ASSIGN = 18;
+  public static final int ADRESS = 68;
+  public static final int PLUS = 75;
+  public static final int LONG = 33;
+  public static final int DIVIDE = 77;
+  public static final int WHILE = 50;
+  public static final int UNION = 42;
+  public static final int MUL_ASSIGN = 15;
+  public static final int ASSIGN = 62;
+  public static final int CHAR = 30;
+  public static final int PTR_OP = 6;
+  public static final int SWITCH = 49;
+  public static final int DO = 51;
+  public static final int FOR = 52;
+  public static final int GREATER = 80;
+  public static final int VOID = 40;
+  public static final int EXTERN = 26;
+  public static final int RETURN = 56;
+  public static final int ELSE = 48;
+  public static final int POINT = 67;
+  public static final int BREAK = 55;
+  public static final int INT = 32;
+  public static final int STRING_LITERAL = 4;
   public static final int EOF = 0;
-  public static final int DEFAULT = 58;
-  public static final int MINUS = 90;
-  public static final int OR = 97;
+  public static final int TYPE_NAME = 24;
+  public static final int DEFAULT = 46;
+  public static final int MINUS = 74;
+  public static final int CONSTANT = 3;
+  public static final int OR = 82;
   public static final int error = 1;
-  public static final int RIGHT_OP = 12;
-  public static final int OR_ASSIGN = 28;
-  public static final int ALIGNOF = 70;
-  public static final int CONTINUE = 66;
-  public static final int IF = 59;
-  public static final int UNSIGNED = 47;
-  public static final int DIV_ASSIGN = 20;
-  public static final int COLON = 78;
-  public static final int ATOMIC = 71;
-  public static final int STATIC_ASSERT = 74;
-  public static final int NORETURN = 73;
+  public static final int RIGHT_OP = 10;
+  public static final int OR_ASSIGN = 23;
+  public static final int CONTINUE = 54;
+  public static final int IF = 47;
+  public static final int UNSIGNED = 35;
+  public static final int DIV_ASSIGN = 16;
+  public static final int COLON = 61;
   public static final int VOLATILE = 39;
-  public static final int NE_OP = 16;
-  public static final int CASE = 57;
-  public static final int EQ_OP = 15;
-  public static final int I_CONSTANT = 3;
-  public static final int THREAD_LOCAL = 40;
-  public static final int AND = 86;
-  public static final int COMPLEX = 51;
-  public static final int ELLIPSIS = 56;
-  public static final int STATIC = 33;
-  public static final int TYPEDEF = 31;
-  public static final int XOR = 96;
-  public static final int AUTO = 34;
-  public static final int LEFT_OP = 11;
-  public static final int ALIGNAS = 69;
+  public static final int SQUAREDR = 66;
+  public static final int NE_OP = 73;
+  public static final int CASE = 45;
+  public static final int EQ_OP = 72;
+  public static final int SQUAREDL = 65;
+  public static final int LESS = 79;
+  public static final int ELLIPSIS = 44;
+  public static final int STATIC = 27;
+  public static final int TYPEDEF = 25;
+  public static final int XOR = 81;
+  public static final int AUTO = 28;
+  public static final int LEFT_OP = 9;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
   "IDENTIFIER",
-  "I_CONSTANT",
-  "F_CONSTANT",
+  "CONSTANT",
   "STRING_LITERAL",
-  "FUNC_NAME",
   "SIZEOF",
   "PTR_OP",
   "INC_OP",
@@ -123,8 +104,6 @@ public class sym {
   "RIGHT_OP",
   "LE_OP",
   "GE_OP",
-  "EQ_OP",
-  "NE_OP",
   "AND_OP",
   "OR_OP",
   "MUL_ASSIGN",
@@ -134,22 +113,14 @@ public class sym {
   "SUB_ASSIGN",
   "LEFT_ASSIGN",
   "RIGHT_ASSIGN",
-  "AND_ASSIGN",
   "XOR_ASSIGN",
   "OR_ASSIGN",
-  "TYPEDEF_NAME",
-  "ENUMERATION_CONSTANT",
+  "TYPE_NAME",
   "TYPEDEF",
   "EXTERN",
   "STATIC",
   "AUTO",
   "REGISTER",
-  "INLINE",
-  "CONST",
-  "RESTRICT",
-  "VOLATILE",
-  "THREAD_LOCAL",
-  "BOOL",
   "CHAR",
   "SHORT",
   "INT",
@@ -158,9 +129,9 @@ public class sym {
   "UNSIGNED",
   "FLOAT",
   "DOUBLE",
+  "CONST",
+  "VOLATILE",
   "VOID",
-  "COMPLEX",
-  "IMAGINARY",
   "STRUCT",
   "UNION",
   "ENUM",
@@ -177,38 +148,33 @@ public class sym {
   "CONTINUE",
   "BREAK",
   "RETURN",
-  "ALIGNAS",
-  "ALIGNOF",
-  "ATOMIC",
-  "GENERIC",
-  "NORETURN",
-  "STATIC_ASSERT",
-  "THREAD",
-  "_LOCAL",
+  "SEMI",
+  "CURLYL",
+  "CURLYR",
   "COMMA",
   "COLON",
-  "LBRACE",
-  "RBRACE",
-  "LPAREN",
-  "RPAREN",
-  "LBRACK",
-  "RBRACK",
-  "DOT",
-  "AND",
+  "ASSIGN",
+  "PARAL",
+  "PARAR",
+  "SQUAREDL",
+  "SQUAREDR",
+  "POINT",
+  "ADRESS",
   "NOT",
-  "COMP",
-  "PLUS",
+  "TILDE",
+  "AND_ASSIGN",
+  "EQ_OP",
+  "NE_OP",
   "MINUS",
-  "DIV",
-  "MULT",
-  "MOD",
-  "LT",
-  "GT",
+  "PLUS",
+  "MUL",
+  "DIVIDE",
+  "MODULUS",
+  "LESS",
+  "GREATER",
   "XOR",
   "OR",
-  "QUESTION",
-  "EQ",
-  "SEMICOLON"
+  "COND"
   };
 }
 

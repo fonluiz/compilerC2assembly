@@ -1,5 +1,7 @@
 package lexical;
 import java.io.*;
+import syntax.*;
+import lexical.*;
 
 public class Main {
 
