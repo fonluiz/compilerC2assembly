@@ -1,16 +1,43 @@
 package lexical;
 
 import java_cup.*;
+import Tokens.*;
 
 %%
 
 %public
-%class Lexer
+%class Scanner
 %unicode
 %line
 %column
 %cup
 %cupdebug
+
+%{
+   StringBuffer string = new StringBuffer();
+
+  private Symbol symbol(int type) {
+	return new Symbol(type, yyline+1, yycolumn+1);
+  }
+
+  private Symbol symbol(int type, Object value) {
+	return new Symbol(type, yyline+1, yycolumn+1, value);
+  }
+
+  private long parseLong(int start, int end, int radix) {
+	long result = 0;
+	long digit;
+
+	for (int i = start; i < end; i++) {
+	  digit  = Character.digit(yycharat(i),radix);
+	  result*= radix;
+	  result+= digit;
+	}
+
+	return result;
+  }
+%}
+
 
 O = [0-7]
 D = [0-9]
