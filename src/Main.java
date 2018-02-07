@@ -33,7 +33,7 @@ public class Main {
 			s = parser1.parse();
 			System.out.println("The compilation process was successfully finished!");
 		} catch (Exception e) {
-			System.out.println("flopou");
+			System.out.println("Compilation failed");
 			System.out.println(e.getMessage());
 		}
     }
