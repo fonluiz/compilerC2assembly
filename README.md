@@ -8,7 +8,7 @@ A simple compiler using CUP/JFlex to parse code from C to Assembly
 Para testar o fluxo inteiro basta executar em um terminal linux:
 
 ```
-cd src/all
+cd src/
 ./makeTest.sh
 ```
 
@@ -20,7 +20,7 @@ Os comandos desse script incluem geração do Lexer (Analisador léxico), Parser
 Executar os seguintes comandos:
 
 ```
-cd src/all
+cd src/
 jflex lexical_simpler.flex
 ```
 
@@ -28,9 +28,9 @@ jflex lexical_simpler.flex
 Executar os seguintes comandos:
 
 ```
-cd src/all
-java -jar ../../lib/java-cup-11b.jar -locations -interface -parser Parser -xmlactions NewParser.cup
-javac -cp ../../lib/java-cup-11b-runtime.jar:. *.java
+cd src/
+java -jar ../lib/java-cup-11b.jar -locations -interface -parser Parser -xmlactions NewParser.cup
+javac -cp ../lib/java-cup-11b-runtime.jar:. *.java
 ```
 Os comandos acima geram arquivos `.class` que poderão ser utilizados para testar qualquer entrada.
 
@@ -38,11 +38,18 @@ Os comandos acima geram arquivos `.class` que poderão ser utilizados para testa
 Subentendendo-se que o Parser foi gerado juntamente com o analisador sintático, executar os seguintes comandos:
 
 ```
-cd src/all
-java -cp ../../lib/java-cup-11b-runtime.jar:. Parser <entrada.c> <saida.xml>
+cd src/
+java -cp ../lib/java-cup-11b-runtime.jar:. Parser <entrada.c> <saida.xml>
 
 ```
 
 Se o programa não possuir erros, o arquivo XML será gerado com a árvore de análise, do contrário o erro será reportado.
 
 Para mais informações verificar o [commit](https://github.com/fonluiz/compilerC2assembly/commit/903996afc4501792d59567e7c90e4128776b08dd) referente à essa inserção.
+
+Outra forma de verificar se o programa está compilando usando o Main:
+
+```
+cd src/
+java -cp ../lib/java-cup-11b-runtime.jar:. Main <entrada.c>
+```
