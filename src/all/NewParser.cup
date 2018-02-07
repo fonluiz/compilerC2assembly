@@ -1,3 +1,5 @@
+package all;
+
 import java.io.*;
 import java.util.*;
 import java_cup.runtime.*;
