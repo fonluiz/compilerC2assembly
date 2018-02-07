@@ -1,5 +1,3 @@
-package all;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.nio.file.Paths;
@@ -23,8 +21,6 @@ public class Main {
 
         try {
             p = new Lexer(new BufferedReader(new FileReader(args[0])), (ComplexSymbolFactory) symbolFactory);
-
-            System.out.println("Compilacao concluida com sucesso...");
         } catch (Exception e) {
             e.printStackTrace();
         }
