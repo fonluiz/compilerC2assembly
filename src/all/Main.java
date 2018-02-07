@@ -22,7 +22,7 @@ public class Main {
         SymbolFactory symbolFactory = new ComplexSymbolFactory();
 
         try {
-            p = new Lexer(new BufferedReader(new FileReader(sourcecode)), (ComplexSymbolFactory) symbolFactory);
+            p = new Lexer(new BufferedReader(new FileReader(args[0])), (ComplexSymbolFactory) symbolFactory);
 
             System.out.println("Compilacao concluida com sucesso...");
         } catch (Exception e) {
