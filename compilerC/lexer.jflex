@@ -106,12 +106,12 @@ ident = ([:jletter:] | "_" ) ([:jletterdigit:] | [:jletter:] | "_" )*
   "else"			{ return symbol("ELSE",ELSE,yytext()); }
   "enum"			{ return symbol("ENUM",ENUM,yytext()); }
   "extern"			{ return symbol("EXTERN",EXTERN,yytext()); }
-  "float"			{ return symbol("FLOAT",FLOAT,Float.parseFloat(yytext())); }
+  "float"			{ return symbol("FLOAT",FLOAT,yytext()); }
   "for"				{ return symbol("FOR",FOR,yytext()); }
   "goto"			{ return symbol("GOTO",GOTO,yytext()); }
   "if"				{ return symbol("GOTO",IF,yytext()); }
-  "int"				{ return symbol("INT",INT, Integer.parseInt(yytext())); }
-  "long"			{ return symbol("LONG", LONG, Long.parseLong(yytext())); }
+  "int"				{ return symbol("INT",INT, yytext()); }
+  "long"			{ return symbol("LONG", LONG, yytext()); }
   "register"		{ return symbol("REGISTER",REGISTER,yytext()); }
   "return"			{ return symbol("RETURN",RETURN,yytext()); }
   "short"			{ return symbol("SHORT",SHORT,yytext()); }
@@ -127,7 +127,7 @@ ident = ([:jletter:] | "_" ) ([:jletterdigit:] | [:jletter:] | "_" )*
   "volatile"		{ return symbol("VOLATILE",VOLATILE,yytext()); }
   "while"			{ return symbol("WHILE",WHILE,yytext()); }
 
-  {L}({L}|{D})*		{ return symbol(typecheck(yytext()), yytext()); }
+  {L}({L}|{D})*		{ return symbol(yytext(), typecheck(yytext())); }
 
   0[xX]{H}+{IS}?		{ return symbol("CONSTANT",CONSTANT,yytext()); }
   0{D}+{IS}?		{ return symbol("CONSTANT",CONSTANT,yytext()); }
