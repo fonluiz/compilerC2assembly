@@ -129,16 +129,16 @@ ident = ([:jletter:] | "_" ) ([:jletterdigit:] | [:jletter:] | "_" )*
 
   {L}({L}|{D})*		{ return symbol(typecheck(yytext()), yytext()); }
 
-  0[xX]{H}+{IS}?		{ return symbol(CONSTANT,yytext()); }
-  0{D}+{IS}?		{ return symbol(CONSTANT,yytext()); }
-  {D}+{IS}?		{ return symbol(CONSTANT,yytext()); }
-  L?'(\\.|[^\\'])+'	{ return symbol(CONSTANT,yytext()); }
+  0[xX]{H}+{IS}?		{ return symbol("CONSTANT",CONSTANT,yytext()); }
+  0{D}+{IS}?		{ return symbol("CONSTANT",CONSTANT,yytext()); }
+  {D}+{IS}?		{ return symbol("CONSTANT",CONSTANT,yytext()); }
+  L?'(\\.|[^\\'])+'	{ return symbol("CONSTANT",CONSTANT,yytext()); }
 
-  {D}+{E}{FS}?		{ return symbol(CONSTANT,yytext()); }
-  {D}*"."{D}+({E})?{FS}?	{ return symbol(CONSTANT,yytext()); }
-  {D}+"."{D}*({E})?{FS}?	{ return symbol(CONSTANT,yytext()); }
+  {D}+{E}{FS}?		{ return symbol("CONSTANT",CONSTANT,yytext()); }
+  {D}*"."{D}+({E})?{FS}?	{ return symbol("CONSTANT",CONSTANT,yytext()); }
+  {D}+"."{D}*({E})?{FS}?	{ return symbol("CONSTANT",CONSTANT,yytext()); }
 
-  L?\"(\\.|[^\\\"])*\"	{ return symbol(STRING_LITERAL,yytext()); }
+  L?\"(\\.|[^\\\"])*\"	{ return symbol("STRING_LITERAL",STRING_LITERAL,yytext()); }
 
   "..."			{ return symbol("ELLIPSIS",ELLIPSIS); }
   ">>="			{ return symbol("RIGHT_ASSIGN",RIGHT_ASSIGN); }
