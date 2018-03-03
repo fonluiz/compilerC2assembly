@@ -6,6 +6,8 @@ import javax.xml.stream.*;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.*;
 
+import utils.*;
+
 parser code {:
     public void syntax_error(Symbol cur_token){
 	System.err.println("Syntax error at "+cur_token);
@@ -380,8 +382,8 @@ jump_statement ::=GOTO IDENTIFIER:id SEMI
 	| RETURN expression:e SEMI
 	;
 
-translation_unit ::=external_declaration:ed
-	| translation_unit:tu external_declaration:ed
+translation_unit ::=external_declaration:ed {: Logger.getInstance().startLogger(); Logger.getInstance().log("linha 385"); :}
+	| translation_unit:tu external_declaration:ed {: Logger.getInstance().log("linha 386"); :}
 	;
 
 external_declaration ::=function_definition:fd
