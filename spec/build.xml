@@ -17,6 +17,7 @@
 	  		          parser="Parser"
 	  				  interface="true"
 	  		  	      locations="true"
+			          xmlactions="true"
                       package="core"
 	  		          debugsymbols="true" />
 
