@@ -12,6 +12,8 @@ import javax.xml.transform.*;
 import javax.xml.transform.stream.*;
 import java.nio.file.Paths;
 
+import utils.*;
+
 parser code {:
     public void syntax_error(Symbol cur_token){
 	System.err.println("Syntax error at "+cur_token);
@@ -149,389 +151,390 @@ precedence nonassoc ELSE;
 start with translation_unit;
 
 
-primary_expression ::= IDENTIFIER:ident
-		   | CONSTANT:constant
-		   | STRING_LITERAL:stringliteral
-		   | PARAL expression:e PARAR
+primary_expression ::= IDENTIFIER:ident {: Logger.getInstance().log("primary_expression 1"); :}
+		   | CONSTANT:constant {: Logger.getInstance().log("primary_expression 2"); :}
+		   | STRING_LITERAL:stringliteral {: Logger.getInstance().log("primary_expression 3"); :}
+		   | PARAL expression:e PARAR {: Logger.getInstance().log("primary_expression 4"); :}
 		   ;
 
-postfix_expression ::= primary_expression:pe
-		   | postfix_expression:pe SQUAREDL expression:index SQUAREDR
-		   | postfix_expression:pe PARAL PARAR
-		   | postfix_expression:pe PARAL expression:e PARAR
-		   | postfix_expression:pe POINT IDENTIFIER:id
-		   | postfix_expression:pe PTR_OP IDENTIFIER:id
-		   | postfix_expression:pe INC_OP:op
-		   | postfix_expression:pe DEC_OP:op
+postfix_expression ::= primary_expression:pe {: Logger.getInstance().log("postfix_expression 1"); :}
+		   | postfix_expression:pe SQUAREDL expression:index SQUAREDR {: Logger.getInstance().log("postfix_expression 2"); :}
+		   | postfix_expression:pe PARAL PARAR {: Logger.getInstance().log("postfix_expression 3"); :}
+		   | postfix_expression:pe PARAL expression:e PARAR {: Logger.getInstance().log("postfix_expression 4"); :}
+		   | postfix_expression:pe POINT IDENTIFIER:id {: Logger.getInstance().log("postfix_expression 5"); :}
+		   | postfix_expression:pe PTR_OP IDENTIFIER:id {: Logger.getInstance().log("postfix_expression 6"); :}
+		   | postfix_expression:pe INC_OP:op {: Logger.getInstance().log("postfix_expression 7"); :}
+		   | postfix_expression:pe DEC_OP:op {: Logger.getInstance().log("postfix_expression 8"); :}
 		   ;
 
-unary_expression ::= postfix_expression:pe
-		 | INC_OP:op unary_expression:ue
-		 | DEC_OP:op unary_expression:ue
-		 | unary_operator:uo cast_expression:ce
-		 | SIZEOF unary_expression:ue
-		 | SIZEOF PARAL type_name:tn PARAR
+unary_expression ::= postfix_expression:pe {: Logger.getInstance().log("unary_expression 1"); :}
+		 | INC_OP:op unary_expression:ue {: Logger.getInstance().log("unary_expression 2"); :}
+		 | DEC_OP:op unary_expression:ue {: Logger.getInstance().log("unary_expression 3"); :}
+		 | unary_operator:uo cast_expression:ce {: Logger.getInstance().log("unary_expression 4"); :}
+		 | SIZEOF unary_expression:ue {: Logger.getInstance().log("unary_expression 5"); :}
+		 | SIZEOF PARAL type_name:tn PARAR {: Logger.getInstance().log("unary_expression 6"); :}
 		 ;
 
 unary_operator
-	::=ADRESS
-	| MUL:op
-	| PLUS:op
-	| MINUS:op
-	| TILDE
-	| NOT:op
+	::=ADRESS {: Logger.getInstance().log("unary_operator 1"); :}
+	| MUL:op {: Logger.getInstance().log("unary_operator 2"); :}
+	| PLUS:op {: Logger.getInstance().log("unary_operator 3"); :}
+	| MINUS:op {: Logger.getInstance().log("unary_operator 4"); :}
+	| TILDE {: Logger.getInstance().log("unary_operator 5"); :}
+	| NOT:op {: Logger.getInstance().log("unary_operator 6"); :}
 	;
 
 
 cast_expression
-	::=unary_expression:ue
-	| PARAL type_name:tn PARAR cast_expression:ce
+	::=unary_expression:ue {: Logger.getInstance().log("cast_expression 1"); :}
+	| PARAL type_name:tn PARAR cast_expression:ce {: Logger.getInstance().log("cast_expression 2"); :}
 	;
 
 
-multiplicative_expression ::= cast_expression:ce
-			  | multiplicative_expression:me MUL:op cast_expression:ce
-			  | multiplicative_expression:me DIVIDE:op cast_expression:ce
-			  | multiplicative_expression:me MODULUS:op cast_expression:ce
+multiplicative_expression ::= cast_expression:ce {: Logger.getInstance().log("multiplicative_expression 1"); :}
+			  | multiplicative_expression:me MUL:op cast_expression:ce {: Logger.getInstance().log("multiplicative_expression 2"); :}
+			  | multiplicative_expression:me DIVIDE:op cast_expression:ce {: Logger.getInstance().log("multiplicative_expression 3"); :}
+			  | multiplicative_expression:me MODULUS:op cast_expression:ce {: Logger.getInstance().log("multiplicative_expression 4"); :}
 			  ;
 
-additive_expression ::= multiplicative_expression:me
-		    | additive_expression:ae PLUS:op multiplicative_expression:me
-		    | additive_expression:ae MINUS:op multiplicative_expression:me
+additive_expression ::= multiplicative_expression:me {: Logger.getInstance().log("additive_expression 1"); :}
+		    | additive_expression:ae PLUS:op multiplicative_expression:me {: Logger.getInstance().log("additive_expression 2"); :}
+		    | additive_expression:ae MINUS:op multiplicative_expression:me {: Logger.getInstance().log("additive_expression 3"); :}
 		    ;
 
-shift_expression ::= additive_expression:ae
-		 | shift_expression:se LEFT_OP additive_expression:ae
-		 | shift_expression:se RIGHT_OP additive_expression:ae
+shift_expression ::= additive_expression:ae {: Logger.getInstance().log("shift_expression 1"); :}
+		 | shift_expression:se LEFT_OP additive_expression:ae {: Logger.getInstance().log("shift_expression 2"); :}
+		 | shift_expression:se RIGHT_OP additive_expression:ae {: Logger.getInstance().log("shift_expression 3"); :}
 		 ;
 
-relational_expression ::= shift_expression:se
-		      | relational_expression:re LESS:op shift_expression:se
-		      | relational_expression:re GREATER:op shift_expression:se
-		      | relational_expression:re LE_OP:op shift_expression:se
-		      | relational_expression:re GE_OP:op shift_expression:se
+relational_expression ::= shift_expression:se {: Logger.getInstance().log("relational_expression 1"); :}
+		      | relational_expression:re LESS:op shift_expression:se {: Logger.getInstance().log("relational_expression 2"); :}
+		      | relational_expression:re GREATER:op shift_expression:se {: Logger.getInstance().log("relational_expression 3"); :}
+		      | relational_expression:re LE_OP:op shift_expression:se {: Logger.getInstance().log("relational_expression 4"); :}
+		      | relational_expression:re GE_OP:op shift_expression:se {: Logger.getInstance().log("relational_expression 5"); :}
 		      ;
 
-equality_expression ::= relational_expression:re
-		    | equality_expression:ee EQ_OP:op relational_expression:re
-		    | equality_expression:ee NE_OP:op relational_expression:re
+equality_expression ::= relational_expression:re {: Logger.getInstance().log("equality_expression 1"); :}
+		    | equality_expression:ee EQ_OP:op relational_expression:re {: Logger.getInstance().log("equality_expression 2"); :}
+		    | equality_expression:ee NE_OP:op relational_expression:re {: Logger.getInstance().log("equality_expression 3"); :}
 		    ;
 
-and_expression ::= equality_expression:ee
-	       | and_expression:ae ADRESS equality_expression:ee
+and_expression ::= equality_expression:ee {: Logger.getInstance().log("and_expression 1"); :}
+	       | and_expression:ae ADRESS equality_expression:ee {: Logger.getInstance().log("and_expression 2"); :}
 	       ;
 
-exclusive_or_expression	::= and_expression:ae
-			| exclusive_or_expression:eoe XOR and_expression:ae
+exclusive_or_expression	::= and_expression:ae {: Logger.getInstance().log("exclusive_or_expression 1"); :}
+			| exclusive_or_expression:eoe XOR and_expression:ae {: Logger.getInstance().log("exclusive_or_expression 2"); :}
 			;
 
 
-inclusive_or_expression	::= exclusive_or_expression:eoe
-			| inclusive_or_expression:ioe OR exclusive_or_expression:eoe
+inclusive_or_expression	::= exclusive_or_expression:eoe {: Logger.getInstance().log("inclusive_or_expression 1"); :}
+			| inclusive_or_expression:ioe OR exclusive_or_expression:eoe {: Logger.getInstance().log("inclusive_or_expression 2"); :}
 			;
 
-logical_and_expression ::= inclusive_or_expression:ioe
-		       | logical_and_expression:lae AND_OP:op inclusive_or_expression:ioe
+logical_and_expression ::= inclusive_or_expression:ioe {: Logger.getInstance().log("logical_and_expression 1"); :}
+		       | logical_and_expression:lae AND_OP:op inclusive_or_expression:ioe {: Logger.getInstance().log("logical_and_expression 2"); :}
 		       ;
 
-logical_or_expression ::= logical_and_expression:lae
-		      | logical_or_expression:loe OR_OP:op logical_and_expression:lae
+logical_or_expression ::= logical_and_expression:lae {: Logger.getInstance().log("logical_or_expression 1"); :}
+		      | logical_or_expression:loe OR_OP:op logical_and_expression:lae {: Logger.getInstance().log("logical_or_expression 2"); :}
 		      ;
 
-conditional_expression ::= logical_or_expression:loe
-		       | logical_or_expression:loe COND expression:e COLON conditional_expression:ce
+conditional_expression ::= logical_or_expression:loe {: Logger.getInstance().log("conditional_expression 1"); :}
+		       | logical_or_expression:loe COND expression:e COLON conditional_expression:ce {: Logger.getInstance().log("conditional_expression 2"); :}
 		       ;
 
 
-assignment_expression ::= conditional_expression:ce
-		      | unary_expression:ue assignment_operator:aop assignment_expression:ae
+assignment_expression ::= conditional_expression:ce {: Logger.getInstance().log("assignment_expression 1"); :}
+		      | unary_expression:ue assignment_operator:aop assignment_expression:ae {: Logger.getInstance().log("assignment_expression 2"); :}
 		      ;
 
 assignment_operator
-	::=ASSIGN
-	| MUL_ASSIGN
-	| DIV_ASSIGN
-	| MOD_ASSIGN
-	| ADD_ASSIGN
-	| SUB_ASSIGN
-	| LEFT_ASSIGN
-	| RIGHT_ASSIGN
- 	| AND_ASSIGN
-	| XOR_ASSIGN
-	| OR_ASSIGN
+	::=ASSIGN  {: Logger.getInstance().log("assignment_operator 1"); :}
+	| MUL_ASSIGN  {: Logger.getInstance().log("assignment_operator 2"); :}
+	| DIV_ASSIGN  {: Logger.getInstance().log("assignment_operator 3"); :}
+	| MOD_ASSIGN  {: Logger.getInstance().log("assignment_operator 4"); :}
+	| ADD_ASSIGN  {: Logger.getInstance().log("assignment_operator 5"); :}
+	| SUB_ASSIGN  {: Logger.getInstance().log("assignment_operator 6"); :}
+	| LEFT_ASSIGN {: Logger.getInstance().log("assignment_operator 7"); :}
+	| RIGHT_ASSIGN {: Logger.getInstance().log("assignment_operator 8"); :}
+ 	| AND_ASSIGN {: Logger.getInstance().log("assignment_operator 9"); :}
+	| XOR_ASSIGN {: Logger.getInstance().log("assignment_operator 10"); :}
+	| OR_ASSIGN {: Logger.getInstance().log("assignment_operator 11"); :}
 	;
 
-expression ::= assignment_expression:ae
-	   | expression:e COMMA assignment_expression:ae
+expression ::= assignment_expression:ae {: Logger.getInstance().log("expression 1"); :}
+	   | expression:e COMMA assignment_expression:ae {: Logger.getInstance().log("expression 2"); :}
 	   ;
 
 constant_expression
-	::=conditional_expression:ce
+	::=conditional_expression:ce {: Logger.getInstance().log("constant_expression 1"); :}
 	;
 
 declaration
-	::=declaration_specifiers:ds SEMI
+	::=declaration_specifiers:ds SEMI  {: Logger.getInstance().log("declaration 1"); :}
     | declaration_specifiers:ds init_declarator_list:idl {:
 							  if (ds.toString().indexOf(">typedef<")>0) {
 							      for (XMLElement e: ((XMLElement)idl).selectById("identifier"))
 								Parser.addType(((Terminal)e).value().toString());
 							  }
+							  Logger.getInstance().log("declaration 2");
 							  :} SEMI
         ;
 
 declaration_specifiers
-	::=storage_class_specifier:scc
-        | storage_class_specifier:scc declaration_specifiers:ds
-	| type_specifier:ts
-	| type_specifier:ts declaration_specifiers:ds
-	| type_qualifier:tq
-	| type_qualifier:tq declaration_specifiers:ds
+	::=storage_class_specifier:scc                              {: Logger.getInstance().log("declaration_specifiers 1"); :}
+        | storage_class_specifier:scc declaration_specifiers:ds {: Logger.getInstance().log("declaration_specifiers 2"); :}
+	| type_specifier:ts                                         {: Logger.getInstance().log("declaration_specifiers 3"); :}
+	| type_specifier:ts declaration_specifiers:ds               {: Logger.getInstance().log("declaration_specifiers 4"); :}
+	| type_qualifier:tq                                         {: Logger.getInstance().log("declaration_specifiers 5"); :}
+	| type_qualifier:tq declaration_specifiers:ds               {: Logger.getInstance().log("declaration_specifiers 6"); :}
 	;
 
 init_declarator_list
-	::=init_declarator:id
-	| init_declarator_list:idl COMMA init_declarator:id
+	::=init_declarator:id {: Logger.getInstance().log("init_declarator_list 1"); :}
+	| init_declarator_list:idl COMMA init_declarator:id {: Logger.getInstance().log("init_declarator_list 2"); :}
 	;
 
 init_declarator
-        ::=declarator:d
-	| declarator:d ASSIGN initializer:i
+        ::=declarator:d           {: Logger.getInstance().log("init_declarator 1"); :}
+	| declarator:d ASSIGN initializer:i  {: Logger.getInstance().log("init_declarator 2"); :}
 	;
 
 storage_class_specifier
-    ::=  TYPEDEF:id
-	| EXTERN:id
-	| STATIC:id
-	| AUTO:id
-	| REGISTER:id
+    ::=  TYPEDEF:id {: Logger.getInstance().log("storage_class_specifier 1"); :}
+	| EXTERN:id     {: Logger.getInstance().log("storage_class_specifier 2"); :}
+	| STATIC:id     {: Logger.getInstance().log("storage_class_specifier 3"); :}
+	| AUTO:id       {: Logger.getInstance().log("storage_class_specifier 4"); :}
+	| REGISTER:id   {: Logger.getInstance().log("storage_class_specifier 5"); :}
 	;
 
 type_specifier
-	::=VOID:type
-	| CHAR:type
-	| SHORT:type
-	| INT:type
-	| LONG:type
-	| FLOAT:type
-	| DOUBLE:type
-	| SIGNED:type
-	| UNSIGNED:type
-	| struct_or_union_specifier:su
-	| enum_specifier:es
-	| TYPE_NAME:type
+	::=VOID:type                      {: Logger.getInstance().log("type_specifier 1"); :}
+	| CHAR:type                       {: Logger.getInstance().log("type_specifier 2"); :}
+	| SHORT:type                      {: Logger.getInstance().log("type_specifier 3"); :}
+	| INT:type                        {: Logger.getInstance().log("type_specifier 4"); :}
+	| LONG:type                       {: Logger.getInstance().log("type_specifier 5"); :}
+	| FLOAT:type                      {: Logger.getInstance().log("type_specifier 6"); :}
+	| DOUBLE:type                     {: Logger.getInstance().log("type_specifier 7"); :}
+	| SIGNED:type                     {: Logger.getInstance().log("type_specifier 8"); :}
+	| UNSIGNED:type                   {: Logger.getInstance().log("type_specifier 9"); :}
+	| struct_or_union_specifier:su    {: Logger.getInstance().log("type_specifier 10"); :}
+	| enum_specifier:es               {: Logger.getInstance().log("type_specifier 11"); :}
+	| TYPE_NAME:type                  {: Logger.getInstance().log("type_specifier 12"); :}
 	;
 
 struct_or_union_specifier
-	::= STRUCT:s IDENTIFIER:id CURLYL struct_declaration_list:sdl CURLYR
-	|  STRUCT:s CURLYL struct_declaration_list:sdl CURLYR
-	|  STRUCT:s IDENTIFIER:id
-	|  UNION:u IDENTIFIER:id CURLYL struct_declaration_list:sdl CURLYR
-	|  UNION:u CURLYL struct_declaration_list:sdl CURLYR
-	|  UNION:u IDENTIFIER:id
+	::= STRUCT:s IDENTIFIER:id CURLYL struct_declaration_list:sdl CURLYR  {: Logger.getInstance().log("struct_or_union_specifier 1"); :}
+	|  STRUCT:s CURLYL struct_declaration_list:sdl CURLYR                 {: Logger.getInstance().log("struct_or_union_specifier 2"); :}
+	|  STRUCT:s IDENTIFIER:id                                             {: Logger.getInstance().log("struct_or_union_specifier 3"); :}
+	|  UNION:u IDENTIFIER:id CURLYL struct_declaration_list:sdl CURLYR    {: Logger.getInstance().log("struct_or_union_specifier 4"); :}
+	|  UNION:u CURLYL struct_declaration_list:sdl CURLYR                  {: Logger.getInstance().log("struct_or_union_specifier 5"); :}
+	|  UNION:u IDENTIFIER:id                                              {: Logger.getInstance().log("struct_or_union_specifier 6"); :}
 	;
 
 struct_declaration_list
-	::=struct_declaration:s
-	| struct_declaration_list:sl struct_declaration:s
+	::=struct_declaration:s      {: Logger.getInstance().log("struct_declaration_list 1"); :}
+	| struct_declaration_list:sl struct_declaration:s   {: Logger.getInstance().log("struct_declaration_list 2"); :}
 	;
 
 struct_declaration
-	::=specifier_qualifier_list:sq struct_declarator_list:sd SEMI
+	::=specifier_qualifier_list:sq struct_declarator_list:sd SEMI {: Logger.getInstance().log("struct_declaration 1"); :}
 	;
 
 specifier_qualifier_list
-	::=type_specifier:ts specifier_qualifier_list:sq
-	| type_specifier:ts
-	| type_qualifier:tq specifier_qualifier_list:sq
-	| type_qualifier:tq
+	::=type_specifier:ts specifier_qualifier_list:sq  {: Logger.getInstance().log("specifier_qualifier_list 1"); :}
+	| type_specifier:ts                               {: Logger.getInstance().log("specifier_qualifier_list 2"); :}
+	| type_qualifier:tq specifier_qualifier_list:sq   {: Logger.getInstance().log("specifier_qualifier_list 3"); :}
+	| type_qualifier:tq                               {: Logger.getInstance().log("specifier_qualifier_list 4"); :}
 	;
 
 struct_declarator_list
-	::=struct_declarator:s
-	| struct_declarator_list:sl COMMA struct_declarator:s
+	::=struct_declarator:s      {: Logger.getInstance().log("struct_declarator_list 1"); :}
+	| struct_declarator_list:sl COMMA struct_declarator:s  {: Logger.getInstance().log("struct_declarator_list 2"); :}
 	;
 
 struct_declarator
-	::=declarator:d
-	| COLON constant_expression:ce
-	| declarator:d COLON constant_expression:ce
+	::=declarator:d                               {: Logger.getInstance().log("struct_declarator 1"); :}
+	| COLON constant_expression:ce                {: Logger.getInstance().log("struct_declarator 2"); :}
+	| declarator:d COLON constant_expression:ce   {: Logger.getInstance().log("struct_declarator 3"); :}
 	;
 
 enum_specifier
-	::=ENUM CURLYL enumerator_list:el CURLYR
-	| ENUM IDENTIFIER:id CURLYL enumerator_list:el CURLYR
-	| ENUM IDENTIFIER:id
+	::=ENUM CURLYL enumerator_list:el CURLYR                {: Logger.getInstance().log("enum_specifier 1"); :}
+	| ENUM IDENTIFIER:id CURLYL enumerator_list:el CURLYR   {: Logger.getInstance().log("enum_specifier 2"); :}
+	| ENUM IDENTIFIER:id                                    {: Logger.getInstance().log("enum_specifier 3"); :}
 	;
 
 enumerator_list
-	::=enumerator:e
-	| enumerator_list:el COMMA enumerator:e
+	::=enumerator:e                          {: Logger.getInstance().log("enumerator_list 1"); :}
+	| enumerator_list:el COMMA enumerator:e  {: Logger.getInstance().log("enumerator_list 2"); :}
 	;
 
 enumerator
-	::=IDENTIFIER:id
-	| IDENTIFIER:id ASSIGN constant_expression:ce
+	::=IDENTIFIER:id                                {: Logger.getInstance().log("enumerator 1"); :}
+	| IDENTIFIER:id ASSIGN constant_expression:ce   {: Logger.getInstance().log("enumerator 2"); :}
 	;
 
 type_qualifier
-	::=CONST:id
-	| VOLATILE:id
+	::=CONST:id      {: Logger.getInstance().log("type_qualifier 1"); :}
+	| VOLATILE:id    {: Logger.getInstance().log("type_qualifier 2"); :}
 	;
 
 declarator
-	::=pointer:p direct_declarator:direct
-	| direct_declarator:direct
+	::=pointer:p direct_declarator:direct  {: Logger.getInstance().log("declarator 1"); :}
+	| direct_declarator:direct             {: Logger.getInstance().log("declarator 2"); :}
 	;
 
 direct_declarator
-	::=IDENTIFIER:identifier
-	| PARAL declarator:d PARAR
-	| direct_declarator:dd SQUAREDL constant_expression:ce SQUAREDR
-	| direct_declarator:dd SQUAREDL SQUAREDR
-	| direct_declarator:dd PARAL parameter_type_list:ptl PARAR
-	| direct_declarator:dd PARAL identifier_list:il PARAR
-	| direct_declarator:dd PARAL PARAR
+	::=IDENTIFIER:identifier             {: Logger.getInstance().log("direct_declarator 1"); :}
+	| PARAL declarator:d PARAR           {: Logger.getInstance().log("direct_declarator 2"); :}
+	| direct_declarator:dd SQUAREDL constant_expression:ce SQUAREDR {: Logger.getInstance().log("direct_declarator 3"); :}
+	| direct_declarator:dd SQUAREDL SQUAREDR                        {: Logger.getInstance().log("direct_declarator 4"); :}
+	| direct_declarator:dd PARAL parameter_type_list:ptl PARAR      {: Logger.getInstance().log("direct_declarator 5"); :}
+	| direct_declarator:dd PARAL identifier_list:il PARAR           {: Logger.getInstance().log("direct_declarator 6"); :}
+	| direct_declarator:dd PARAL PARAR                              {: Logger.getInstance().log("direct_declarator 7"); :}
 	;
 
 pointer
-	::=MUL:id
-	| MUL:id type_qualifier_list:tql
-	| MUL:id pointer:p
-	| MUL:id type_qualifier_list:tql pointer:p
+	::=MUL:id                                   {: Logger.getInstance().log("pointer 1"); :}
+	| MUL:id type_qualifier_list:tql            {: Logger.getInstance().log("pointer 2"); :}
+	| MUL:id pointer:p                          {: Logger.getInstance().log("pointer 3"); :}
+	| MUL:id type_qualifier_list:tql pointer:p  {: Logger.getInstance().log("pointer 4"); :}
 	;
 
 type_qualifier_list
-	::=type_qualifier:tq
-	| type_qualifier_list:tql type_qualifier:tq
+	::=type_qualifier:tq                         {: Logger.getInstance().log("type_qualifier_list 1"); :}
+	| type_qualifier_list:tql type_qualifier:tq  {: Logger.getInstance().log("type_qualifier_list 2"); :}
 	;
 
 
 parameter_type_list
-	::=parameter_list:pl
-	| parameter_list:pl COMMA ELLIPSIS:id
+	::=parameter_list:pl                    {: Logger.getInstance().log("parameter_type_list 1"); :}
+	| parameter_list:pl COMMA ELLIPSIS:id   {: Logger.getInstance().log("parameter_type_list 2"); :}
 	;
 
 parameter_list
-	::=parameter_declaration:pd
-	| parameter_list:pl COMMA parameter_declaration:pd
+	::=parameter_declaration:pd                          {: Logger.getInstance().log("parameter_list 1"); :}
+	| parameter_list:pl COMMA parameter_declaration:pd   {: Logger.getInstance().log("parameter_list 2"); :}
 	;
 
 parameter_declaration
-	::=declaration_specifiers:ds declarator:d
-	| declaration_specifiers:ds abstract_declarator:ad
-	| declaration_specifiers:ds
+	::=declaration_specifiers:ds declarator:d           {: Logger.getInstance().log("parameter_declaration 1"); :}
+	| declaration_specifiers:ds abstract_declarator:ad  {: Logger.getInstance().log("parameter_declaration 2"); :}
+	| declaration_specifiers:ds                         {: Logger.getInstance().log("parameter_declaration 3 "); :}
 	;
 
 identifier_list
-	::=IDENTIFIER:id
-	| identifier_list:idl COMMA IDENTIFIER:id
+	::=IDENTIFIER:id                           {: Logger.getInstance().log("identifier_list 1"); :}
+	| identifier_list:idl COMMA IDENTIFIER:id  {: Logger.getInstance().log("identifier_list 2"); :}
 	;
 
 type_name
-	::=specifier_qualifier_list:sl
-	| specifier_qualifier_list:sl abstract_declarator:ad
+	::=specifier_qualifier_list:sl                        {: Logger.getInstance().log("type_name 1"); :}
+	| specifier_qualifier_list:sl abstract_declarator:ad  {: Logger.getInstance().log("type_name 2"); :}
 	;
 
 abstract_declarator
-	::=pointer:p
-	| direct_abstract_declarator:dad
-	| pointer:p direct_abstract_declarator:d
+	::=pointer:p                               {: Logger.getInstance().log("abstract_declarator 1"); :}
+	| direct_abstract_declarator:dad           {: Logger.getInstance().log("abstract_declarator 2"); :}
+	| pointer:p direct_abstract_declarator:d   {: Logger.getInstance().log("abstract_declarator 3"); :}
 	;
 
 direct_abstract_declarator
-	::=PARAL:id abstract_declarator:ad PARAR
-	| SQUAREDL:id SQUAREDR
-	| SQUAREDL:id constant_expression:ce SQUAREDR
-	| direct_abstract_declarator:dad SQUAREDL:id SQUAREDR
-	| direct_abstract_declarator:dad SQUAREDL:id constant_expression:ce SQUAREDR
-	| PARAL:id PARAR
-	| PARAL:id parameter_type_list:ptl PARAR
-	| direct_abstract_declarator:dad PARAL:id PARAR
-	| direct_abstract_declarator:dad PARAL:id parameter_type_list:ptl PARAR
+	::=PARAL:id abstract_declarator:ad PARAR                                      {: Logger.getInstance().log("direct_abstract_declarator 1"); :}
+	| SQUAREDL:id SQUAREDR                                                        {: Logger.getInstance().log("direct_abstract_declarator 2"); :}
+	| SQUAREDL:id constant_expression:ce SQUAREDR                                 {: Logger.getInstance().log("direct_abstract_declarator 3"); :}
+	| direct_abstract_declarator:dad SQUAREDL:id SQUAREDR                         {: Logger.getInstance().log("direct_abstract_declarator 4"); :}
+	| direct_abstract_declarator:dad SQUAREDL:id constant_expression:ce SQUAREDR  {: Logger.getInstance().log("direct_abstract_declarator 5"); :}
+	| PARAL:id PARAR                                                              {: Logger.getInstance().log("direct_abstract_declarator 6"); :}
+	| PARAL:id parameter_type_list:ptl PARAR                                      {: Logger.getInstance().log("direct_abstract_declarator 7"); :}
+	| direct_abstract_declarator:dad PARAL:id PARAR                               {: Logger.getInstance().log("direct_abstract_declarator 8"); :}
+	| direct_abstract_declarator:dad PARAL:id parameter_type_list:ptl PARAR       {: Logger.getInstance().log("direct_abstract_declarator 9"); :}
 	;
 
 initializer
-	::=assignment_expression:ae
-	| CURLYL initializer_list:il CURLYR
-	| CURLYL initializer_list:il COMMA CURLYR
+	::=assignment_expression:ae                 {: Logger.getInstance().log("initializer 1"); :}
+	| CURLYL initializer_list:il CURLYR         {: Logger.getInstance().log("initializer 2"); :}
+	| CURLYL initializer_list:il COMMA CURLYR   {: Logger.getInstance().log("initializer 3"); :}
 	;
 
 initializer_list
-	::=initializer:i
-	| initializer_list:il COMMA initializer:i
+	::=initializer:i                            {: Logger.getInstance().log("initializer_list 1"); :}
+	| initializer_list:il COMMA initializer:i   {: Logger.getInstance().log("initializer_list 2"); :}
 	;
 
 statement
-	::=labeled_statement:ls
-	| {: Parser.newScope(); :}  compound_statement:cs {: Parser.deleteScope(); :}
-	| expression_statement:es
-	| selection_statement:ss
-	| iteration_statement:is
-	| jump_statement:js
+	::=labeled_statement:ls {: Logger.getInstance().log("statement 1"); :}
+	| {: Parser.newScope(); :}  compound_statement:cs {: Parser.deleteScope(); Logger.getInstance().log("statement 2"); :}
+	| expression_statement:es {: Logger.getInstance().log("statement 3"); :}
+	| selection_statement:ss {: Logger.getInstance().log("statement 4"); :}
+	| iteration_statement:is {: Logger.getInstance().log("statement 5"); :}
+	| jump_statement:js {: Logger.getInstance().log("statement 6"); :}
 	;
 
 labeled_statement
-	::=IDENTIFIER:id COLON statement:s
-	| CASE constant_expression:ce COLON statement:s
-	| DEFAULT COLON statement:s
+	::=IDENTIFIER:id COLON statement:s                {: Logger.getInstance().log("labeled_statement 1"); :}
+	| CASE constant_expression:ce COLON statement:s   {: Logger.getInstance().log("labeled_statement 2"); :}
+	| DEFAULT COLON statement:s                       {: Logger.getInstance().log("labeled_statement 3"); :}
 	;
 
 compound_statement
-	::=CURLYL CURLYR
-        | CURLYL statement_list:sl CURLYR
-	| CURLYL declaration_list:dl CURLYR
-	| CURLYL declaration_list:dl statement_list:sl CURLYR
+	::=CURLYL CURLYR                                        {: Logger.getInstance().log("compound_statement 1"); :}
+        | CURLYL statement_list:sl CURLYR                   {: Logger.getInstance().log("compound_statement 2"); :}
+	| CURLYL declaration_list:dl CURLYR                     {: Logger.getInstance().log("compound_statement 3"); :}
+	| CURLYL declaration_list:dl statement_list:sl CURLYR   {: Logger.getInstance().log("compound_statement 4"); :}
 	;
 
 declaration_list
-	::=declaration:d
-	| declaration_list:dl declaration:d
+	::=declaration:d                       {: Logger.getInstance().log("declaration_list 1"); :}
+	| declaration_list:dl declaration:d    {: Logger.getInstance().log("declaration_list 2"); :}
 	;
 
 statement_list
-	::=statement:s
-	| statement_list:sl statement:s
+	::=statement:s                    {: Logger.getInstance().log("statement_list 1"); :}
+	| statement_list:sl statement:s   {: Logger.getInstance().log("statement_list 2"); :}
 	;
 
 expression_statement
-	::=SEMI
-	| expression:e SEMI
+	::=SEMI {: Logger.getInstance().log("expression_statement 1"); :}
+	| expression:e SEMI {: Logger.getInstance().log("expression_statement 2"); :}
 	;
 
 selection_statement
-	::=IF PARAL expression:e PARAR statement:s
-	| IF PARAL expression:e PARAR statement:s1 ELSE statement:s2
-	| SWITCH PARAL expression:e PARAR statement:s
+	::=IF PARAL expression:e PARAR statement:s                    {: Logger.getInstance().log("selection_statement 1"); :}
+	| IF PARAL expression:e PARAR statement:s1 ELSE statement:s2  {: Logger.getInstance().log("selection_statement 2"); :}
+	| SWITCH PARAL expression:e PARAR statement:s                 {: Logger.getInstance().log("selection_statement 3"); :}
 	;
 
 iteration_statement
-	::=WHILE PARAL expression:e PARAR statement:s
-	| DO statement:s WHILE PARAL expression:e PARAR SEMI
-	| FOR PARAL expression_statement:es1 expression_statement:es2 PARAR statement:s
-	| FOR PARAL expression_statement:es1 expression_statement:es2 expression:e PARAR statement:s
+	::=WHILE PARAL expression:e PARAR statement:s {: Logger.getInstance().log("iteration_statement 1"); :}
+	| DO statement:s WHILE PARAL expression:e PARAR SEMI {: Logger.getInstance().log("iteration_statement 2"); :}
+	| FOR PARAL expression_statement:es1 expression_statement:es2 PARAR statement:s {: Logger.getInstance().log("iteration_statement 3"); :}
+	| FOR PARAL expression_statement:es1 expression_statement:es2 expression:e PARAR statement:s {: Logger.getInstance().log("iteration_statement 4"); :}
 	;
 
 jump_statement
-	::=GOTO IDENTIFIER:id SEMI
-	| CONTINUE SEMI
-	| BREAK SEMI
-	| RETURN SEMI
-	| RETURN expression:e SEMI
+	::=GOTO IDENTIFIER:id SEMI  {: Logger.getInstance().log("jump_statement 1"); :}
+	| CONTINUE SEMI             {: Logger.getInstance().log("jump_statement 2"); :}
+	| BREAK SEMI                {: Logger.getInstance().log("jump_statement 3"); :}
+	| RETURN SEMI               {: Logger.getInstance().log("jump_statement 4"); :}
+	| RETURN expression:e SEMI  {: Logger.getInstance().log("jump_statement 5"); :}
 	;
 
 translation_unit
-	::=external_declaration:ed
-	| translation_unit:tu external_declaration:ed
+	::=external_declaration:ed                      {: Logger.getInstance().startLogger(); Logger.getInstance().log("translation_unit 1"); :}
+	| translation_unit:tu external_declaration:ed   {: Logger.getInstance().log("translation_unit 2"); :}
 	;
 
 external_declaration
-	::=function_definition:fd
-	| declaration:d
+	::=function_definition:fd   {: Logger.getInstance().log("external_declaration 1"); :}
+	| declaration:d             {: Logger.getInstance().log("external_declaration 2"); :}
 	;
 
 function_definition
-	::=declaration_specifiers:ds declarator:d declaration_list:dl {: Parser.newScope(); :} compound_statement:cs {: Parser.deleteScope(); :}
-	| declaration_specifiers:ds declarator:d {: Parser.newScope(); :}  compound_statement:cs {: Parser.deleteScope(); :}
-	| declarator:d declaration_list:dl {: Parser.newScope(); :} compound_statement:cs {: Parser.deleteScope(); :}
-	| declarator:d {: Parser.newScope(); :}  compound_statement:cs {: Parser.deleteScope(); :}
+	::=declaration_specifiers:ds declarator:d declaration_list:dl {: Parser.newScope(); :} compound_statement:cs {: Parser.deleteScope();  Logger.getInstance().log("function_definition 1");:}
+	| declaration_specifiers:ds declarator:d {: Parser.newScope(); :}  compound_statement:cs {: Parser.deleteScope(); Logger.getInstance().log("function_definition 2");:}
+	| declarator:d declaration_list:dl {: Parser.newScope(); :} compound_statement:cs {: Parser.deleteScope(); Logger.getInstance().log("function_definition 3");:}
+	| declarator:d {: Parser.newScope(); :}  compound_statement:cs {: Parser.deleteScope(); Logger.getInstance().log("function_definition 4");:}
 	;

@@ -17,6 +17,7 @@ import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.*;
 import java.nio.file.Paths;
+import utils.*;
 import java_cup.runtime.ComplexSymbolFactory.Location;
 import java_cup.runtime.XMLElement;
 
@@ -1591,7 +1592,8 @@ class CUP$Parser$actions {
 		Location identxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location identxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ident = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG1
+ Logger.getInstance().log("primary_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("primary_expression",0,new XMLElement.Terminal(identxleft,"ident",ident,identxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("primary_expression",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1604,7 +1606,8 @@ class CUP$Parser$actions {
 		Location constantxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location constantxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object constant = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG2
+ Logger.getInstance().log("primary_expression 2"); 
                 RESULT = new XMLElement.NonTerminal("primary_expression",1,new XMLElement.Terminal(constantxleft,"constant",constant,constantxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("primary_expression",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1617,7 +1620,8 @@ class CUP$Parser$actions {
 		Location stringliteralxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location stringliteralxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object stringliteral = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG3
+ Logger.getInstance().log("primary_expression 3"); 
                 RESULT = new XMLElement.NonTerminal("primary_expression",2,new XMLElement.Terminal(stringliteralxleft,"stringliteral",stringliteral,stringliteralxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("primary_expression",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1636,7 +1640,8 @@ class CUP$Parser$actions {
 		Location PARAR2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location PARAR2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object PARAR2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG4
+ Logger.getInstance().log("primary_expression 4"); 
                 RESULT = new XMLElement.NonTerminal("primary_expression",3,(XMLElement)e);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("primary_expression",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1649,7 +1654,8 @@ class CUP$Parser$actions {
 		Location pexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location pexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object pe = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG5
+ Logger.getInstance().log("postfix_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("postfix_expression",0,(XMLElement)pe);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("postfix_expression",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1671,7 +1677,8 @@ class CUP$Parser$actions {
 		Location SQUAREDR3xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SQUAREDR3xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SQUAREDR3 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG6
+ Logger.getInstance().log("postfix_expression 2"); 
                 RESULT = new XMLElement.NonTerminal("postfix_expression",1,(XMLElement)pe,(XMLElement)index);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("postfix_expression",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1690,7 +1697,8 @@ class CUP$Parser$actions {
 		Location PARAR2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location PARAR2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object PARAR2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG7
+ Logger.getInstance().log("postfix_expression 3"); 
                 RESULT = new XMLElement.NonTerminal("postfix_expression",2,(XMLElement)pe);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("postfix_expression",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1712,7 +1720,8 @@ class CUP$Parser$actions {
 		Location PARAR3xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location PARAR3xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object PARAR3 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG8
+ Logger.getInstance().log("postfix_expression 4"); 
                 RESULT = new XMLElement.NonTerminal("postfix_expression",3,(XMLElement)pe,(XMLElement)e);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("postfix_expression",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1731,7 +1740,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG9
+ Logger.getInstance().log("postfix_expression 5"); 
                 RESULT = new XMLElement.NonTerminal("postfix_expression",4,(XMLElement)pe,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("postfix_expression",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1750,7 +1760,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG10
+ Logger.getInstance().log("postfix_expression 6"); 
                 RESULT = new XMLElement.NonTerminal("postfix_expression",5,(XMLElement)pe,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("postfix_expression",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1766,7 +1777,8 @@ class CUP$Parser$actions {
 		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG11
+ Logger.getInstance().log("postfix_expression 7"); 
                 RESULT = new XMLElement.NonTerminal("postfix_expression",6,(XMLElement)pe,new XMLElement.Terminal(opxleft,"op",op,opxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("postfix_expression",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1782,7 +1794,8 @@ class CUP$Parser$actions {
 		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG12
+ Logger.getInstance().log("postfix_expression 8"); 
                 RESULT = new XMLElement.NonTerminal("postfix_expression",7,(XMLElement)pe,new XMLElement.Terminal(opxleft,"op",op,opxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("postfix_expression",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1795,7 +1808,8 @@ class CUP$Parser$actions {
 		Location pexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location pexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object pe = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG13
+ Logger.getInstance().log("unary_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("unary_expression",0,(XMLElement)pe);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("unary_expression",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1811,7 +1825,8 @@ class CUP$Parser$actions {
 		Location uexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location uexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ue = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG14
+ Logger.getInstance().log("unary_expression 2"); 
                 RESULT = new XMLElement.NonTerminal("unary_expression",1,new XMLElement.Terminal(opxleft,"op",op,opxright),(XMLElement)ue);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("unary_expression",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1827,7 +1842,8 @@ class CUP$Parser$actions {
 		Location uexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location uexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ue = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG15
+ Logger.getInstance().log("unary_expression 3"); 
                 RESULT = new XMLElement.NonTerminal("unary_expression",2,new XMLElement.Terminal(opxleft,"op",op,opxright),(XMLElement)ue);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("unary_expression",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1843,7 +1859,8 @@ class CUP$Parser$actions {
 		Location cexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location cexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ce = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG16
+ Logger.getInstance().log("unary_expression 4"); 
                 RESULT = new XMLElement.NonTerminal("unary_expression",3,(XMLElement)uo,(XMLElement)ce);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("unary_expression",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1859,7 +1876,8 @@ class CUP$Parser$actions {
 		Location uexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location uexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ue = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG17
+ Logger.getInstance().log("unary_expression 5"); 
                 RESULT = new XMLElement.NonTerminal("unary_expression",4,(XMLElement)ue);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("unary_expression",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1881,7 +1899,8 @@ class CUP$Parser$actions {
 		Location PARAR3xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location PARAR3xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object PARAR3 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG18
+ Logger.getInstance().log("unary_expression 6"); 
                 RESULT = new XMLElement.NonTerminal("unary_expression",5,(XMLElement)tn);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("unary_expression",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1894,7 +1913,8 @@ class CUP$Parser$actions {
 		Location ADRESS0xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location ADRESS0xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ADRESS0 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG19
+ Logger.getInstance().log("unary_operator 1"); 
                 RESULT = new XMLElement.NonTerminal("unary_operator",0);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("unary_operator",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1907,7 +1927,8 @@ class CUP$Parser$actions {
 		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG20
+ Logger.getInstance().log("unary_operator 2"); 
                 RESULT = new XMLElement.NonTerminal("unary_operator",1,new XMLElement.Terminal(opxleft,"op",op,opxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("unary_operator",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1920,7 +1941,8 @@ class CUP$Parser$actions {
 		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG21
+ Logger.getInstance().log("unary_operator 3"); 
                 RESULT = new XMLElement.NonTerminal("unary_operator",2,new XMLElement.Terminal(opxleft,"op",op,opxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("unary_operator",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1933,7 +1955,8 @@ class CUP$Parser$actions {
 		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG22
+ Logger.getInstance().log("unary_operator 4"); 
                 RESULT = new XMLElement.NonTerminal("unary_operator",3,new XMLElement.Terminal(opxleft,"op",op,opxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("unary_operator",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1946,7 +1969,8 @@ class CUP$Parser$actions {
 		Location TILDE0xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location TILDE0xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object TILDE0 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG23
+ Logger.getInstance().log("unary_operator 5"); 
                 RESULT = new XMLElement.NonTerminal("unary_operator",4);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("unary_operator",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1959,7 +1983,8 @@ class CUP$Parser$actions {
 		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG24
+ Logger.getInstance().log("unary_operator 6"); 
                 RESULT = new XMLElement.NonTerminal("unary_operator",5,new XMLElement.Terminal(opxleft,"op",op,opxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("unary_operator",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1972,7 +1997,8 @@ class CUP$Parser$actions {
 		Location uexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location uexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ue = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG25
+ Logger.getInstance().log("cast_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("cast_expression",0,(XMLElement)ue);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("cast_expression",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1994,7 +2020,8 @@ class CUP$Parser$actions {
 		Location cexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location cexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ce = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG26
+ Logger.getInstance().log("cast_expression 2"); 
                 RESULT = new XMLElement.NonTerminal("cast_expression",1,(XMLElement)tn,(XMLElement)ce);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("cast_expression",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2007,7 +2034,8 @@ class CUP$Parser$actions {
 		Location cexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location cexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ce = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG27
+ Logger.getInstance().log("multiplicative_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("multiplicative_expression",0,(XMLElement)ce);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("multiplicative_expression",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2026,7 +2054,8 @@ class CUP$Parser$actions {
 		Location cexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location cexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ce = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG28
+ Logger.getInstance().log("multiplicative_expression 2"); 
                 RESULT = new XMLElement.NonTerminal("multiplicative_expression",1,(XMLElement)me,new XMLElement.Terminal(opxleft,"op",op,opxright),(XMLElement)ce);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("multiplicative_expression",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2045,7 +2074,8 @@ class CUP$Parser$actions {
 		Location cexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location cexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ce = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG29
+ Logger.getInstance().log("multiplicative_expression 3"); 
                 RESULT = new XMLElement.NonTerminal("multiplicative_expression",2,(XMLElement)me,new XMLElement.Terminal(opxleft,"op",op,opxright),(XMLElement)ce);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("multiplicative_expression",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2064,7 +2094,8 @@ class CUP$Parser$actions {
 		Location cexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location cexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ce = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG30
+ Logger.getInstance().log("multiplicative_expression 4"); 
                 RESULT = new XMLElement.NonTerminal("multiplicative_expression",3,(XMLElement)me,new XMLElement.Terminal(opxleft,"op",op,opxright),(XMLElement)ce);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("multiplicative_expression",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2077,7 +2108,8 @@ class CUP$Parser$actions {
 		Location mexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location mexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object me = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG31
+ Logger.getInstance().log("additive_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("additive_expression",0,(XMLElement)me);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("additive_expression",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2096,7 +2128,8 @@ class CUP$Parser$actions {
 		Location mexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location mexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object me = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG32
+ Logger.getInstance().log("additive_expression 2"); 
                 RESULT = new XMLElement.NonTerminal("additive_expression",1,(XMLElement)ae,new XMLElement.Terminal(opxleft,"op",op,opxright),(XMLElement)me);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("additive_expression",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2115,7 +2148,8 @@ class CUP$Parser$actions {
 		Location mexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location mexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object me = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG33
+ Logger.getInstance().log("additive_expression 3"); 
                 RESULT = new XMLElement.NonTerminal("additive_expression",2,(XMLElement)ae,new XMLElement.Terminal(opxleft,"op",op,opxright),(XMLElement)me);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("additive_expression",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2128,7 +2162,8 @@ class CUP$Parser$actions {
 		Location aexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location aexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ae = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG34
+ Logger.getInstance().log("shift_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("shift_expression",0,(XMLElement)ae);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("shift_expression",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2147,7 +2182,8 @@ class CUP$Parser$actions {
 		Location aexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location aexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ae = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG35
+ Logger.getInstance().log("shift_expression 2"); 
                 RESULT = new XMLElement.NonTerminal("shift_expression",1,(XMLElement)se,(XMLElement)ae);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("shift_expression",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2166,7 +2202,8 @@ class CUP$Parser$actions {
 		Location aexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location aexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ae = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG36
+ Logger.getInstance().log("shift_expression 3"); 
                 RESULT = new XMLElement.NonTerminal("shift_expression",2,(XMLElement)se,(XMLElement)ae);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("shift_expression",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2179,7 +2216,8 @@ class CUP$Parser$actions {
 		Location sexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object se = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG37
+ Logger.getInstance().log("relational_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("relational_expression",0,(XMLElement)se);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("relational_expression",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2198,7 +2236,8 @@ class CUP$Parser$actions {
 		Location sexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object se = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG38
+ Logger.getInstance().log("relational_expression 2"); 
                 RESULT = new XMLElement.NonTerminal("relational_expression",1,(XMLElement)re,new XMLElement.Terminal(opxleft,"op",op,opxright),(XMLElement)se);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("relational_expression",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2217,7 +2256,8 @@ class CUP$Parser$actions {
 		Location sexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object se = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG39
+ Logger.getInstance().log("relational_expression 3"); 
                 RESULT = new XMLElement.NonTerminal("relational_expression",2,(XMLElement)re,new XMLElement.Terminal(opxleft,"op",op,opxright),(XMLElement)se);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("relational_expression",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2236,7 +2276,8 @@ class CUP$Parser$actions {
 		Location sexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object se = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG40
+ Logger.getInstance().log("relational_expression 4"); 
                 RESULT = new XMLElement.NonTerminal("relational_expression",3,(XMLElement)re,new XMLElement.Terminal(opxleft,"op",op,opxright),(XMLElement)se);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("relational_expression",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2255,7 +2296,8 @@ class CUP$Parser$actions {
 		Location sexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object se = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG41
+ Logger.getInstance().log("relational_expression 5"); 
                 RESULT = new XMLElement.NonTerminal("relational_expression",4,(XMLElement)re,new XMLElement.Terminal(opxleft,"op",op,opxright),(XMLElement)se);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("relational_expression",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2268,7 +2310,8 @@ class CUP$Parser$actions {
 		Location rexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location rexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object re = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG42
+ Logger.getInstance().log("equality_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("equality_expression",0,(XMLElement)re);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("equality_expression",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2287,7 +2330,8 @@ class CUP$Parser$actions {
 		Location rexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location rexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object re = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG43
+ Logger.getInstance().log("equality_expression 2"); 
                 RESULT = new XMLElement.NonTerminal("equality_expression",1,(XMLElement)ee,new XMLElement.Terminal(opxleft,"op",op,opxright),(XMLElement)re);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("equality_expression",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2306,7 +2350,8 @@ class CUP$Parser$actions {
 		Location rexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location rexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object re = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG44
+ Logger.getInstance().log("equality_expression 3"); 
                 RESULT = new XMLElement.NonTerminal("equality_expression",2,(XMLElement)ee,new XMLElement.Terminal(opxleft,"op",op,opxright),(XMLElement)re);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("equality_expression",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2319,7 +2364,8 @@ class CUP$Parser$actions {
 		Location eexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location eexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ee = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG45
+ Logger.getInstance().log("and_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("and_expression",0,(XMLElement)ee);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("and_expression",14, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2338,7 +2384,8 @@ class CUP$Parser$actions {
 		Location eexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location eexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ee = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG46
+ Logger.getInstance().log("and_expression 2"); 
                 RESULT = new XMLElement.NonTerminal("and_expression",1,(XMLElement)ae,(XMLElement)ee);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("and_expression",14, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2351,7 +2398,8 @@ class CUP$Parser$actions {
 		Location aexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location aexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ae = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG47
+ Logger.getInstance().log("exclusive_or_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("exclusive_or_expression",0,(XMLElement)ae);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("exclusive_or_expression",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2370,7 +2418,8 @@ class CUP$Parser$actions {
 		Location aexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location aexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ae = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG48
+ Logger.getInstance().log("exclusive_or_expression 2"); 
                 RESULT = new XMLElement.NonTerminal("exclusive_or_expression",1,(XMLElement)eoe,(XMLElement)ae);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("exclusive_or_expression",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2383,7 +2432,8 @@ class CUP$Parser$actions {
 		Location eoexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location eoexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object eoe = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG49
+ Logger.getInstance().log("inclusive_or_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("inclusive_or_expression",0,(XMLElement)eoe);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("inclusive_or_expression",16, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2402,7 +2452,8 @@ class CUP$Parser$actions {
 		Location eoexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location eoexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object eoe = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG50
+ Logger.getInstance().log("inclusive_or_expression 2"); 
                 RESULT = new XMLElement.NonTerminal("inclusive_or_expression",1,(XMLElement)ioe,(XMLElement)eoe);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("inclusive_or_expression",16, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2415,7 +2466,8 @@ class CUP$Parser$actions {
 		Location ioexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location ioexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ioe = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG51
+ Logger.getInstance().log("logical_and_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("logical_and_expression",0,(XMLElement)ioe);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("logical_and_expression",17, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2434,7 +2486,8 @@ class CUP$Parser$actions {
 		Location ioexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location ioexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ioe = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG52
+ Logger.getInstance().log("logical_and_expression 2"); 
                 RESULT = new XMLElement.NonTerminal("logical_and_expression",1,(XMLElement)lae,new XMLElement.Terminal(opxleft,"op",op,opxright),(XMLElement)ioe);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("logical_and_expression",17, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2447,7 +2500,8 @@ class CUP$Parser$actions {
 		Location laexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location laexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object lae = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG53
+ Logger.getInstance().log("logical_or_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("logical_or_expression",0,(XMLElement)lae);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("logical_or_expression",18, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2466,7 +2520,8 @@ class CUP$Parser$actions {
 		Location laexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location laexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object lae = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG54
+ Logger.getInstance().log("logical_or_expression 2"); 
                 RESULT = new XMLElement.NonTerminal("logical_or_expression",1,(XMLElement)loe,new XMLElement.Terminal(opxleft,"op",op,opxright),(XMLElement)lae);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("logical_or_expression",18, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2479,7 +2534,8 @@ class CUP$Parser$actions {
 		Location loexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location loexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object loe = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG55
+ Logger.getInstance().log("conditional_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("conditional_expression",0,(XMLElement)loe);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("conditional_expression",19, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2504,7 +2560,8 @@ class CUP$Parser$actions {
 		Location cexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location cexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ce = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG56
+ Logger.getInstance().log("conditional_expression 2"); 
                 RESULT = new XMLElement.NonTerminal("conditional_expression",1,(XMLElement)loe,(XMLElement)e,(XMLElement)ce);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("conditional_expression",19, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2517,7 +2574,8 @@ class CUP$Parser$actions {
 		Location cexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location cexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ce = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG57
+ Logger.getInstance().log("assignment_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("assignment_expression",0,(XMLElement)ce);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("assignment_expression",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2536,7 +2594,8 @@ class CUP$Parser$actions {
 		Location aexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location aexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ae = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG58
+ Logger.getInstance().log("assignment_expression 2"); 
                 RESULT = new XMLElement.NonTerminal("assignment_expression",1,(XMLElement)ue,(XMLElement)aop,(XMLElement)ae);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("assignment_expression",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2549,7 +2608,8 @@ class CUP$Parser$actions {
 		Location ASSIGN0xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location ASSIGN0xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ASSIGN0 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG59
+ Logger.getInstance().log("assignment_operator 1"); 
                 RESULT = new XMLElement.NonTerminal("assignment_operator",0);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",59, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2562,7 +2622,8 @@ class CUP$Parser$actions {
 		Location MUL_ASSIGN0xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location MUL_ASSIGN0xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object MUL_ASSIGN0 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG60
+ Logger.getInstance().log("assignment_operator 2"); 
                 RESULT = new XMLElement.NonTerminal("assignment_operator",1);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",59, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2575,7 +2636,8 @@ class CUP$Parser$actions {
 		Location DIV_ASSIGN0xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location DIV_ASSIGN0xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object DIV_ASSIGN0 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG61
+ Logger.getInstance().log("assignment_operator 3"); 
                 RESULT = new XMLElement.NonTerminal("assignment_operator",2);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",59, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2588,7 +2650,8 @@ class CUP$Parser$actions {
 		Location MOD_ASSIGN0xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location MOD_ASSIGN0xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object MOD_ASSIGN0 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG62
+ Logger.getInstance().log("assignment_operator 4"); 
                 RESULT = new XMLElement.NonTerminal("assignment_operator",3);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",59, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2601,7 +2664,8 @@ class CUP$Parser$actions {
 		Location ADD_ASSIGN0xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location ADD_ASSIGN0xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ADD_ASSIGN0 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG63
+ Logger.getInstance().log("assignment_operator 5"); 
                 RESULT = new XMLElement.NonTerminal("assignment_operator",4);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",59, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2614,7 +2678,8 @@ class CUP$Parser$actions {
 		Location SUB_ASSIGN0xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SUB_ASSIGN0xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SUB_ASSIGN0 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG64
+ Logger.getInstance().log("assignment_operator 6"); 
                 RESULT = new XMLElement.NonTerminal("assignment_operator",5);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",59, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2627,7 +2692,8 @@ class CUP$Parser$actions {
 		Location LEFT_ASSIGN0xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location LEFT_ASSIGN0xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object LEFT_ASSIGN0 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG65
+ Logger.getInstance().log("assignment_operator 7"); 
                 RESULT = new XMLElement.NonTerminal("assignment_operator",6);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",59, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2640,7 +2706,8 @@ class CUP$Parser$actions {
 		Location RIGHT_ASSIGN0xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location RIGHT_ASSIGN0xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object RIGHT_ASSIGN0 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG66
+ Logger.getInstance().log("assignment_operator 8"); 
                 RESULT = new XMLElement.NonTerminal("assignment_operator",7);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",59, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2653,7 +2720,8 @@ class CUP$Parser$actions {
 		Location AND_ASSIGN0xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location AND_ASSIGN0xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object AND_ASSIGN0 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG67
+ Logger.getInstance().log("assignment_operator 9"); 
                 RESULT = new XMLElement.NonTerminal("assignment_operator",8);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",59, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2666,7 +2734,8 @@ class CUP$Parser$actions {
 		Location XOR_ASSIGN0xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location XOR_ASSIGN0xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object XOR_ASSIGN0 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG68
+ Logger.getInstance().log("assignment_operator 10"); 
                 RESULT = new XMLElement.NonTerminal("assignment_operator",9);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",59, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2679,7 +2748,8 @@ class CUP$Parser$actions {
 		Location OR_ASSIGN0xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location OR_ASSIGN0xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object OR_ASSIGN0 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG69
+ Logger.getInstance().log("assignment_operator 11"); 
                 RESULT = new XMLElement.NonTerminal("assignment_operator",10);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",59, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2692,7 +2762,8 @@ class CUP$Parser$actions {
 		Location aexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location aexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ae = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG70
+ Logger.getInstance().log("expression 1"); 
                 RESULT = new XMLElement.NonTerminal("expression",0,(XMLElement)ae);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("expression",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2711,7 +2782,8 @@ class CUP$Parser$actions {
 		Location aexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location aexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ae = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG71
+ Logger.getInstance().log("expression 2"); 
                 RESULT = new XMLElement.NonTerminal("expression",1,(XMLElement)e,(XMLElement)ae);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("expression",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2724,7 +2796,8 @@ class CUP$Parser$actions {
 		Location cexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location cexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ce = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG72
+ Logger.getInstance().log("constant_expression 1"); 
                 RESULT = new XMLElement.NonTerminal("constant_expression",0,(XMLElement)ce);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("constant_expression",20, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2740,7 +2813,8 @@ class CUP$Parser$actions {
 		Location SEMI1xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SEMI1xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SEMI1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG73
+ Logger.getInstance().log("declaration 1"); 
                 RESULT = new XMLElement.NonTerminal("declaration",0,(XMLElement)ds);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("declaration",21, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2756,12 +2830,13 @@ class CUP$Parser$actions {
 		Location idlxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idlxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object idl = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-//@@CUPDBG1
+//@@CUPDBG74
 
 							  if (ds.toString().indexOf(">typedef<")>0) {
 							      for (XMLElement e: ((XMLElement)idl).selectById("identifier"))
 								Parser.addType(((Terminal)e).value().toString());
 							  }
+							  Logger.getInstance().log("declaration 2");
 							  
                 RESULT = new XMLElement.NonTerminal("NT_0",0);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("NT$0",61, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -2794,7 +2869,8 @@ class CUP$Parser$actions {
 		Location sccxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sccxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object scc = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG75
+ Logger.getInstance().log("declaration_specifiers 1"); 
                 RESULT = new XMLElement.NonTerminal("declaration_specifiers",0,(XMLElement)scc);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("declaration_specifiers",22, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2810,7 +2886,8 @@ class CUP$Parser$actions {
 		Location dsxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dsxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ds = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG76
+ Logger.getInstance().log("declaration_specifiers 2"); 
                 RESULT = new XMLElement.NonTerminal("declaration_specifiers",1,(XMLElement)scc,(XMLElement)ds);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("declaration_specifiers",22, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2823,7 +2900,8 @@ class CUP$Parser$actions {
 		Location tsxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location tsxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ts = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG77
+ Logger.getInstance().log("declaration_specifiers 3"); 
                 RESULT = new XMLElement.NonTerminal("declaration_specifiers",2,(XMLElement)ts);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("declaration_specifiers",22, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2839,7 +2917,8 @@ class CUP$Parser$actions {
 		Location dsxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dsxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ds = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG78
+ Logger.getInstance().log("declaration_specifiers 4"); 
                 RESULT = new XMLElement.NonTerminal("declaration_specifiers",3,(XMLElement)ts,(XMLElement)ds);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("declaration_specifiers",22, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2852,7 +2931,8 @@ class CUP$Parser$actions {
 		Location tqxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location tqxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object tq = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG79
+ Logger.getInstance().log("declaration_specifiers 5"); 
                 RESULT = new XMLElement.NonTerminal("declaration_specifiers",4,(XMLElement)tq);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("declaration_specifiers",22, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2868,7 +2948,8 @@ class CUP$Parser$actions {
 		Location dsxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dsxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ds = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG80
+ Logger.getInstance().log("declaration_specifiers 6"); 
                 RESULT = new XMLElement.NonTerminal("declaration_specifiers",5,(XMLElement)tq,(XMLElement)ds);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("declaration_specifiers",22, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2881,7 +2962,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG81
+ Logger.getInstance().log("init_declarator_list 1"); 
                 RESULT = new XMLElement.NonTerminal("init_declarator_list",0,(XMLElement)id);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("init_declarator_list",23, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2900,7 +2982,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG82
+ Logger.getInstance().log("init_declarator_list 2"); 
                 RESULT = new XMLElement.NonTerminal("init_declarator_list",1,(XMLElement)idl,(XMLElement)id);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("init_declarator_list",23, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2913,7 +2996,8 @@ class CUP$Parser$actions {
 		Location dxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object d = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG83
+ Logger.getInstance().log("init_declarator 1"); 
                 RESULT = new XMLElement.NonTerminal("init_declarator",0,(XMLElement)d);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("init_declarator",27, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2932,7 +3016,8 @@ class CUP$Parser$actions {
 		Location ixleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location ixright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object i = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG84
+ Logger.getInstance().log("init_declarator 2"); 
                 RESULT = new XMLElement.NonTerminal("init_declarator",1,(XMLElement)d,(XMLElement)i);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("init_declarator",27, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2945,7 +3030,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG85
+ Logger.getInstance().log("storage_class_specifier 1"); 
                 RESULT = new XMLElement.NonTerminal("storage_class_specifier",0,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("storage_class_specifier",24, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2958,7 +3044,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG86
+ Logger.getInstance().log("storage_class_specifier 2"); 
                 RESULT = new XMLElement.NonTerminal("storage_class_specifier",1,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("storage_class_specifier",24, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2971,7 +3058,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG87
+ Logger.getInstance().log("storage_class_specifier 3"); 
                 RESULT = new XMLElement.NonTerminal("storage_class_specifier",2,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("storage_class_specifier",24, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2984,7 +3072,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG88
+ Logger.getInstance().log("storage_class_specifier 4"); 
                 RESULT = new XMLElement.NonTerminal("storage_class_specifier",3,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("storage_class_specifier",24, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2997,7 +3086,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG89
+ Logger.getInstance().log("storage_class_specifier 5"); 
                 RESULT = new XMLElement.NonTerminal("storage_class_specifier",4,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("storage_class_specifier",24, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3010,7 +3100,8 @@ class CUP$Parser$actions {
 		Location typexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location typexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG90
+ Logger.getInstance().log("type_specifier 1"); 
                 RESULT = new XMLElement.NonTerminal("type_specifier",0,new XMLElement.Terminal(typexleft,"type",type,typexright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_specifier",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3023,7 +3114,8 @@ class CUP$Parser$actions {
 		Location typexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location typexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG91
+ Logger.getInstance().log("type_specifier 2"); 
                 RESULT = new XMLElement.NonTerminal("type_specifier",1,new XMLElement.Terminal(typexleft,"type",type,typexright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_specifier",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3036,7 +3128,8 @@ class CUP$Parser$actions {
 		Location typexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location typexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG92
+ Logger.getInstance().log("type_specifier 3"); 
                 RESULT = new XMLElement.NonTerminal("type_specifier",2,new XMLElement.Terminal(typexleft,"type",type,typexright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_specifier",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3049,7 +3142,8 @@ class CUP$Parser$actions {
 		Location typexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location typexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG93
+ Logger.getInstance().log("type_specifier 4"); 
                 RESULT = new XMLElement.NonTerminal("type_specifier",3,new XMLElement.Terminal(typexleft,"type",type,typexright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_specifier",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3062,7 +3156,8 @@ class CUP$Parser$actions {
 		Location typexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location typexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG94
+ Logger.getInstance().log("type_specifier 5"); 
                 RESULT = new XMLElement.NonTerminal("type_specifier",4,new XMLElement.Terminal(typexleft,"type",type,typexright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_specifier",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3075,7 +3170,8 @@ class CUP$Parser$actions {
 		Location typexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location typexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG95
+ Logger.getInstance().log("type_specifier 6"); 
                 RESULT = new XMLElement.NonTerminal("type_specifier",5,new XMLElement.Terminal(typexleft,"type",type,typexright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_specifier",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3088,7 +3184,8 @@ class CUP$Parser$actions {
 		Location typexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location typexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG96
+ Logger.getInstance().log("type_specifier 7"); 
                 RESULT = new XMLElement.NonTerminal("type_specifier",6,new XMLElement.Terminal(typexleft,"type",type,typexright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_specifier",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3101,7 +3198,8 @@ class CUP$Parser$actions {
 		Location typexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location typexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG97
+ Logger.getInstance().log("type_specifier 8"); 
                 RESULT = new XMLElement.NonTerminal("type_specifier",7,new XMLElement.Terminal(typexleft,"type",type,typexright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_specifier",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3114,7 +3212,8 @@ class CUP$Parser$actions {
 		Location typexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location typexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG98
+ Logger.getInstance().log("type_specifier 9"); 
                 RESULT = new XMLElement.NonTerminal("type_specifier",8,new XMLElement.Terminal(typexleft,"type",type,typexright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_specifier",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3127,7 +3226,8 @@ class CUP$Parser$actions {
 		Location suxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location suxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object su = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG99
+ Logger.getInstance().log("type_specifier 10"); 
                 RESULT = new XMLElement.NonTerminal("type_specifier",9,(XMLElement)su);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_specifier",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3140,7 +3240,8 @@ class CUP$Parser$actions {
 		Location esxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location esxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object es = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG100
+ Logger.getInstance().log("type_specifier 11"); 
                 RESULT = new XMLElement.NonTerminal("type_specifier",10,(XMLElement)es);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_specifier",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3153,7 +3254,8 @@ class CUP$Parser$actions {
 		Location typexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location typexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG101
+ Logger.getInstance().log("type_specifier 12"); 
                 RESULT = new XMLElement.NonTerminal("type_specifier",11,new XMLElement.Terminal(typexleft,"type",type,typexright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_specifier",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3178,7 +3280,8 @@ class CUP$Parser$actions {
 		Location CURLYR4xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location CURLYR4xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object CURLYR4 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG102
+ Logger.getInstance().log("struct_or_union_specifier 1"); 
                 RESULT = new XMLElement.NonTerminal("struct_or_union_specifier",0,new XMLElement.Terminal(sxleft,"s",s,sxright),new XMLElement.Terminal(idxleft,"id",id,idxright),(XMLElement)sdl);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("struct_or_union_specifier",29, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3200,7 +3303,8 @@ class CUP$Parser$actions {
 		Location CURLYR3xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location CURLYR3xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object CURLYR3 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG103
+ Logger.getInstance().log("struct_or_union_specifier 2"); 
                 RESULT = new XMLElement.NonTerminal("struct_or_union_specifier",1,new XMLElement.Terminal(sxleft,"s",s,sxright),(XMLElement)sdl);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("struct_or_union_specifier",29, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3216,7 +3320,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG104
+ Logger.getInstance().log("struct_or_union_specifier 3"); 
                 RESULT = new XMLElement.NonTerminal("struct_or_union_specifier",2,new XMLElement.Terminal(sxleft,"s",s,sxright),new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("struct_or_union_specifier",29, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3241,7 +3346,8 @@ class CUP$Parser$actions {
 		Location CURLYR4xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location CURLYR4xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object CURLYR4 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG105
+ Logger.getInstance().log("struct_or_union_specifier 4"); 
                 RESULT = new XMLElement.NonTerminal("struct_or_union_specifier",3,new XMLElement.Terminal(uxleft,"u",u,uxright),new XMLElement.Terminal(idxleft,"id",id,idxright),(XMLElement)sdl);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("struct_or_union_specifier",29, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3263,7 +3369,8 @@ class CUP$Parser$actions {
 		Location CURLYR3xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location CURLYR3xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object CURLYR3 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG106
+ Logger.getInstance().log("struct_or_union_specifier 5"); 
                 RESULT = new XMLElement.NonTerminal("struct_or_union_specifier",4,new XMLElement.Terminal(uxleft,"u",u,uxright),(XMLElement)sdl);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("struct_or_union_specifier",29, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3279,7 +3386,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG107
+ Logger.getInstance().log("struct_or_union_specifier 6"); 
                 RESULT = new XMLElement.NonTerminal("struct_or_union_specifier",5,new XMLElement.Terminal(uxleft,"u",u,uxright),new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("struct_or_union_specifier",29, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3292,7 +3400,8 @@ class CUP$Parser$actions {
 		Location sxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG108
+ Logger.getInstance().log("struct_declaration_list 1"); 
                 RESULT = new XMLElement.NonTerminal("struct_declaration_list",0,(XMLElement)s);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("struct_declaration_list",30, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3308,7 +3417,8 @@ class CUP$Parser$actions {
 		Location sxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG109
+ Logger.getInstance().log("struct_declaration_list 2"); 
                 RESULT = new XMLElement.NonTerminal("struct_declaration_list",1,(XMLElement)sl,(XMLElement)s);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("struct_declaration_list",30, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3327,7 +3437,8 @@ class CUP$Parser$actions {
 		Location SEMI2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SEMI2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SEMI2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG110
+ Logger.getInstance().log("struct_declaration 1"); 
                 RESULT = new XMLElement.NonTerminal("struct_declaration",0,(XMLElement)sq,(XMLElement)sd);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("struct_declaration",31, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3343,7 +3454,8 @@ class CUP$Parser$actions {
 		Location sqxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sqxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object sq = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG111
+ Logger.getInstance().log("specifier_qualifier_list 1"); 
                 RESULT = new XMLElement.NonTerminal("specifier_qualifier_list",0,(XMLElement)ts,(XMLElement)sq);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("specifier_qualifier_list",33, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3356,7 +3468,8 @@ class CUP$Parser$actions {
 		Location tsxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location tsxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ts = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG112
+ Logger.getInstance().log("specifier_qualifier_list 2"); 
                 RESULT = new XMLElement.NonTerminal("specifier_qualifier_list",1,(XMLElement)ts);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("specifier_qualifier_list",33, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3372,7 +3485,8 @@ class CUP$Parser$actions {
 		Location sqxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sqxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object sq = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG113
+ Logger.getInstance().log("specifier_qualifier_list 3"); 
                 RESULT = new XMLElement.NonTerminal("specifier_qualifier_list",2,(XMLElement)tq,(XMLElement)sq);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("specifier_qualifier_list",33, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3385,7 +3499,8 @@ class CUP$Parser$actions {
 		Location tqxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location tqxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object tq = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG114
+ Logger.getInstance().log("specifier_qualifier_list 4"); 
                 RESULT = new XMLElement.NonTerminal("specifier_qualifier_list",3,(XMLElement)tq);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("specifier_qualifier_list",33, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3398,7 +3513,8 @@ class CUP$Parser$actions {
 		Location sxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG115
+ Logger.getInstance().log("struct_declarator_list 1"); 
                 RESULT = new XMLElement.NonTerminal("struct_declarator_list",0,(XMLElement)s);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("struct_declarator_list",34, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3417,7 +3533,8 @@ class CUP$Parser$actions {
 		Location sxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG116
+ Logger.getInstance().log("struct_declarator_list 2"); 
                 RESULT = new XMLElement.NonTerminal("struct_declarator_list",1,(XMLElement)sl,(XMLElement)s);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("struct_declarator_list",34, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3430,7 +3547,8 @@ class CUP$Parser$actions {
 		Location dxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object d = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG117
+ Logger.getInstance().log("struct_declarator 1"); 
                 RESULT = new XMLElement.NonTerminal("struct_declarator",0,(XMLElement)d);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("struct_declarator",35, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3446,7 +3564,8 @@ class CUP$Parser$actions {
 		Location cexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location cexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ce = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG118
+ Logger.getInstance().log("struct_declarator 2"); 
                 RESULT = new XMLElement.NonTerminal("struct_declarator",1,(XMLElement)ce);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("struct_declarator",35, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3465,7 +3584,8 @@ class CUP$Parser$actions {
 		Location cexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location cexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ce = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG119
+ Logger.getInstance().log("struct_declarator 3"); 
                 RESULT = new XMLElement.NonTerminal("struct_declarator",2,(XMLElement)d,(XMLElement)ce);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("struct_declarator",35, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3487,7 +3607,8 @@ class CUP$Parser$actions {
 		Location CURLYR3xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location CURLYR3xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object CURLYR3 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG120
+ Logger.getInstance().log("enum_specifier 1"); 
                 RESULT = new XMLElement.NonTerminal("enum_specifier",0,(XMLElement)el);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("enum_specifier",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3512,7 +3633,8 @@ class CUP$Parser$actions {
 		Location CURLYR4xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location CURLYR4xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object CURLYR4 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG121
+ Logger.getInstance().log("enum_specifier 2"); 
                 RESULT = new XMLElement.NonTerminal("enum_specifier",1,new XMLElement.Terminal(idxleft,"id",id,idxright),(XMLElement)el);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("enum_specifier",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3528,7 +3650,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG122
+ Logger.getInstance().log("enum_specifier 3"); 
                 RESULT = new XMLElement.NonTerminal("enum_specifier",2,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("enum_specifier",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3541,7 +3664,8 @@ class CUP$Parser$actions {
 		Location exleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location exright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object e = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG123
+ Logger.getInstance().log("enumerator_list 1"); 
                 RESULT = new XMLElement.NonTerminal("enumerator_list",0,(XMLElement)e);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("enumerator_list",37, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3560,7 +3684,8 @@ class CUP$Parser$actions {
 		Location exleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location exright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object e = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG124
+ Logger.getInstance().log("enumerator_list 2"); 
                 RESULT = new XMLElement.NonTerminal("enumerator_list",1,(XMLElement)el,(XMLElement)e);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("enumerator_list",37, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3573,7 +3698,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG125
+ Logger.getInstance().log("enumerator 1"); 
                 RESULT = new XMLElement.NonTerminal("enumerator",0,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("enumerator",38, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3592,7 +3718,8 @@ class CUP$Parser$actions {
 		Location cexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location cexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ce = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG126
+ Logger.getInstance().log("enumerator 2"); 
                 RESULT = new XMLElement.NonTerminal("enumerator",1,new XMLElement.Terminal(idxleft,"id",id,idxright),(XMLElement)ce);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("enumerator",38, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3605,7 +3732,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG127
+ Logger.getInstance().log("type_qualifier 1"); 
                 RESULT = new XMLElement.NonTerminal("type_qualifier",0,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_qualifier",26, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3618,7 +3746,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG128
+ Logger.getInstance().log("type_qualifier 2"); 
                 RESULT = new XMLElement.NonTerminal("type_qualifier",1,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_qualifier",26, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3634,7 +3763,8 @@ class CUP$Parser$actions {
 		Location directxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location directxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object direct = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG129
+ Logger.getInstance().log("declarator 1"); 
                 RESULT = new XMLElement.NonTerminal("declarator",0,(XMLElement)p,(XMLElement)direct);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("declarator",28, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3647,7 +3777,8 @@ class CUP$Parser$actions {
 		Location directxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location directxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object direct = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG130
+ Logger.getInstance().log("declarator 2"); 
                 RESULT = new XMLElement.NonTerminal("declarator",1,(XMLElement)direct);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("declarator",28, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3660,7 +3791,8 @@ class CUP$Parser$actions {
 		Location identifierxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location identifierxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object identifier = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG131
+ Logger.getInstance().log("direct_declarator 1"); 
                 RESULT = new XMLElement.NonTerminal("direct_declarator",0,new XMLElement.Terminal(identifierxleft,"identifier",identifier,identifierxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("direct_declarator",40, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3679,7 +3811,8 @@ class CUP$Parser$actions {
 		Location PARAR2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location PARAR2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object PARAR2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG132
+ Logger.getInstance().log("direct_declarator 2"); 
                 RESULT = new XMLElement.NonTerminal("direct_declarator",1,(XMLElement)d);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("direct_declarator",40, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3701,7 +3834,8 @@ class CUP$Parser$actions {
 		Location SQUAREDR3xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SQUAREDR3xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SQUAREDR3 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG133
+ Logger.getInstance().log("direct_declarator 3"); 
                 RESULT = new XMLElement.NonTerminal("direct_declarator",2,(XMLElement)dd,(XMLElement)ce);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("direct_declarator",40, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3720,7 +3854,8 @@ class CUP$Parser$actions {
 		Location SQUAREDR2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SQUAREDR2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SQUAREDR2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG134
+ Logger.getInstance().log("direct_declarator 4"); 
                 RESULT = new XMLElement.NonTerminal("direct_declarator",3,(XMLElement)dd);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("direct_declarator",40, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3742,7 +3877,8 @@ class CUP$Parser$actions {
 		Location PARAR3xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location PARAR3xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object PARAR3 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG135
+ Logger.getInstance().log("direct_declarator 5"); 
                 RESULT = new XMLElement.NonTerminal("direct_declarator",4,(XMLElement)dd,(XMLElement)ptl);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("direct_declarator",40, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3764,7 +3900,8 @@ class CUP$Parser$actions {
 		Location PARAR3xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location PARAR3xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object PARAR3 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG136
+ Logger.getInstance().log("direct_declarator 6"); 
                 RESULT = new XMLElement.NonTerminal("direct_declarator",5,(XMLElement)dd,(XMLElement)il);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("direct_declarator",40, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3783,7 +3920,8 @@ class CUP$Parser$actions {
 		Location PARAR2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location PARAR2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object PARAR2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG137
+ Logger.getInstance().log("direct_declarator 7"); 
                 RESULT = new XMLElement.NonTerminal("direct_declarator",6,(XMLElement)dd);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("direct_declarator",40, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3796,7 +3934,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG138
+ Logger.getInstance().log("pointer 1"); 
                 RESULT = new XMLElement.NonTerminal("pointer",0,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("pointer",39, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3812,7 +3951,8 @@ class CUP$Parser$actions {
 		Location tqlxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location tqlxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object tql = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG139
+ Logger.getInstance().log("pointer 2"); 
                 RESULT = new XMLElement.NonTerminal("pointer",1,new XMLElement.Terminal(idxleft,"id",id,idxright),(XMLElement)tql);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("pointer",39, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3828,7 +3968,8 @@ class CUP$Parser$actions {
 		Location pxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location pxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object p = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG140
+ Logger.getInstance().log("pointer 3"); 
                 RESULT = new XMLElement.NonTerminal("pointer",2,new XMLElement.Terminal(idxleft,"id",id,idxright),(XMLElement)p);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("pointer",39, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3847,7 +3988,8 @@ class CUP$Parser$actions {
 		Location pxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location pxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object p = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG141
+ Logger.getInstance().log("pointer 4"); 
                 RESULT = new XMLElement.NonTerminal("pointer",3,new XMLElement.Terminal(idxleft,"id",id,idxright),(XMLElement)tql,(XMLElement)p);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("pointer",39, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3860,7 +4002,8 @@ class CUP$Parser$actions {
 		Location tqxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location tqxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object tq = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG142
+ Logger.getInstance().log("type_qualifier_list 1"); 
                 RESULT = new XMLElement.NonTerminal("type_qualifier_list",0,(XMLElement)tq);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_qualifier_list",43, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3876,7 +4019,8 @@ class CUP$Parser$actions {
 		Location tqxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location tqxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object tq = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG143
+ Logger.getInstance().log("type_qualifier_list 2"); 
                 RESULT = new XMLElement.NonTerminal("type_qualifier_list",1,(XMLElement)tql,(XMLElement)tq);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_qualifier_list",43, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3889,7 +4033,8 @@ class CUP$Parser$actions {
 		Location plxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location plxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object pl = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG144
+ Logger.getInstance().log("parameter_type_list 1"); 
                 RESULT = new XMLElement.NonTerminal("parameter_type_list",0,(XMLElement)pl);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("parameter_type_list",41, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3908,7 +4053,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG145
+ Logger.getInstance().log("parameter_type_list 2"); 
                 RESULT = new XMLElement.NonTerminal("parameter_type_list",1,(XMLElement)pl,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("parameter_type_list",41, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3921,7 +4067,8 @@ class CUP$Parser$actions {
 		Location pdxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location pdxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object pd = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG146
+ Logger.getInstance().log("parameter_list 1"); 
                 RESULT = new XMLElement.NonTerminal("parameter_list",0,(XMLElement)pd);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("parameter_list",60, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3940,7 +4087,8 @@ class CUP$Parser$actions {
 		Location pdxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location pdxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object pd = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG147
+ Logger.getInstance().log("parameter_list 2"); 
                 RESULT = new XMLElement.NonTerminal("parameter_list",1,(XMLElement)pl,(XMLElement)pd);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("parameter_list",60, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3956,7 +4104,8 @@ class CUP$Parser$actions {
 		Location dxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object d = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG148
+ Logger.getInstance().log("parameter_declaration 1"); 
                 RESULT = new XMLElement.NonTerminal("parameter_declaration",0,(XMLElement)ds,(XMLElement)d);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("parameter_declaration",44, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3972,7 +4121,8 @@ class CUP$Parser$actions {
 		Location adxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location adxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ad = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG149
+ Logger.getInstance().log("parameter_declaration 2"); 
                 RESULT = new XMLElement.NonTerminal("parameter_declaration",1,(XMLElement)ds,(XMLElement)ad);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("parameter_declaration",44, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3985,7 +4135,8 @@ class CUP$Parser$actions {
 		Location dsxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dsxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ds = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG150
+ Logger.getInstance().log("parameter_declaration 3 "); 
                 RESULT = new XMLElement.NonTerminal("parameter_declaration",2,(XMLElement)ds);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("parameter_declaration",44, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -3998,7 +4149,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG151
+ Logger.getInstance().log("identifier_list 1"); 
                 RESULT = new XMLElement.NonTerminal("identifier_list",0,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("identifier_list",42, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4017,7 +4169,8 @@ class CUP$Parser$actions {
 		Location idxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location idxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG152
+ Logger.getInstance().log("identifier_list 2"); 
                 RESULT = new XMLElement.NonTerminal("identifier_list",1,(XMLElement)idl,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("identifier_list",42, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4030,7 +4183,8 @@ class CUP$Parser$actions {
 		Location slxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location slxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object sl = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG153
+ Logger.getInstance().log("type_name 1"); 
                 RESULT = new XMLElement.NonTerminal("type_name",0,(XMLElement)sl);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_name",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4046,7 +4200,8 @@ class CUP$Parser$actions {
 		Location adxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location adxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ad = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG154
+ Logger.getInstance().log("type_name 2"); 
                 RESULT = new XMLElement.NonTerminal("type_name",1,(XMLElement)sl,(XMLElement)ad);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("type_name",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4059,7 +4214,8 @@ class CUP$Parser$actions {
 		Location pxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location pxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object p = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG155
+ Logger.getInstance().log("abstract_declarator 1"); 
                 RESULT = new XMLElement.NonTerminal("abstract_declarator",0,(XMLElement)p);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("abstract_declarator",45, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4072,7 +4228,8 @@ class CUP$Parser$actions {
 		Location dadxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dadxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object dad = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG156
+ Logger.getInstance().log("abstract_declarator 2"); 
                 RESULT = new XMLElement.NonTerminal("abstract_declarator",1,(XMLElement)dad);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("abstract_declarator",45, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4088,7 +4245,8 @@ class CUP$Parser$actions {
 		Location dxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object d = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG157
+ Logger.getInstance().log("abstract_declarator 3"); 
                 RESULT = new XMLElement.NonTerminal("abstract_declarator",2,(XMLElement)p,(XMLElement)d);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("abstract_declarator",45, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4107,7 +4265,8 @@ class CUP$Parser$actions {
 		Location PARAR2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location PARAR2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object PARAR2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG158
+ Logger.getInstance().log("direct_abstract_declarator 1"); 
                 RESULT = new XMLElement.NonTerminal("direct_abstract_declarator",0,new XMLElement.Terminal(idxleft,"id",id,idxright),(XMLElement)ad);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("direct_abstract_declarator",46, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4123,7 +4282,8 @@ class CUP$Parser$actions {
 		Location SQUAREDR1xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SQUAREDR1xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SQUAREDR1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG159
+ Logger.getInstance().log("direct_abstract_declarator 2"); 
                 RESULT = new XMLElement.NonTerminal("direct_abstract_declarator",1,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("direct_abstract_declarator",46, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4142,7 +4302,8 @@ class CUP$Parser$actions {
 		Location SQUAREDR2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SQUAREDR2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SQUAREDR2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG160
+ Logger.getInstance().log("direct_abstract_declarator 3"); 
                 RESULT = new XMLElement.NonTerminal("direct_abstract_declarator",2,new XMLElement.Terminal(idxleft,"id",id,idxright),(XMLElement)ce);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("direct_abstract_declarator",46, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4161,7 +4322,8 @@ class CUP$Parser$actions {
 		Location SQUAREDR2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SQUAREDR2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SQUAREDR2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG161
+ Logger.getInstance().log("direct_abstract_declarator 4"); 
                 RESULT = new XMLElement.NonTerminal("direct_abstract_declarator",3,(XMLElement)dad,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("direct_abstract_declarator",46, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4183,7 +4345,8 @@ class CUP$Parser$actions {
 		Location SQUAREDR3xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SQUAREDR3xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SQUAREDR3 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG162
+ Logger.getInstance().log("direct_abstract_declarator 5"); 
                 RESULT = new XMLElement.NonTerminal("direct_abstract_declarator",4,(XMLElement)dad,new XMLElement.Terminal(idxleft,"id",id,idxright),(XMLElement)ce);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("direct_abstract_declarator",46, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4199,7 +4362,8 @@ class CUP$Parser$actions {
 		Location PARAR1xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location PARAR1xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object PARAR1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG163
+ Logger.getInstance().log("direct_abstract_declarator 6"); 
                 RESULT = new XMLElement.NonTerminal("direct_abstract_declarator",5,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("direct_abstract_declarator",46, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4218,7 +4382,8 @@ class CUP$Parser$actions {
 		Location PARAR2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location PARAR2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object PARAR2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG164
+ Logger.getInstance().log("direct_abstract_declarator 7"); 
                 RESULT = new XMLElement.NonTerminal("direct_abstract_declarator",6,new XMLElement.Terminal(idxleft,"id",id,idxright),(XMLElement)ptl);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("direct_abstract_declarator",46, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4237,7 +4402,8 @@ class CUP$Parser$actions {
 		Location PARAR2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location PARAR2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object PARAR2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG165
+ Logger.getInstance().log("direct_abstract_declarator 8"); 
                 RESULT = new XMLElement.NonTerminal("direct_abstract_declarator",7,(XMLElement)dad,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("direct_abstract_declarator",46, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4259,7 +4425,8 @@ class CUP$Parser$actions {
 		Location PARAR3xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location PARAR3xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object PARAR3 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG166
+ Logger.getInstance().log("direct_abstract_declarator 9"); 
                 RESULT = new XMLElement.NonTerminal("direct_abstract_declarator",8,(XMLElement)dad,new XMLElement.Terminal(idxleft,"id",id,idxright),(XMLElement)ptl);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("direct_abstract_declarator",46, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4272,7 +4439,8 @@ class CUP$Parser$actions {
 		Location aexleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location aexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ae = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG167
+ Logger.getInstance().log("initializer 1"); 
                 RESULT = new XMLElement.NonTerminal("initializer",0,(XMLElement)ae);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("initializer",32, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4291,7 +4459,8 @@ class CUP$Parser$actions {
 		Location CURLYR2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location CURLYR2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object CURLYR2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG168
+ Logger.getInstance().log("initializer 2"); 
                 RESULT = new XMLElement.NonTerminal("initializer",1,(XMLElement)il);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("initializer",32, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4313,7 +4482,8 @@ class CUP$Parser$actions {
 		Location CURLYR3xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location CURLYR3xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object CURLYR3 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG169
+ Logger.getInstance().log("initializer 3"); 
                 RESULT = new XMLElement.NonTerminal("initializer",2,(XMLElement)il);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("initializer",32, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4326,7 +4496,8 @@ class CUP$Parser$actions {
 		Location ixleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location ixright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object i = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG170
+ Logger.getInstance().log("initializer_list 1"); 
                 RESULT = new XMLElement.NonTerminal("initializer_list",0,(XMLElement)i);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("initializer_list",47, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4345,7 +4516,8 @@ class CUP$Parser$actions {
 		Location ixleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location ixright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object i = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG171
+ Logger.getInstance().log("initializer_list 2"); 
                 RESULT = new XMLElement.NonTerminal("initializer_list",1,(XMLElement)il,(XMLElement)i);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("initializer_list",47, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4358,7 +4530,8 @@ class CUP$Parser$actions {
 		Location lsxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location lsxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ls = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG172
+ Logger.getInstance().log("statement 1"); 
                 RESULT = new XMLElement.NonTerminal("statement",0,(XMLElement)ls);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("statement",48, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4368,7 +4541,7 @@ class CUP$Parser$actions {
           case 174: // NT$1 ::= 
             {
                 XMLElement RESULT;
-//@@CUPDBG2
+//@@CUPDBG173
  Parser.newScope(); 
                 RESULT = new XMLElement.NonTerminal("NT_1",0);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("NT$1",62, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -4382,8 +4555,8 @@ class CUP$Parser$actions {
 		Location csxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location csxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object cs = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		//@@CUPDBG3
- Parser.deleteScope(); 
+		//@@CUPDBG174
+ Parser.deleteScope(); Logger.getInstance().log("statement 2"); 
                 RESULT = new XMLElement.NonTerminal("statement",1,(XMLElement)cs);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("statement",48, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4396,7 +4569,8 @@ class CUP$Parser$actions {
 		Location esxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location esxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object es = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG175
+ Logger.getInstance().log("statement 3"); 
                 RESULT = new XMLElement.NonTerminal("statement",2,(XMLElement)es);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("statement",48, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4409,7 +4583,8 @@ class CUP$Parser$actions {
 		Location ssxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location ssxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ss = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG176
+ Logger.getInstance().log("statement 4"); 
                 RESULT = new XMLElement.NonTerminal("statement",3,(XMLElement)ss);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("statement",48, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4422,7 +4597,8 @@ class CUP$Parser$actions {
 		Location isxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location isxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object is = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG177
+ Logger.getInstance().log("statement 5"); 
                 RESULT = new XMLElement.NonTerminal("statement",4,(XMLElement)is);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("statement",48, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4435,7 +4611,8 @@ class CUP$Parser$actions {
 		Location jsxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location jsxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object js = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG178
+ Logger.getInstance().log("statement 6"); 
                 RESULT = new XMLElement.NonTerminal("statement",5,(XMLElement)js);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("statement",48, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4454,7 +4631,8 @@ class CUP$Parser$actions {
 		Location sxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG179
+ Logger.getInstance().log("labeled_statement 1"); 
                 RESULT = new XMLElement.NonTerminal("labeled_statement",0,new XMLElement.Terminal(idxleft,"id",id,idxright),(XMLElement)s);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("labeled_statement",49, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4476,7 +4654,8 @@ class CUP$Parser$actions {
 		Location sxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG180
+ Logger.getInstance().log("labeled_statement 2"); 
                 RESULT = new XMLElement.NonTerminal("labeled_statement",1,(XMLElement)ce,(XMLElement)s);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("labeled_statement",49, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4495,7 +4674,8 @@ class CUP$Parser$actions {
 		Location sxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG181
+ Logger.getInstance().log("labeled_statement 3"); 
                 RESULT = new XMLElement.NonTerminal("labeled_statement",2,(XMLElement)s);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("labeled_statement",49, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4511,7 +4691,8 @@ class CUP$Parser$actions {
 		Location CURLYR1xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location CURLYR1xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object CURLYR1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG182
+ Logger.getInstance().log("compound_statement 1"); 
                 RESULT = new XMLElement.NonTerminal("compound_statement",0);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("compound_statement",50, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4530,7 +4711,8 @@ class CUP$Parser$actions {
 		Location CURLYR2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location CURLYR2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object CURLYR2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG183
+ Logger.getInstance().log("compound_statement 2"); 
                 RESULT = new XMLElement.NonTerminal("compound_statement",1,(XMLElement)sl);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("compound_statement",50, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4549,7 +4731,8 @@ class CUP$Parser$actions {
 		Location CURLYR2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location CURLYR2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object CURLYR2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG184
+ Logger.getInstance().log("compound_statement 3"); 
                 RESULT = new XMLElement.NonTerminal("compound_statement",2,(XMLElement)dl);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("compound_statement",50, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4571,7 +4754,8 @@ class CUP$Parser$actions {
 		Location CURLYR3xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location CURLYR3xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object CURLYR3 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG185
+ Logger.getInstance().log("compound_statement 4"); 
                 RESULT = new XMLElement.NonTerminal("compound_statement",3,(XMLElement)dl,(XMLElement)sl);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("compound_statement",50, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4584,7 +4768,8 @@ class CUP$Parser$actions {
 		Location dxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object d = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG186
+ Logger.getInstance().log("declaration_list 1"); 
                 RESULT = new XMLElement.NonTerminal("declaration_list",0,(XMLElement)d);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("declaration_list",58, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4600,7 +4785,8 @@ class CUP$Parser$actions {
 		Location dxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object d = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG187
+ Logger.getInstance().log("declaration_list 2"); 
                 RESULT = new XMLElement.NonTerminal("declaration_list",1,(XMLElement)dl,(XMLElement)d);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("declaration_list",58, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4613,7 +4799,8 @@ class CUP$Parser$actions {
 		Location sxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG188
+ Logger.getInstance().log("statement_list 1"); 
                 RESULT = new XMLElement.NonTerminal("statement_list",0,(XMLElement)s);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("statement_list",54, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4629,7 +4816,8 @@ class CUP$Parser$actions {
 		Location sxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG189
+ Logger.getInstance().log("statement_list 2"); 
                 RESULT = new XMLElement.NonTerminal("statement_list",1,(XMLElement)sl,(XMLElement)s);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("statement_list",54, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4642,7 +4830,8 @@ class CUP$Parser$actions {
 		Location SEMI0xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SEMI0xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SEMI0 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG190
+ Logger.getInstance().log("expression_statement 1"); 
                 RESULT = new XMLElement.NonTerminal("expression_statement",0);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("expression_statement",55, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4658,7 +4847,8 @@ class CUP$Parser$actions {
 		Location SEMI1xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SEMI1xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SEMI1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG191
+ Logger.getInstance().log("expression_statement 2"); 
                 RESULT = new XMLElement.NonTerminal("expression_statement",1,(XMLElement)e);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("expression_statement",55, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4683,7 +4873,8 @@ class CUP$Parser$actions {
 		Location sxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG192
+ Logger.getInstance().log("selection_statement 1"); 
                 RESULT = new XMLElement.NonTerminal("selection_statement",0,(XMLElement)e,(XMLElement)s);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("selection_statement",51, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4714,7 +4905,8 @@ class CUP$Parser$actions {
 		Location s2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location s2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object s2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG193
+ Logger.getInstance().log("selection_statement 2"); 
                 RESULT = new XMLElement.NonTerminal("selection_statement",1,(XMLElement)e,(XMLElement)s1,(XMLElement)s2);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("selection_statement",51, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4739,7 +4931,8 @@ class CUP$Parser$actions {
 		Location sxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG194
+ Logger.getInstance().log("selection_statement 3"); 
                 RESULT = new XMLElement.NonTerminal("selection_statement",2,(XMLElement)e,(XMLElement)s);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("selection_statement",51, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4764,7 +4957,8 @@ class CUP$Parser$actions {
 		Location sxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG195
+ Logger.getInstance().log("iteration_statement 1"); 
                 RESULT = new XMLElement.NonTerminal("iteration_statement",0,(XMLElement)e,(XMLElement)s);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("iteration_statement",52, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4795,7 +4989,8 @@ class CUP$Parser$actions {
 		Location SEMI6xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SEMI6xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SEMI6 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG196
+ Logger.getInstance().log("iteration_statement 2"); 
                 RESULT = new XMLElement.NonTerminal("iteration_statement",1,(XMLElement)s,(XMLElement)e);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("iteration_statement",52, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4823,7 +5018,8 @@ class CUP$Parser$actions {
 		Location sxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG197
+ Logger.getInstance().log("iteration_statement 3"); 
                 RESULT = new XMLElement.NonTerminal("iteration_statement",2,(XMLElement)es1,(XMLElement)es2,(XMLElement)s);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("iteration_statement",52, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4854,7 +5050,8 @@ class CUP$Parser$actions {
 		Location sxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location sxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG198
+ Logger.getInstance().log("iteration_statement 4"); 
                 RESULT = new XMLElement.NonTerminal("iteration_statement",3,(XMLElement)es1,(XMLElement)es2,(XMLElement)e,(XMLElement)s);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("iteration_statement",52, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4873,7 +5070,8 @@ class CUP$Parser$actions {
 		Location SEMI2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SEMI2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SEMI2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG199
+ Logger.getInstance().log("jump_statement 1"); 
                 RESULT = new XMLElement.NonTerminal("jump_statement",0,new XMLElement.Terminal(idxleft,"id",id,idxright));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("jump_statement",53, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4889,7 +5087,8 @@ class CUP$Parser$actions {
 		Location SEMI1xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SEMI1xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SEMI1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG200
+ Logger.getInstance().log("jump_statement 2"); 
                 RESULT = new XMLElement.NonTerminal("jump_statement",1);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("jump_statement",53, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4905,7 +5104,8 @@ class CUP$Parser$actions {
 		Location SEMI1xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SEMI1xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SEMI1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG201
+ Logger.getInstance().log("jump_statement 3"); 
                 RESULT = new XMLElement.NonTerminal("jump_statement",2);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("jump_statement",53, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4921,7 +5121,8 @@ class CUP$Parser$actions {
 		Location SEMI1xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SEMI1xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SEMI1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG202
+ Logger.getInstance().log("jump_statement 4"); 
                 RESULT = new XMLElement.NonTerminal("jump_statement",3);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("jump_statement",53, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4940,7 +5141,8 @@ class CUP$Parser$actions {
 		Location SEMI2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location SEMI2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object SEMI2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG203
+ Logger.getInstance().log("jump_statement 5"); 
                 RESULT = new XMLElement.NonTerminal("jump_statement",4,(XMLElement)e);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("jump_statement",53, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4953,7 +5155,8 @@ class CUP$Parser$actions {
 		Location edxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location edxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ed = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG204
+ Logger.getInstance().startLogger(); Logger.getInstance().log("translation_unit 1"); 
                 RESULT = new XMLElement.NonTerminal("translation_unit",0,(XMLElement)ed);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("translation_unit",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4969,7 +5172,8 @@ class CUP$Parser$actions {
 		Location edxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location edxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ed = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG205
+ Logger.getInstance().log("translation_unit 2"); 
                 RESULT = new XMLElement.NonTerminal("translation_unit",1,(XMLElement)tu,(XMLElement)ed);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("translation_unit",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4982,7 +5186,8 @@ class CUP$Parser$actions {
 		Location fdxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location fdxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object fd = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG206
+ Logger.getInstance().log("external_declaration 1"); 
                 RESULT = new XMLElement.NonTerminal("external_declaration",0,(XMLElement)fd);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("external_declaration",56, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -4995,7 +5200,8 @@ class CUP$Parser$actions {
 		Location dxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object d = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG207
+ Logger.getInstance().log("external_declaration 2"); 
                 RESULT = new XMLElement.NonTerminal("external_declaration",1,(XMLElement)d);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("external_declaration",56, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -5014,7 +5220,7 @@ class CUP$Parser$actions {
 		Location dlxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dlxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object dl = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-//@@CUPDBG4
+//@@CUPDBG208
  Parser.newScope(); 
                 RESULT = new XMLElement.NonTerminal("NT_2",0);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("NT$2",63, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -5037,8 +5243,8 @@ class CUP$Parser$actions {
 		Location csxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location csxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object cs = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		//@@CUPDBG5
- Parser.deleteScope(); 
+		//@@CUPDBG209
+ Parser.deleteScope();  Logger.getInstance().log("function_definition 1");
                 RESULT = new XMLElement.NonTerminal("function_definition",0,(XMLElement)ds,(XMLElement)d,(XMLElement)dl,(XMLElement)cs);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("function_definition",57, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -5054,7 +5260,7 @@ class CUP$Parser$actions {
 		Location dxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object d = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-//@@CUPDBG6
+//@@CUPDBG210
  Parser.newScope(); 
                 RESULT = new XMLElement.NonTerminal("NT_3",0);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("NT$3",64, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -5074,8 +5280,8 @@ class CUP$Parser$actions {
 		Location csxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location csxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object cs = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		//@@CUPDBG7
- Parser.deleteScope(); 
+		//@@CUPDBG211
+ Parser.deleteScope(); Logger.getInstance().log("function_definition 2");
                 RESULT = new XMLElement.NonTerminal("function_definition",1,(XMLElement)ds,(XMLElement)d,(XMLElement)cs);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("function_definition",57, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -5091,7 +5297,7 @@ class CUP$Parser$actions {
 		Location dlxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dlxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object dl = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-//@@CUPDBG8
+//@@CUPDBG212
  Parser.newScope(); 
                 RESULT = new XMLElement.NonTerminal("NT_4",0);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("NT$4",65, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -5111,8 +5317,8 @@ class CUP$Parser$actions {
 		Location csxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location csxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object cs = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		//@@CUPDBG9
- Parser.deleteScope(); 
+		//@@CUPDBG213
+ Parser.deleteScope(); Logger.getInstance().log("function_definition 3");
                 RESULT = new XMLElement.NonTerminal("function_definition",2,(XMLElement)d,(XMLElement)dl,(XMLElement)cs);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("function_definition",57, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -5125,7 +5331,7 @@ class CUP$Parser$actions {
 		Location dxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object d = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-//@@CUPDBG10
+//@@CUPDBG214
  Parser.newScope(); 
                 RESULT = new XMLElement.NonTerminal("NT_5",0);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("NT$5",66, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -5142,8 +5348,8 @@ class CUP$Parser$actions {
 		Location csxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location csxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object cs = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		//@@CUPDBG11
- Parser.deleteScope(); 
+		//@@CUPDBG215
+ Parser.deleteScope(); Logger.getInstance().log("function_definition 4");
                 RESULT = new XMLElement.NonTerminal("function_definition",3,(XMLElement)d,(XMLElement)cs);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("function_definition",57, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
