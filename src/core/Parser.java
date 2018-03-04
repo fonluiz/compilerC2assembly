@@ -1518,7 +1518,7 @@ public class Parser extends java_cup.runtime.lr_parser {
 
          System.out.println(sourcecode);
 
-	    ScannerBuffer lexer = new ScannerBuffer(new Lexer(new BufferedReader(new FileReader(sourcecode)),csf));
+	    ScannerBuffer lexer = new ScannerBuffer(new Lexer(new BufferedReader(new FileReader(args[0])),csf));
 	    // start parsing
 	    Parser p = new Parser(lexer,csf);
 	    System.out.println("Parser runs: ");
