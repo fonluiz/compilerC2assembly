@@ -4289,7 +4289,8 @@ class CUP$Parser$actions {
 		Location edxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ed = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG4
- Logger.getInstance().startLogger(); Logger.getInstance().log("linha 385"); 
+ Logger.getInstance().startLogger();
+                                               Logger.getInstance().log("linha 385"); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("translation_unit",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -4317,7 +4318,8 @@ class CUP$Parser$actions {
 		Location fdxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location fdxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object fd = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		//@@CUPDBG6
+ Logger.getInstance().log("linha 390"); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("external_declaration",51, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -4347,8 +4349,8 @@ class CUP$Parser$actions {
 		Location dlxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dlxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object dl = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-//@@CUPDBG6
- Parser.newScope(); 
+//@@CUPDBG7
+ Parser.newScope(); Logger.getInstance().log("linha 394");
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("NT$2",63, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -4371,8 +4373,8 @@ class CUP$Parser$actions {
 		Location csxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location csxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object cs = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		//@@CUPDBG7
- Parser.deleteScope(); 
+		//@@CUPDBG8
+ Parser.deleteScope(); Logger.getInstance().log("linha 396");
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("function_definition",52, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -4387,8 +4389,8 @@ class CUP$Parser$actions {
 		Location dxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object d = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-//@@CUPDBG8
- Parser.newScope(); 
+//@@CUPDBG9
+ Parser.newScope(); Logger.getInstance().log("linha 397");
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("NT$3",64, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -4408,8 +4410,8 @@ class CUP$Parser$actions {
 		Location csxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location csxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object cs = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		//@@CUPDBG9
- Parser.deleteScope(); 
+		//@@CUPDBG10
+ Parser.deleteScope(); Logger.getInstance().log("linha 398");
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("function_definition",52, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -4424,8 +4426,8 @@ class CUP$Parser$actions {
 		Location dlxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dlxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object dl = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-//@@CUPDBG10
- Parser.newScope(); 
+//@@CUPDBG11
+ Parser.newScope(); Logger.getInstance().log("linha 399");
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("NT$4",65, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -4445,8 +4447,8 @@ class CUP$Parser$actions {
 		Location csxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location csxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object cs = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		//@@CUPDBG11
- Parser.deleteScope(); 
+		//@@CUPDBG12
+ Parser.deleteScope(); Logger.getInstance().log("linha 400");
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("function_definition",52, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -4458,8 +4460,8 @@ class CUP$Parser$actions {
 		Location dxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location dxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object d = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-//@@CUPDBG12
- Parser.newScope(); 
+//@@CUPDBG13
+ Parser.newScope(); Logger.getInstance().log("linha 401");
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("NT$5",66, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -4476,8 +4478,8 @@ class CUP$Parser$actions {
 		Location csxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location csxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object cs = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		//@@CUPDBG13
- Parser.deleteScope(); 
+		//@@CUPDBG14
+ Parser.deleteScope(); Logger.getInstance().log("linha 402");
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("function_definition",52, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

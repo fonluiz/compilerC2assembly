@@ -1,5 +1,3 @@
-package core;
-
 import java.io.*;
 import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
 import java_cup.runtime.ComplexSymbolFactory.Location;
@@ -14,7 +12,6 @@ import java.util.*;
 %line
 %char
 %column
-%public
 %implements sym
 
 %{
@@ -169,3 +166,4 @@ L?\"(\\.|[^\\\"])*\"	{ return symbol(STRING_LITERAL,yytext()); }
 
 {white_space}		{ /* ignore bad characters */ }
 .|\n			{ System.err.println("Fehler: unbekanntes Zeichen:"+yytext()+" "+(yyline+1)+"/"+(yycolumn+1)); }
+

@@ -75,80 +75,80 @@ postfix_expression ::= primary_expression:pe
 		   ;
 
 unary_expression ::= postfix_expression:pe
-		 | INC_OP:op unary_expression:ue
-		 | DEC_OP:op unary_expression:ue
-		 | unary_operator:uo cast_expression:ce
-		 | SIZEOF unary_expression:ue
+		 | INC_OP:op unary_expression:ue {: Logger.getInstance().log("linha 78"); :}
+		 | DEC_OP:op unary_expression:ue {: Logger.getInstance().log("linha 79"); :}
+		 | unary_operator:uo cast_expression:ce  {: Logger.getInstance().log("linha 80"); :}
+		 | SIZEOF unary_expression:ue  {: Logger.getInstance().log("linha 81"); :}
 		 | SIZEOF PARAL type_name:tn PARAR
 		 ;
 
 unary_operator ::=ADRESS
 	| MUL:op
-	| PLUS:op
+	| PLUS:op  {: Logger.getInstance().log("linha 87"); :}
 	| MINUS:op
 	| TILDE
 	| NOT:op
 	;
 
 cast_expression
-	::=unary_expression:ue
-	| PARAL type_name:tn PARAR cast_expression:ce
+	::=unary_expression:ue  {: Logger.getInstance().log("linha 94"); :}
+	| PARAL type_name:tn PARAR cast_expression:ce {: Logger.getInstance().log("linha 95"); :}
 	;
 
-multiplicative_expression ::= cast_expression:ce
-			  | multiplicative_expression:me MUL:op cast_expression:ce
-			  | multiplicative_expression:me DIVIDE:op cast_expression:ce
-			  | multiplicative_expression:me MODULUS:op cast_expression:ce
+multiplicative_expression ::= cast_expression:ce {: Logger.getInstance().log("linha 98"); :}
+			  | multiplicative_expression:me MUL:op cast_expression:ce {: Logger.getInstance().log("linha 99"); :}
+			  | multiplicative_expression:me DIVIDE:op cast_expression:ce {: Logger.getInstance().log("linha 100"); :}
+			  | multiplicative_expression:me MODULUS:op cast_expression:ce {: Logger.getInstance().log("linha 101"); :}
 			  ;
 
-additive_expression ::= multiplicative_expression:me
-		    | additive_expression:ae PLUS:op multiplicative_expression:me
-		    | additive_expression:ae MINUS:op multiplicative_expression:me
+additive_expression ::= multiplicative_expression:me  {: Logger.getInstance().log("linha 104"); :}
+		    | additive_expression:ae PLUS:op multiplicative_expression:me {: Logger.getInstance().log("linha 105"); :}
+		    | additive_expression:ae MINUS:op multiplicative_expression:me {: Logger.getInstance().log("linha 106"); :}
 		    ;
 
-shift_expression ::= additive_expression:ae
-		 | shift_expression:se LEFT_OP additive_expression:ae
-		 | shift_expression:se RIGHT_OP additive_expression:ae
+shift_expression ::= additive_expression:ae {: Logger.getInstance().log("linha 109"); :}
+		 | shift_expression:se LEFT_OP additive_expression:ae {: Logger.getInstance().log("linha 110"); :}
+		 | shift_expression:se RIGHT_OP additive_expression:ae {: Logger.getInstance().log("linha 111"); :}
 		 ;
 
-relational_expression ::= shift_expression:se
-		      | relational_expression:re LESS:op shift_expression:se
-		      | relational_expression:re GREATER:op shift_expression:se
-		      | relational_expression:re LE_OP:op shift_expression:se
-		      | relational_expression:re GE_OP:op shift_expression:se
+relational_expression ::= shift_expression:se {: Logger.getInstance().log("linha 114"); :}
+		      | relational_expression:re LESS:op shift_expression:se {: Logger.getInstance().log("linha 115"); :}
+		      | relational_expression:re GREATER:op shift_expression:se {: Logger.getInstance().log("linha 116"); :}
+		      | relational_expression:re LE_OP:op shift_expression:se {: Logger.getInstance().log("linha 117"); :}
+		      | relational_expression:re GE_OP:op shift_expression:se {: Logger.getInstance().log("linha 118"); :}
 		      ;
 
-equality_expression ::= relational_expression:re
-		    | equality_expression:ee EQ_OP:op relational_expression:re
-		    | equality_expression:ee NE_OP:op relational_expression:re
+equality_expression ::= relational_expression:re {: Logger.getInstance().log("linha 121"); :}
+		    | equality_expression:ee EQ_OP:op relational_expression:re {: Logger.getInstance().log("linha 122"); :}
+		    | equality_expression:ee NE_OP:op relational_expression:re {: Logger.getInstance().log("linha 123"); :}
 		    ;
 
-and_expression ::= equality_expression:ee
-	       | and_expression:ae ADRESS equality_expression:ee
+and_expression ::= equality_expression:ee {: Logger.getInstance().log("linha 126"); :}
+	       | and_expression:ae ADRESS equality_expression:ee {: Logger.getInstance().log("linha 127"); :}
 	       ;
 
-exclusive_or_expression	::= and_expression:ae
-			| exclusive_or_expression:eoe XOR and_expression:ae
+exclusive_or_expression	::= and_expression:ae {: Logger.getInstance().log("linha 130"); :}
+			| exclusive_or_expression:eoe XOR and_expression:ae {: Logger.getInstance().log("linha 131"); :}
 			;
 
-inclusive_or_expression	::= exclusive_or_expression:eoe
-			| inclusive_or_expression:ioe OR exclusive_or_expression:eoe
+inclusive_or_expression	::= exclusive_or_expression:eoe {: Logger.getInstance().log("linha 134"); :}
+			| inclusive_or_expression:ioe OR exclusive_or_expression:eoe {: Logger.getInstance().log("linha 135"); :}
 			;
 
-logical_and_expression ::= inclusive_or_expression:ioe
-		       | logical_and_expression:lae AND_OP:op inclusive_or_expression:ioe
+logical_and_expression ::= inclusive_or_expression:ioe {: Logger.getInstance().log("linha 138"); :}
+		       | logical_and_expression:lae AND_OP:op inclusive_or_expression:ioe {: Logger.getInstance().log("linha 139"); :}
 		       ;
 
-logical_or_expression ::= logical_and_expression:lae
-		      | logical_or_expression:loe OR_OP:op logical_and_expression:lae
+logical_or_expression ::= logical_and_expression:lae {: Logger.getInstance().log("linha 142"); :}
+		      | logical_or_expression:loe OR_OP:op logical_and_expression:lae {: Logger.getInstance().log("linha 143"); :}
 		      ;
 
-conditional_expression ::= logical_or_expression:loe
-		       | logical_or_expression:loe COND expression:e COLON conditional_expression:ce
+conditional_expression ::= logical_or_expression:loe {: Logger.getInstance().log("linha 146"); :}
+		       | logical_or_expression:loe COND expression:e COLON conditional_expression:ce {: Logger.getInstance().log("linha 147"); :}
 		       ;
 
-assignment_expression ::= conditional_expression:ce
-		      | unary_expression:ue assignment_operator:aop assignment_expression:ae
+assignment_expression ::= conditional_expression:ce {: Logger.getInstance().log("linha 150"); :}
+		      | unary_expression:ue assignment_operator:aop assignment_expression:ae {: Logger.getInstance().log("linha 151"); :}
 		      ;
 
 assignment_operator ::=ASSIGN
@@ -164,11 +164,11 @@ assignment_operator ::=ASSIGN
 	| OR_ASSIGN
 	;
 
-expression ::= assignment_expression:ae
-	   | expression:e COMMA assignment_expression:ae
+expression ::= assignment_expression:ae {: Logger.getInstance().log("linha 167"); :}
+	   | expression:e COMMA assignment_expression:ae {: Logger.getInstance().log("linha 168"); :}
 	   ;
 
-constant_expression ::=conditional_expression:ce
+constant_expression ::=conditional_expression:ce {: Logger.getInstance().log("linha 171"); :}
 	;
 
 declaration ::=declaration_specifiers:ds SEMI
@@ -238,13 +238,13 @@ specifier_qualifier_list ::=type_specifier:ts specifier_qualifier_list:sq
 	| type_qualifier:tq
 	;
 
-struct_declarator_list ::=struct_declarator:s
-	| struct_declarator_list:sl COMMA struct_declarator:s
+struct_declarator_list ::=struct_declarator:s {: Logger.getInstance().log("linha 241"); :}
+	| struct_declarator_list:sl COMMA struct_declarator:s {: Logger.getInstance().log("linha 242"); :}
 	;
 
 struct_declarator ::=declarator:d
-	| COLON constant_expression:ce
-	| declarator:d COLON constant_expression:ce
+	| COLON constant_expression:ce {: Logger.getInstance().log("linha 246"); :}
+	| declarator:d COLON constant_expression:ce {: Logger.getInstance().log("linha 247"); :}
 	;
 
 enum_specifier ::=ENUM CURLYL enumerator_list:el CURLYR
@@ -257,7 +257,7 @@ enumerator_list	::=enumerator:e
 	;
 
 enumerator ::=IDENTIFIER:id
-	| IDENTIFIER:id ASSIGN constant_expression:ce
+	| IDENTIFIER:id ASSIGN constant_expression:ce {: Logger.getInstance().log("linha 260"); :}
 	;
 
 type_qualifier ::=CONST:id
@@ -384,7 +384,7 @@ jump_statement ::=GOTO IDENTIFIER:id SEMI
 
 translation_unit ::=external_declaration:ed {: Logger.getInstance().startLogger();
                                                Logger.getInstance().log("linha 385"); :}
-	| translation_unit:tu external_declaration:ed {: Logger.getInstance().log("linha 386"); :}
+	| translation_unit:tu external_declaration:ed {: Logger.getInstance().log("linha 387"); :}
 	;
 
 external_declaration ::=function_definition:fd {: Logger.getInstance().log("linha 390"); :}
