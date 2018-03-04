@@ -12,21 +12,15 @@
 	  <taskdef name="cup"   classname="java_cup.anttask.CUPTask" classpath="${tools}/java-cup-11b.jar"  />
 
 	  <target name="generate">
-	    <!-- Cria os arquivos na pasta destino-->
-	    <cup srcfile="${base}/parser.cup"  destdir="${java}"
-	          parser="Parser"
-			  interface="true"
-	  	      locations="true"
-	          debugsymbols="true" />
-	  	<jflex  file="lexer.jflex" destdir="${java}"/>
-	  	
-	  	<!-- Cria os mesmos arquivos em uma pasta temporária-->
-	  	<cup srcfile="${base}/parser.cup"  destdir="${temp}"
+	    <!-- Cria os arquivos na pasta temporária-->
+	  	<cup srcfile="${base}/parser.cup"  destdir="${temp}/core"
 	  		          parser="Parser"
 	  				  interface="true"
 	  		  	      locations="true"
+                      package="core"
 	  		          debugsymbols="true" />
-	  	<jflex  file="lexer.jflex" destdir="${temp}"/>
+
+	  	<jflex  file="lexer.jflex" destdir="${temp}" />
 	  </target>
 
 	  <path id="libraries">

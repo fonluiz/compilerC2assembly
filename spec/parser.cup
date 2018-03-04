@@ -382,21 +382,22 @@ jump_statement ::=GOTO IDENTIFIER:id SEMI
 	| RETURN expression:e SEMI
 	;
 
-translation_unit ::=external_declaration:ed {: Logger.getInstance().startLogger(); Logger.getInstance().log("linha 385"); :}
+translation_unit ::=external_declaration:ed {: Logger.getInstance().startLogger();
+                                               Logger.getInstance().log("linha 385"); :}
 	| translation_unit:tu external_declaration:ed {: Logger.getInstance().log("linha 386"); :}
 	;
 
-external_declaration ::=function_definition:fd
+external_declaration ::=function_definition:fd {: Logger.getInstance().log("linha 390"); :}
 	| declaration:d
 	;
 
 function_definition ::=declaration_specifiers:ds declarator:d declaration_list:dl
-		    				             {: Parser.newScope(); :}
-  compound_statement:cs 		                   {: Parser.deleteScope(); :}
-	| declaration_specifiers:ds declarator:d 	  {: Parser.newScope(); :}
-	  compound_statement:cs 	                   {: Parser.deleteScope(); :}
-	| declarator:d declaration_list:dl 	        {: Parser.newScope(); :}
-	  compound_statement:cs 	                   {: Parser.deleteScope(); :}
-	| declarator:d 	                            {: Parser.newScope(); :}
-	  compound_statement:cs 	                   {: Parser.deleteScope(); :}
+		    				             {: Parser.newScope(); Logger.getInstance().log("linha 394");:}
+  compound_statement:cs 		                   {: Parser.deleteScope(); Logger.getInstance().log("linha 396");:}
+	| declaration_specifiers:ds declarator:d 	  {: Parser.newScope(); Logger.getInstance().log("linha 397");:}
+	  compound_statement:cs 	                   {: Parser.deleteScope(); Logger.getInstance().log("linha 398");:}
+	| declarator:d declaration_list:dl 	        {: Parser.newScope(); Logger.getInstance().log("linha 399");:}
+	  compound_statement:cs 	                   {: Parser.deleteScope(); Logger.getInstance().log("linha 400");:}
+	| declarator:d 	                            {: Parser.newScope(); Logger.getInstance().log("linha 401");:}
+	  compound_statement:cs 	                   {: Parser.deleteScope(); Logger.getInstance().log("linha 402");:}
 	;

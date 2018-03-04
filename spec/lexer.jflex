@@ -1,3 +1,5 @@
+package core;
+
 import java.io.*;
 import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
 import java_cup.runtime.ComplexSymbolFactory.Location;
@@ -12,6 +14,7 @@ import java.util.*;
 %line
 %char
 %column
+%public
 %implements sym
 
 %{
