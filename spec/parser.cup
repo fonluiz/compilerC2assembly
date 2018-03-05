@@ -146,10 +146,10 @@ start with translation_unit;
 primary_expression ::= IDENTIFIER:ident {: //TODO: fazer um método que recupera o tipo do identificador
                                            //RESULT = pexp;
                                            Logger.getInstance().log("primary_expression 1"); :}
-		   | CONSTANT:constant {: PrimaryExpression pexp = new PrimaryExpression(PrimaryExpression.getTypeOfNumber(constant.toString()), PrimaryExpression.getValueOfNumber(constant.toString()));
+		   | CONSTANT:constant {: Expression pexp = new Expression(Expression.getTypeOfNumber(constant.toString()),Expression.getValueOfNumber(constant.toString()));
 		                          RESULT = pexp;
 		                          Logger.getInstance().log("primary_expression 2"); :}
-		   | STRING_LITERAL:stringliteral {: PrimaryExpression pexp = new PrimaryExpression(Types.STRING, stringliteral.toString());
+		   | STRING_LITERAL:stringliteral {: Expression pexp = new Expression(Types.STRING, stringliteral.toString());
 		                                     RESULT = pexp;
 		                                     Logger.getInstance().log("primary_expression 3"); :}
 		   | PARAL expression:e PARAR {: //TODO: fazer um método que recupera o tipo da exppressão
@@ -308,7 +308,7 @@ init_declarator
         ::=declarator:d           {: Variable v = new Variable(null, d.toString());
                                      RESULT = v;
                                      Logger.getInstance().log("init_declarator 1"); :}
-	| declarator:d ASSIGN initializer:i  {: Variable v = new Variable(((PrimaryExpression) i).getType(), d.toString());
+	| declarator:d ASSIGN initializer:i  {: Variable v = new Variable(((Expression) i).getType(), d.toString());
 	                                        RESULT = v;
 	                                        Logger.getInstance().log("init_declarator 2"); :}
 	;
