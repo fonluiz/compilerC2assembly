@@ -143,13 +143,21 @@ precedence nonassoc ELSE;
 start with translation_unit;
 
 
-primary_expression ::= IDENTIFIER:ident {: Logger.getInstance().log("primary_expression 1"); :}
-		   | CONSTANT:constant {: Logger.getInstance().log("primary_expression 2"); :}
-		   | STRING_LITERAL:stringliteral {: Logger.getInstance().log("primary_expression 3"); :}
-		   | PARAL expression:e PARAR {: Logger.getInstance().log("primary_expression 4"); :}
+primary_expression ::= IDENTIFIER:ident {: //TODO: fazer um método que recupera o tipo do identificador
+                                           //RESULT = pexp;
+                                           Logger.getInstance().log("primary_expression 1"); :}
+		   | CONSTANT:constant {: PrimaryExpression pexp = new PrimaryExpression(PrimaryExpression.getTypeOfNumber(constant.toString()), PrimaryExpression.getValueOfNumber(constant.toString()));
+		                          RESULT = pexp;
+		                          Logger.getInstance().log("primary_expression 2"); :}
+		   | STRING_LITERAL:stringliteral {: PrimaryExpression pexp = new PrimaryExpression(Types.STRING, stringliteral.toString());
+		                                     RESULT = pexp;
+		                                     Logger.getInstance().log("primary_expression 3"); :}
+		   | PARAL expression:e PARAR {: //TODO: fazer um método que recupera o tipo da exppressão
+		                                 //RESULT = pexp;
+		                                 Logger.getInstance().log("primary_expression 4"); :}
 		   ;
 
-postfix_expression ::= primary_expression:pe {: Logger.getInstance().log("postfix_expression 1"); :}
+postfix_expression ::= primary_expression:pe {: RESULT = pe; Logger.getInstance().log("postfix_expression 1"); :}
 		   | postfix_expression:pe SQUAREDL expression:index SQUAREDR {: Logger.getInstance().log("postfix_expression 2"); :}
 		   | postfix_expression:pe PARAL PARAR {: Logger.getInstance().log("postfix_expression 3"); :}
 		   | postfix_expression:pe PARAL expression:e PARAR {: Logger.getInstance().log("postfix_expression 4"); :}
@@ -159,7 +167,7 @@ postfix_expression ::= primary_expression:pe {: Logger.getInstance().log("postfi
 		   | postfix_expression:pe DEC_OP:op {: Logger.getInstance().log("postfix_expression 8"); :}
 		   ;
 
-unary_expression ::= postfix_expression:pe {: Logger.getInstance().log("unary_expression 1"); :}
+unary_expression ::= postfix_expression:pe {: RESULT = pe; Logger.getInstance().log("unary_expression 1"); :}
 		 | INC_OP:op unary_expression:ue {: Logger.getInstance().log("unary_expression 2"); :}
 		 | DEC_OP:op unary_expression:ue {: Logger.getInstance().log("unary_expression 3"); :}
 		 | unary_operator:uo cast_expression:ce {: Logger.getInstance().log("unary_expression 4"); :}
@@ -178,66 +186,66 @@ unary_operator
 
 
 cast_expression
-	::=unary_expression:ue {: Logger.getInstance().log("cast_expression 1"); :}
+	::=unary_expression:ue {: RESULT = ue; Logger.getInstance().log("cast_expression 1"); :}
 	| PARAL type_name:tn PARAR cast_expression:ce {: Logger.getInstance().log("cast_expression 2"); :}
 	;
 
 
-multiplicative_expression ::= cast_expression:ce {: Logger.getInstance().log("multiplicative_expression 1"); :}
+multiplicative_expression ::= cast_expression:ce {: RESULT = ce; Logger.getInstance().log("multiplicative_expression 1"); :}
 			  | multiplicative_expression:me MUL:op cast_expression:ce {: Logger.getInstance().log("multiplicative_expression 2"); :}
 			  | multiplicative_expression:me DIVIDE:op cast_expression:ce {: Logger.getInstance().log("multiplicative_expression 3"); :}
 			  | multiplicative_expression:me MODULUS:op cast_expression:ce {: Logger.getInstance().log("multiplicative_expression 4"); :}
 			  ;
 
-additive_expression ::= multiplicative_expression:me {: Logger.getInstance().log("additive_expression 1"); :}
+additive_expression ::= multiplicative_expression:me {: RESULT = me; Logger.getInstance().log("additive_expression 1"); :}
 		    | additive_expression:ae PLUS:op multiplicative_expression:me {: Logger.getInstance().log("additive_expression 2"); :}
 		    | additive_expression:ae MINUS:op multiplicative_expression:me {: Logger.getInstance().log("additive_expression 3"); :}
 		    ;
 
-shift_expression ::= additive_expression:ae {: Logger.getInstance().log("shift_expression 1"); :}
+shift_expression ::= additive_expression:ae {:RESULT = ae; Logger.getInstance().log("shift_expression 1"); :}
 		 | shift_expression:se LEFT_OP additive_expression:ae {: Logger.getInstance().log("shift_expression 2"); :}
 		 | shift_expression:se RIGHT_OP additive_expression:ae {: Logger.getInstance().log("shift_expression 3"); :}
 		 ;
 
-relational_expression ::= shift_expression:se {: Logger.getInstance().log("relational_expression 1"); :}
+relational_expression ::= shift_expression:se {: RESULT = se; Logger.getInstance().log("relational_expression 1"); :}
 		      | relational_expression:re LESS:op shift_expression:se {: Logger.getInstance().log("relational_expression 2"); :}
 		      | relational_expression:re GREATER:op shift_expression:se {: Logger.getInstance().log("relational_expression 3"); :}
 		      | relational_expression:re LE_OP:op shift_expression:se {: Logger.getInstance().log("relational_expression 4"); :}
 		      | relational_expression:re GE_OP:op shift_expression:se {: Logger.getInstance().log("relational_expression 5"); :}
 		      ;
 
-equality_expression ::= relational_expression:re {: Logger.getInstance().log("equality_expression 1"); :}
+equality_expression ::= relational_expression:re {: RESULT = re; Logger.getInstance().log("equality_expression 1"); :}
 		    | equality_expression:ee EQ_OP:op relational_expression:re {: Logger.getInstance().log("equality_expression 2"); :}
 		    | equality_expression:ee NE_OP:op relational_expression:re {: Logger.getInstance().log("equality_expression 3"); :}
 		    ;
 
-and_expression ::= equality_expression:ee {: Logger.getInstance().log("and_expression 1"); :}
+and_expression ::= equality_expression:ee {: RESULT = ee; Logger.getInstance().log("and_expression 1"); :}
 	       | and_expression:ae ADRESS equality_expression:ee {: Logger.getInstance().log("and_expression 2"); :}
 	       ;
 
-exclusive_or_expression	::= and_expression:ae {: Logger.getInstance().log("exclusive_or_expression 1"); :}
+exclusive_or_expression	::= and_expression:ae {: RESULT = ae; Logger.getInstance().log("exclusive_or_expression 1"); :}
 			| exclusive_or_expression:eoe XOR and_expression:ae {: Logger.getInstance().log("exclusive_or_expression 2"); :}
 			;
 
 
-inclusive_or_expression	::= exclusive_or_expression:eoe {: Logger.getInstance().log("inclusive_or_expression 1"); :}
+inclusive_or_expression	::= exclusive_or_expression:eoe {: RESULT = eoe; Logger.getInstance().log("inclusive_or_expression 1"); :}
 			| inclusive_or_expression:ioe OR exclusive_or_expression:eoe {: Logger.getInstance().log("inclusive_or_expression 2"); :}
 			;
 
-logical_and_expression ::= inclusive_or_expression:ioe {: Logger.getInstance().log("logical_and_expression 1"); :}
+logical_and_expression ::= inclusive_or_expression:ioe {: RESULT = ioe; Logger.getInstance().log("logical_and_expression 1"); :}
 		       | logical_and_expression:lae AND_OP:op inclusive_or_expression:ioe {: Logger.getInstance().log("logical_and_expression 2"); :}
 		       ;
 
-logical_or_expression ::= logical_and_expression:lae {: Logger.getInstance().log("logical_or_expression 1"); :}
+logical_or_expression ::= logical_and_expression:lae {: RESULT = lae; Logger.getInstance().log("logical_or_expression 1"); :}
 		      | logical_or_expression:loe OR_OP:op logical_and_expression:lae {: Logger.getInstance().log("logical_or_expression 2"); :}
 		      ;
 
-conditional_expression ::= logical_or_expression:loe {: Logger.getInstance().log("conditional_expression 1"); :}
+conditional_expression ::= logical_or_expression:loe {: RESULT = loe; Logger.getInstance().log("conditional_expression 1"); :}
 		       | logical_or_expression:loe COND expression:e COLON conditional_expression:ce {: Logger.getInstance().log("conditional_expression 2"); :}
 		       ;
 
 
-assignment_expression ::= conditional_expression:ce {: Logger.getInstance().log("assignment_expression 1"); :}
+assignment_expression ::= conditional_expression:ce {: RESULT = ce; Logger.getInstance().log("assignment_expression 1"); :}
 		      | unary_expression:ue assignment_operator:aop assignment_expression:ae {: Logger.getInstance().log("assignment_expression 2"); :}
 		      ;
 
@@ -266,11 +274,9 @@ constant_expression
 declaration
 	::=declaration_specifiers:ds SEMI  {: Logger.getInstance().log("declaration 1"); :}
     | declaration_specifiers:ds init_declarator_list:idl {:
-							  if (ds.toString().indexOf(">typedef<")>0) {
-							      for (XMLElement e: ((XMLElement)idl).selectById("identifier"))
-								Parser.addType(((Terminal)e).value().toString());
-							  }
-							  Variable v = new Variable((Types) ds, idl.toString());
+                              Variable v = ((Variable) idl);
+                              Types type = Semantic.getInstance().checkVariableDeclaration((Types) ds, v.getType() );
+							  v.setType(type);
                               Semantic.getInstance().addVariable(v);
                               RESULT = v;
 							  Logger.getInstance().log("declaration 2");
@@ -292,8 +298,12 @@ init_declarator_list
 	;
 
 init_declarator
-        ::=declarator:d           {: RESULT = d; Logger.getInstance().log("init_declarator 1"); :}
-	| declarator:d ASSIGN initializer:i  {: RESULT = d; Logger.getInstance().log("init_declarator 2"); :}
+        ::=declarator:d           {: Variable v = new Variable(null, d.toString());
+                                     RESULT = v;
+                                     Logger.getInstance().log("init_declarator 1"); :}
+	| declarator:d ASSIGN initializer:i  {: Variable v = new Variable(((PrimaryExpression) i).getType(), d.toString());
+	                                        RESULT = v;
+	                                        Logger.getInstance().log("init_declarator 2"); :}
 	;
 
 storage_class_specifier
@@ -449,7 +459,7 @@ direct_abstract_declarator
 	;
 
 initializer
-	::=assignment_expression:ae                 {: Logger.getInstance().log("initializer 1"); :}
+	::=assignment_expression:ae                 {: RESULT = ae; Logger.getInstance().log("initializer 1"); :}
 	| CURLYL initializer_list:il CURLYR         {: Logger.getInstance().log("initializer 2"); :}
 	| CURLYL initializer_list:il COMMA CURLYR   {: Logger.getInstance().log("initializer 3"); :}
 	;
