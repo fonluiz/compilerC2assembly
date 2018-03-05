@@ -198,7 +198,14 @@ multiplicative_expression ::= cast_expression:ce {: RESULT = ce; Logger.getInsta
 			  ;
 
 additive_expression ::= multiplicative_expression:me {: RESULT = me; Logger.getInstance().log("additive_expression 1"); :}
-		    | additive_expression:ae PLUS:op multiplicative_expression:me {: Logger.getInstance().log("additive_expression 2"); :}
+		    | additive_expression:ae PLUS:op multiplicative_expression:me {:
+		                                      PrimaryExpression m1 = ((PrimaryExpression) ae);
+		                                      PrimaryExpression m2 = ((PrimaryExpression) me);
+                                              Types type = Semantic.getInstance().checkTypesCompatibility(m1.getType(), m2.getType() );
+                                              PrimaryExpression r = new PrimaryExpression(type, );
+                                              RESULT = r;
+                                              Logger.getInstance().log("additive_expression 2");
+		    :}
 		    | additive_expression:ae MINUS:op multiplicative_expression:me {: Logger.getInstance().log("additive_expression 3"); :}
 		    ;
 
