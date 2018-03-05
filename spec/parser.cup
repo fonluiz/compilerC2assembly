@@ -192,21 +192,44 @@ cast_expression
 
 
 multiplicative_expression ::= cast_expression:ce {: RESULT = ce; Logger.getInstance().log("multiplicative_expression 1"); :}
-			  | multiplicative_expression:me MUL:op cast_expression:ce {: Logger.getInstance().log("multiplicative_expression 2"); :}
-			  | multiplicative_expression:me DIVIDE:op cast_expression:ce {: Logger.getInstance().log("multiplicative_expression 3"); :}
-			  | multiplicative_expression:me MODULUS:op cast_expression:ce {: Logger.getInstance().log("multiplicative_expression 4"); :}
+			  | multiplicative_expression:me MUL:op cast_expression:ce {:
+			                                 Expression m1 = ((Expression) me);
+               		                         Expression m2 = ((Expression) ce);
+                                             Expression r = Semantic.getInstance().checkMulCompatibility(m1, m2);
+                                             RESULT = r;
+                                             Logger.getInstance().log("multiplicative_expression 2");
+			  :}
+			  | multiplicative_expression:me DIVIDE:op cast_expression:ce {:
+			                                 Expression m1 = ((Expression) me);
+			                                 Expression m2 = ((Expression) ce);
+                                             Expression r = Semantic.getInstance().checkDivideCompatibility(m1, m2);
+                                             RESULT = r;
+                                             Logger.getInstance().log("multiplicative_expression 3");
+			  :}
+			  | multiplicative_expression:me MODULUS:op cast_expression:ce {:
+			                                 Expression m1 = ((Expression) me);
+              			                     Expression m2 = ((Expression) ce);
+                                             Expression r = Semantic.getInstance().checkModulusCompatibility(m1, m2);
+                                             RESULT = r;
+			                                 Logger.getInstance().log("multiplicative_expression 4");
+			  :}
 			  ;
 
 additive_expression ::= multiplicative_expression:me {: RESULT = me; Logger.getInstance().log("additive_expression 1"); :}
 		    | additive_expression:ae PLUS:op multiplicative_expression:me {:
-		                                      PrimaryExpression m1 = ((PrimaryExpression) ae);
-		                                      PrimaryExpression m2 = ((PrimaryExpression) me);
-                                              Types type = Semantic.getInstance().checkTypesCompatibility(m1.getType(), m2.getType() );
-                                              PrimaryExpression r = new PrimaryExpression(type, );
+		                                      Expression m1 = ((Expression) ae);
+		                                      Expression m2 = ((Expression) me);
+                                              Expression r = Semantic.getInstance().checkAddCompatibility(m1, m2);
                                               RESULT = r;
                                               Logger.getInstance().log("additive_expression 2");
 		    :}
-		    | additive_expression:ae MINUS:op multiplicative_expression:me {: Logger.getInstance().log("additive_expression 3"); :}
+		    | additive_expression:ae MINUS:op multiplicative_expression:me {:
+		                                      Expression m1 = ((Expression) ae);
+		                                      Expression m2 = ((Expression) me);
+                                              Expression r = Semantic.getInstance().checkSubCompatibility(m1, m2);
+                                              RESULT = r;
+                                              Logger.getInstance().log("additive_expression 3");
+		    :}
 		    ;
 
 shift_expression ::= additive_expression:ae {:RESULT = ae; Logger.getInstance().log("shift_expression 1"); :}
