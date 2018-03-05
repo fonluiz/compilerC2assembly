@@ -1,11 +1,11 @@
 package analysis.models;
 
-public class PrimaryExpression {
+public class Expression {
 
     private Types type;
     private Object value;
 
-    public PrimaryExpression(Types type, Object value) {
+    public Expression(Types type, Object value) {
         this.type = type;
         this.value = value;
     }
