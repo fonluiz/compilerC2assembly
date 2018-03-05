@@ -13,6 +13,8 @@ import javax.xml.transform.stream.*;
 import java.nio.file.Paths;
 
 import utils.*;
+import analysis.*;
+import analysis.models.*;
 
 parser code {:
     public void syntax_error(Symbol cur_token){
@@ -34,7 +36,7 @@ parser code {:
     }
     public static LinkedList<HashSet<String>> typenames = new LinkedList<HashSet<String>>();
     public Parser(Lexer lex, ComplexSymbolFactory sf) {
-	super(lex,sf);
+	    super(lex,sf);
     }
 
     public static void main(String args[]) {
@@ -53,17 +55,7 @@ parser code {:
 	    Parser p = new Parser(lexer,csf);
 	    System.out.println("Parser runs: ");
 	    newScope();
-	    XMLElement e = (XMLElement)p.parse().value;
-	    // create XML output file
-	    XMLOutputFactory outFactory = XMLOutputFactory.newInstance();
-	    XMLStreamWriter sw = outFactory.createXMLStreamWriter(new FileOutputStream(args[1]));
-	    // dump XML output to the file
-	    XMLElement.dump(lexer,sw,e); //,"expr","stmt");
-	    // transform the parse tree into an AST and a rendered HTML version
-	    Transformer transformer = TransformerFactory.newInstance()
-		.newTransformer(new StreamSource(new File("tree.xsl")));
-	    Source text = new StreamSource(new File(args[1]));
-	    transformer.transform(text, new StreamResult(new File("output.html")));
+	    p.parse();
 
 	    System.out.println("Parsing finished!");
 	} catch (Exception e) {
@@ -278,6 +270,9 @@ declaration
 							      for (XMLElement e: ((XMLElement)idl).selectById("identifier"))
 								Parser.addType(((Terminal)e).value().toString());
 							  }
+							  Variable v = new Variable((Types) ds, idl.toString());
+                              Semantic.getInstance().addVariable(v);
+                              RESULT = v;
 							  Logger.getInstance().log("declaration 2");
 							  :} SEMI
         ;
@@ -285,20 +280,20 @@ declaration
 declaration_specifiers
 	::=storage_class_specifier:scc                              {: Logger.getInstance().log("declaration_specifiers 1"); :}
         | storage_class_specifier:scc declaration_specifiers:ds {: Logger.getInstance().log("declaration_specifiers 2"); :}
-	| type_specifier:ts                                         {: Logger.getInstance().log("declaration_specifiers 3"); :}
+	| type_specifier:ts                                         {: RESULT = ts; Logger.getInstance().log("declaration_specifiers 3"); :}
 	| type_specifier:ts declaration_specifiers:ds               {: Logger.getInstance().log("declaration_specifiers 4"); :}
 	| type_qualifier:tq                                         {: Logger.getInstance().log("declaration_specifiers 5"); :}
 	| type_qualifier:tq declaration_specifiers:ds               {: Logger.getInstance().log("declaration_specifiers 6"); :}
 	;
 
 init_declarator_list
-	::=init_declarator:id {: Logger.getInstance().log("init_declarator_list 1"); :}
+	::=init_declarator:id {: RESULT = id; Logger.getInstance().log("init_declarator_list 1"); :}
 	| init_declarator_list:idl COMMA init_declarator:id {: Logger.getInstance().log("init_declarator_list 2"); :}
 	;
 
 init_declarator
-        ::=declarator:d           {: Logger.getInstance().log("init_declarator 1"); :}
-	| declarator:d ASSIGN initializer:i  {: Logger.getInstance().log("init_declarator 2"); :}
+        ::=declarator:d           {: RESULT = d; Logger.getInstance().log("init_declarator 1"); :}
+	| declarator:d ASSIGN initializer:i  {: RESULT = d; Logger.getInstance().log("init_declarator 2"); :}
 	;
 
 storage_class_specifier
@@ -310,15 +305,15 @@ storage_class_specifier
 	;
 
 type_specifier
-	::=VOID:type                      {: Logger.getInstance().log("type_specifier 1"); :}
-	| CHAR:type                       {: Logger.getInstance().log("type_specifier 2"); :}
-	| SHORT:type                      {: Logger.getInstance().log("type_specifier 3"); :}
-	| INT:type                        {: Logger.getInstance().log("type_specifier 4"); :}
+	::=VOID:type                      {: RESULT = Types.VOID; Logger.getInstance().log("type_specifier 1"); :}
+	| CHAR:type                       {: RESULT = Types.STRING; Logger.getInstance().log("type_specifier 2"); :}
+	| SHORT:type                      {: RESULT = Types.INT; Logger.getInstance().log("type_specifier 3"); :}
+	| INT:type                        {: RESULT = Types.INT; Logger.getInstance().log("type_specifier 4"); :}
 	| LONG:type                       {: Logger.getInstance().log("type_specifier 5"); :}
-	| FLOAT:type                      {: Logger.getInstance().log("type_specifier 6"); :}
-	| DOUBLE:type                     {: Logger.getInstance().log("type_specifier 7"); :}
-	| SIGNED:type                     {: Logger.getInstance().log("type_specifier 8"); :}
-	| UNSIGNED:type                   {: Logger.getInstance().log("type_specifier 9"); :}
+	| FLOAT:type                      {: RESULT = Types.FLOAT; Logger.getInstance().log("type_specifier 6"); :}
+	| DOUBLE:type                     {: RESULT = Types.FLOAT; Logger.getInstance().log("type_specifier 7"); :}
+	| SIGNED:type                     {: RESULT = Types.INT; Logger.getInstance().log("type_specifier 8"); :}
+	| UNSIGNED:type                   {: RESULT = Types.INT; Logger.getInstance().log("type_specifier 9"); :}
 	| struct_or_union_specifier:su    {: Logger.getInstance().log("type_specifier 10"); :}
 	| enum_specifier:es               {: Logger.getInstance().log("type_specifier 11"); :}
 	| TYPE_NAME:type                  {: Logger.getInstance().log("type_specifier 12"); :}
@@ -383,11 +378,11 @@ type_qualifier
 
 declarator
 	::=pointer:p direct_declarator:direct  {: Logger.getInstance().log("declarator 1"); :}
-	| direct_declarator:direct             {: Logger.getInstance().log("declarator 2"); :}
+	| direct_declarator:direct             {: RESULT = direct; Logger.getInstance().log("declarator 2"); :}
 	;
 
 direct_declarator
-	::=IDENTIFIER:identifier             {: Logger.getInstance().log("direct_declarator 1"); :}
+	::=IDENTIFIER:identifier             {: RESULT = identifier; Logger.getInstance().log("direct_declarator 1"); :}
 	| PARAL declarator:d PARAR           {: Logger.getInstance().log("direct_declarator 2"); :}
 	| direct_declarator:dd SQUAREDL constant_expression:ce SQUAREDR {: Logger.getInstance().log("direct_declarator 3"); :}
 	| direct_declarator:dd SQUAREDL SQUAREDR                        {: Logger.getInstance().log("direct_declarator 4"); :}
@@ -523,7 +518,7 @@ jump_statement
 	;
 
 translation_unit
-	::=external_declaration:ed                      {: Logger.getInstance().startLogger(); Logger.getInstance().log("translation_unit 1"); :}
+	::=external_declaration:ed                      {: Logger.getInstance().log("translation_unit 1"); :}
 	| translation_unit:tu external_declaration:ed   {: Logger.getInstance().log("translation_unit 2"); :}
 	;
 
