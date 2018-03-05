@@ -240,7 +240,12 @@ shift_expression ::= additive_expression:ae {:RESULT = ae; Logger.getInstance().
 		 ;
 
 relational_expression ::= shift_expression:se {: RESULT = se; Logger.getInstance().log("relational_expression 1"); :}
-		      | relational_expression:re LESS:op shift_expression:se {: Logger.getInstance().log("relational_expression 2"); :}
+		      | relational_expression:re LESS:op shift_expression:se {:
+		                                         Expression exp1 = ((Expression) re);
+		                                         Expression exp2 = ((Expression) se);
+		                                         Expression r = Semantic.getInstance().checkBooleanExp(exp1, exp2, op);
+		                                         Logger.getInstance().log("relational_expression 2");
+		      :}
 		      | relational_expression:re GREATER:op shift_expression:se {: Logger.getInstance().log("relational_expression 3"); :}
 		      | relational_expression:re LE_OP:op shift_expression:se {: Logger.getInstance().log("relational_expression 4"); :}
 		      | relational_expression:re GE_OP:op shift_expression:se {: Logger.getInstance().log("relational_expression 5"); :}
