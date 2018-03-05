@@ -3,11 +3,13 @@ package analysis.models;
 public class Variable {
 
     private Types type;
-    private String name;
+    private String id;
+    private Expression valor;
 
-    public Variable(Types type, String name) {
+    public Variable(Types type, String id, Expression valor) {
         this.type = type;
-        this.name = name;
+        this.id = id;
+        this.valor = valor;
     }
 
     public Types getType() {
@@ -18,11 +20,19 @@ public class Variable {
         this.type = type;
     }
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Expression getValor() {
+        return valor;
+    }
+
+    public void setValor(Expression valor) {
+        this.valor = valor;
     }
 }

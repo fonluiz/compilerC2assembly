@@ -26,13 +26,13 @@ parser code {:
     public static void deleteScope(){
 	typenames.pop();
     }
-    public static boolean lookupType(String name){
+    public static boolean lookupType(String id){
 	for (HashSet<String> scope: typenames)
-	    if (scope.contains(name)) return true;
+	    if (scope.contains(id)) return true;
 	return false;
     }
-    public static void addType(String name){
-	typenames.peek().add(name);
+    public static void addType(String id){
+	typenames.peek().add(id);
     }
     public static LinkedList<HashSet<String>> typenames = new LinkedList<HashSet<String>>();
     public Parser(Lexer lex, ComplexSymbolFactory sf) {
@@ -143,8 +143,10 @@ precedence nonassoc ELSE;
 start with translation_unit;
 
 
-primary_expression ::= IDENTIFIER:ident {: //TODO: fazer um método que recupera o tipo do identificador
-                                           //RESULT = pexp;
+primary_expression ::= IDENTIFIER:ident {: Expression exp = new Expression(null, null);
+                                           Variable v = new Variable(null, ident.toString(), exp);
+                                           Semantic.getInstance().addVariable(v);
+                                           RESULT = exp;
                                            Logger.getInstance().log("primary_expression 1"); :}
 		   | CONSTANT:constant {: Expression pexp = new Expression(Expression.getTypeOfNumber(constant.toString()),Expression.getValueOfNumber(constant.toString()));
 		                          RESULT = pexp;
@@ -152,8 +154,8 @@ primary_expression ::= IDENTIFIER:ident {: //TODO: fazer um método que recupera
 		   | STRING_LITERAL:stringliteral {: Expression pexp = new Expression(Types.STRING, stringliteral.toString());
 		                                     RESULT = pexp;
 		                                     Logger.getInstance().log("primary_expression 3"); :}
-		   | PARAL expression:e PARAR {: //TODO: fazer um método que recupera o tipo da exppressão
-		                                 //RESULT = pexp;
+		   | PARAL expression:e PARAR {: Expression exp = (Expression) e;
+		                                 RESULT = exp;
 		                                 Logger.getInstance().log("primary_expression 4"); :}
 		   ;
 
@@ -275,7 +277,7 @@ declaration
 	::=declaration_specifiers:ds SEMI  {: Logger.getInstance().log("declaration 1"); :}
     | declaration_specifiers:ds init_declarator_list:idl {:
                               Variable v = ((Variable) idl);
-                              Types type = Semantic.getInstance().checkVariableDeclaration((Types) ds, v.getType() );
+                              Types type = Semantic.getInstance().checkVariableDeclaration((Types) ds, v.getValor().getType() );
 							  v.setType(type);
                               Semantic.getInstance().addVariable(v);
                               RESULT = v;
@@ -298,10 +300,11 @@ init_declarator_list
 	;
 
 init_declarator
-        ::=declarator:d           {: Variable v = new Variable(null, d.toString());
-                                     RESULT = v;
+        ::=declarator:d           {: RESULT = d;
                                      Logger.getInstance().log("init_declarator 1"); :}
-	| declarator:d ASSIGN initializer:i  {: Variable v = new Variable(((Expression) i).getType(), d.toString());
+	| declarator:d ASSIGN initializer:i  {: Variable v = (Variable) d;
+	                                        v.setValor((Expression) i);
+	                                        Semantic.getInstance().addVariable(v);
 	                                        RESULT = v;
 	                                        Logger.getInstance().log("init_declarator 2"); :}
 	;
@@ -392,7 +395,11 @@ declarator
 	;
 
 direct_declarator
-	::=IDENTIFIER:identifier             {: RESULT = identifier; Logger.getInstance().log("direct_declarator 1"); :}
+	::=IDENTIFIER:identifier             {: Expression exp = new Expression(null, null);
+                                            Variable v = new Variable(null, identifier.toString(), exp);
+                                            Semantic.getInstance().addVariable(v);
+                                            RESULT = v;
+                                            Logger.getInstance().log("direct_declarator 1"); :}
 	| PARAL declarator:d PARAR           {: Logger.getInstance().log("direct_declarator 2"); :}
 	| direct_declarator:dd SQUAREDL constant_expression:ce SQUAREDR {: Logger.getInstance().log("direct_declarator 3"); :}
 	| direct_declarator:dd SQUAREDL SQUAREDR                        {: Logger.getInstance().log("direct_declarator 4"); :}

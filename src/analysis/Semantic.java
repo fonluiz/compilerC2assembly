@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Semantic {
 
     private static Semantic semantic = new Semantic();
-    private HashMap<String, Types> variables = new HashMap<>();
+    private HashMap<String, Variable> variables = new HashMap<>();
 
     private Semantic() {}
 
@@ -19,10 +19,10 @@ public class Semantic {
 
     // DECLARAÇÕES E ATRIBUIÇÕES
     public void addVariable(Variable v) {
-        variables.put(v.getName(), v.getType()) ;
+        variables.put(v.getId(), v) ;
     }
 
-    public HashMap<String, Types> getVariables() {
+    public HashMap<String, Variable> getVariables() {
         return variables;
     }
 
