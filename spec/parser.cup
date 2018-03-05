@@ -430,7 +430,7 @@ direct_declarator
                                             Semantic.getInstance().addVariable(v);
                                             RESULT = v;
                                             Logger.getInstance().log("direct_declarator 1"); :}
-	| PARAL declarator:d PARAR           {: Logger.getInstance().log("direct_declarator 2"); :}
+	| PARAL declarator:d PARAR           {: RESULT = d; Logger.getInstance().log("direct_declarator 2"); :}
 	| direct_declarator:dd SQUAREDL constant_expression:ce SQUAREDR {: Logger.getInstance().log("direct_declarator 3"); :}
 	| direct_declarator:dd SQUAREDL SQUAREDR                        {: Logger.getInstance().log("direct_declarator 4"); :}
 	| direct_declarator:dd PARAL parameter_type_list:ptl PARAR      {: Logger.getInstance().log("direct_declarator 5"); :}
@@ -566,12 +566,12 @@ jump_statement
 
 translation_unit
 	::=external_declaration:ed                      {: Logger.getInstance().log("translation_unit 1"); :}
-	| translation_unit:tu external_declaration:ed   {: Logger.getInstance().log("translation_unit 2"); :}
+	| translation_unit:tu external_declaration:ed   {: RESULT = ed; Logger.getInstance().log("translation_unit 2"); :}
 	;
 
 external_declaration
-	::=function_definition:fd   {: Logger.getInstance().log("external_declaration 1"); :}
-	| declaration:d             {: Logger.getInstance().log("external_declaration 2"); :}
+	::=function_definition:fd   {: RESULT = fd; Logger.getInstance().log("external_declaration 1"); :}
+	| declaration:d             {: RESULT = d; Logger.getInstance().log("external_declaration 2"); :}
 	;
 
 function_definition
