@@ -1,6 +1,7 @@
 package analysis;
 
 import analysis.exceptions.InvalidAssignmentException;
+import analysis.exceptions.InvalidBooleanOpException;
 import analysis.models.Types;
 import analysis.models.Variable;
 import analysis.models.Expression;
@@ -98,6 +99,8 @@ public class Semantic {
     }
 
     public Expression checkMulCompatibility(Expression e1, Expression e2) throws InvalidAssignmentException {
+        System.out.println(e1.getType());
+        System.out.println(e2.getType());
         if (e1.getType().equals(Types.STRING) && e2.getType().equals(Types.FLOAT) ||
                 e1.getType().equals(Types.STRING) && e2.getType().equals(Types.INT) ||
                 e1.getType().equals(Types.INT) && e2.getType().equals(Types.STRING) ||
@@ -173,6 +176,30 @@ public class Semantic {
             Integer i = (Integer) e1.getValue() % (Integer) e2.getValue();
             return new Expression(Types.INT, (Object) i);
         }
+    }
+
+    public Expression checkBooleanExp(Expression e1, Expression e2, Object op) throws InvalidBooleanOpException {
+        Object e1Value, e2Value;
+        if(e1.getType() == Types.STRING || e2.getType() == Types.STRING)
+            throw new InvalidBooleanOpException("Operações inválidas entre o tipo " + Types.STRING.name());
+        else if(e1.getType() == e2.getType()){
+              if (e1.getValue() instanceof Float) {
+                  e1Value = (Float) e1.getValue();
+                  e2Value = (Float) e2.getValue();
+            } else {
+                  e1Value = (Integer) e1.getValue();
+                  e2Value = (Integer) e2.getValue();
+            }
+        }
+
+        String operand = op.toString();
+
+        switch (operand){
+            case "<":
+                if(e1Value. < e2Value)
+        }
+
+        return null;
     }
 
 }
