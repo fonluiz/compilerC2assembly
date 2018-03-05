@@ -195,23 +195,17 @@ cast_expression
 
 multiplicative_expression ::= cast_expression:ce {: RESULT = ce; Logger.getInstance().log("multiplicative_expression 1"); :}
 			  | multiplicative_expression:me MUL:op cast_expression:ce {:
-			                                 Expression m1 = ((Expression) me);
-               		                         Expression m2 = ((Expression) ce);
-                                             Expression r = Semantic.getInstance().checkMulCompatibility(m1, m2);
+                                             Expression r = Semantic.getInstance().execArithmeticExp(me, ce, op.toString());
                                              RESULT = r;
                                              Logger.getInstance().log("multiplicative_expression 2");
 			  :}
 			  | multiplicative_expression:me DIVIDE:op cast_expression:ce {:
-			                                 Expression m1 = ((Expression) me);
-			                                 Expression m2 = ((Expression) ce);
-                                             Expression r = Semantic.getInstance().checkDivideCompatibility(m1, m2);
+                                             Expression r = Semantic.getInstance().execArithmeticExp(me, ce, op.toString());
                                              RESULT = r;
                                              Logger.getInstance().log("multiplicative_expression 3");
 			  :}
 			  | multiplicative_expression:me MODULUS:op cast_expression:ce {:
-			                                 Expression m1 = ((Expression) me);
-              			                     Expression m2 = ((Expression) ce);
-                                             Expression r = Semantic.getInstance().checkModulusCompatibility(m1, m2);
+                                             Expression r = Semantic.getInstance().execArithmeticExp(me, ce, op.toString());
                                              RESULT = r;
 			                                 Logger.getInstance().log("multiplicative_expression 4");
 			  :}
@@ -219,16 +213,12 @@ multiplicative_expression ::= cast_expression:ce {: RESULT = ce; Logger.getInsta
 
 additive_expression ::= multiplicative_expression:me {: RESULT = me; Logger.getInstance().log("additive_expression 1"); :}
 		    | additive_expression:ae PLUS:op multiplicative_expression:me {:
-		                                      Expression m1 = ((Expression) ae);
-		                                      Expression m2 = ((Expression) me);
-                                              Expression r = Semantic.getInstance().checkAddCompatibility(m1, m2);
+                                              Expression r = Semantic.getInstance().execArithmeticExp(ae, me, op.toString());
                                               RESULT = r;
                                               Logger.getInstance().log("additive_expression 2");
 		    :}
 		    | additive_expression:ae MINUS:op multiplicative_expression:me {:
-		                                      Expression m1 = ((Expression) ae);
-		                                      Expression m2 = ((Expression) me);
-                                              Expression r = Semantic.getInstance().checkSubCompatibility(m1, m2);
+                                              Expression r = Semantic.getInstance().execArithmeticExp(ae, me, op.toString());
                                               RESULT = r;
                                               Logger.getInstance().log("additive_expression 3");
 		    :}
