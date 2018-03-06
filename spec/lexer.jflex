@@ -36,7 +36,7 @@ import java.util.*;
       Location left = new Location(yyline+1,yycolumn+yylength()-buflength,yychar+yylength()-buflength);
       Location right= new Location(yyline+1,yycolumn+yylength(), yychar+yylength());
       return symbolFactory.newSymbol("sym", sym, left, right,val);
-  }       
+  }
     
   //    static TreeSet typeset = new TreeSet();
     
@@ -119,52 +119,52 @@ L?'(\\.|[^\\'])+'	{ return symbol(CONSTANT,yytext()); }
 
 L?\"(\\.|[^\\\"])*\"	{ return symbol(STRING_LITERAL,yytext()); }
 
-"..."			{ return symbol(ELLIPSIS); }
-">>="			{ return symbol(RIGHT_ASSIGN); }
-"<<="			{ return symbol(LEFT_ASSIGN); }
-"+="			{ return symbol(ADD_ASSIGN); }
-"-="			{ return symbol(SUB_ASSIGN); }
-"*="			{ return symbol(MUL_ASSIGN); }
-"/="			{ return symbol(DIV_ASSIGN); }
-"%="			{ return symbol(MOD_ASSIGN); }
-"&="			{ return symbol(AND_ASSIGN); }
-"^="			{ return symbol(XOR_ASSIGN); }
-"|="			{ return symbol(OR_ASSIGN); }
-">>"			{ return symbol(RIGHT_OP); }
-"<<"			{ return symbol(LEFT_OP); }
+"..."			{ return symbol(ELLIPSIS,"..."); }
+">>="			{ return symbol(RIGHT_ASSIGN,">>="); }
+"<<="			{ return symbol(LEFT_ASSIGN,"<<="); }
+"+="			{ return symbol(ADD_ASSIGN,"+="); }
+"-="			{ return symbol(SUB_ASSIGN,"-="); }
+"*="			{ return symbol(MUL_ASSIGN,"*="); }
+"/="			{ return symbol(DIV_ASSIGN,"/="); }
+"%="			{ return symbol(MOD_ASSIGN,"%="); }
+"&="			{ return symbol(AND_ASSIGN,"&="); }
+"^="			{ return symbol(XOR_ASSIGN,"^="); }
+"|="			{ return symbol(OR_ASSIGN,"|="); }
+">>"			{ return symbol(RIGHT_OP,">>"); }
+"<<"			{ return symbol(LEFT_OP,"<<"); }
 "++"			{ return symbol(INC_OP,"++"); }
 "--"			{ return symbol(DEC_OP,"--"); }
-"->"			{ return symbol(PTR_OP); }
+"->"			{ return symbol(PTR_OP,"->"); }
 "&&"			{ return symbol(AND_OP,"&&"); }
 "||"			{ return symbol(OR_OP,"||"); }
 "<="			{ return symbol(LE_OP,"<="); }
 ">="			{ return symbol(GE_OP,">="); }
 "=="			{ return symbol(EQ_OP,"=="); }
 "!="			{ return symbol(NE_OP,"!="); }
-";"			{ return symbol(SEMI); }
-("{"|"<%")		{ return symbol(CURLYL); }
-("}"|"%>")		{ return symbol(CURLYR); }
-","			{ return symbol(COMMA); }
-":"			{ return symbol(COLON); }
-"="			{ return symbol(ASSIGN); }
-"("			{ return symbol(PARAL); }
-")"			{ return symbol(PARAR); }
-("["|"<:")		{ return symbol(SQUAREDL); }
-("]"|":>")		{ return symbol(SQUAREDR); }
-"."			{ return symbol(POINT); }
-"&"			{ return symbol(ADRESS); }
+";"			{ return symbol(SEMI,";"); }
+("{"|"<%")		{ return symbol(CURLYL,"{"); }
+("}"|"%>")		{ return symbol(CURLYR,"}"); }
+","			{ return symbol(COMMA,","); }
+":"			{ return symbol(COLON,":"); }
+"="			{ return symbol(ASSIGN,"="); }
+"("			{ return symbol(PARAL,"("); }
+")"			{ return symbol(PARAR,")"); }
+("["|"<:")		{ return symbol(SQUAREDL,"["); }
+("]"|":>")		{ return symbol(SQUAREDR,"]"); }
+"."			{ return symbol(POINT,"."); }
+"&"			{ return symbol(ADRESS,"&"); }
 "!"			{ return symbol(NOT,"!"); }
-"~"			{ return symbol(TILDE); }
-"-"			{ return symbol(MINUS); }
+"~"			{ return symbol(TILDE,"~"); }
+"-"			{ return symbol(MINUS,"-"); }
 "+"			{ return symbol(PLUS,"+"); }
 "*"			{ return symbol(MUL,"*"); }
 "/"			{ return symbol(DIVIDE,"/"); }
 "%"			{ return symbol(MODULUS,"%"); }
 "<"			{ return symbol(LESS,"<"); }
 ">"			{ return symbol(GREATER,">"); }
-"^"			{ return symbol(XOR); }
-"|"			{ return symbol(OR); }
-"?"			{ return symbol(COND); }
+"^"			{ return symbol(XOR,"^"); }
+"|"			{ return symbol(OR,"|"); }
+"?"			{ return symbol(COND,"?"); }
 
 {white_space}		{ /* ignore bad characters */ }
 .|\n			{ System.err.println("Fehler: unbekanntes Zeichen:"+yytext()+" "+(yyline+1)+"/"+(yycolumn+1)); }
