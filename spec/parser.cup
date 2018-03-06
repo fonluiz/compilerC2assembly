@@ -597,7 +597,9 @@ external_declaration
 	;
 
 function_definition
-	::=declaration_specifiers:ds declarator:d declaration_list:dl {: Parser.newScope(); :} compound_statement:cs {: Parser.deleteScope();  Logger.getInstance().log("function_definition 1");:}
+	::=declaration_specifiers:ds declarator:d declaration_list:dl {: Parser.newScope(); :} compound_statement:cs {: Parser.deleteScope();
+	                                                                 Logger.getInstance().log("function_definition 1");
+	                                                                 :}
 	| declaration_specifiers:ds declarator:d {: Parser.newScope(); :}  compound_statement:cs {: Parser.deleteScope(); Logger.getInstance().log("function_definition 2");:}
 	| declarator:d declaration_list:dl {: Parser.newScope(); :} compound_statement:cs {: Parser.deleteScope(); Logger.getInstance().log("function_definition 3");:}
 	| declarator:d {: Parser.newScope(); :}  compound_statement:cs {: Parser.deleteScope(); Logger.getInstance().log("function_definition 4");:}
