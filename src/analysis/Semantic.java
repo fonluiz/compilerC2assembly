@@ -14,6 +14,7 @@ public class Semantic {
 
     private static Semantic semantic = new Semantic();
     private HashMap<String, Variable> variables = new HashMap<>();
+    public static CodeGenerator codeGenerator = new CodeGenerator();
 
     private Semantic() {}
 
@@ -32,6 +33,10 @@ public class Semantic {
 
     public Variable getVariableById(String id) {
         return variables.get(id);
+    }
+
+    public static CodeGenerator getCodeGenerator() {
+        return codeGenerator;
     }
 
     public Types checkVariableDeclaration(Types variableType, Types expressionType) throws InvalidAssignmentException {
