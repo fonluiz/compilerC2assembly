@@ -1,7 +1,9 @@
 package analysis;
 
+import analysis.exceptions.InvalidArithmeticOpException;
 import analysis.exceptions.InvalidAssignmentException;
 import analysis.exceptions.InvalidBooleanOpException;
+import analysis.exceptions.InvalidIfElseOpException;
 import analysis.models.Types;
 import analysis.models.Variable;
 import analysis.models.Expression;
@@ -46,160 +48,177 @@ public class Semantic {
         }
     }
 
-    public Expression checkAddCompatibility(Expression e1, Expression e2) throws InvalidAssignmentException {
-        if (e1.getType().equals(Types.STRING) && e2.getType().equals(Types.FLOAT) ||
-                e1.getType().equals(Types.STRING) && e2.getType().equals(Types.INT) ||
-                e1.getType().equals(Types.INT) && e2.getType().equals(Types.STRING) ||
-                e1.getType().equals(Types.FLOAT) && e2.getType().equals(Types.STRING)) {
-            throw new InvalidAssignmentException("Não é possível atribuir uma expressão do tipo " + e1.getType().name() +
-                    " a uma variável do tipo " + e2.getType().name());
-        } else if (e1.getType().equals(e2.getType())) {
-            if(e1.getValue() instanceof String){
-                throw new InvalidAssignmentException("Operação inválida"); // Ajeitar exception
-            } else if (e1.getValue() instanceof Float){
-                Float f = (Float) e1.getValue() + (Float) e2.getValue();
-                return new Expression(Types.FLOAT, (Object) f);
-            } else {
-                Integer i = (Integer) e1.getValue() + (Integer) e2.getValue();
-                return new Expression(Types.INT, (Object) i);
-            }
-        } else if (e1.getType().equals(Types.FLOAT) || e2.getType().equals(Types.FLOAT)) {
-            Float f = (Float) e1.getValue() + (Float) e2.getValue();
-            return new Expression(Types.FLOAT, (Object) f);
-        } else {
-            Integer i = (Integer) e1.getValue() + (Integer) e2.getValue();
-            return new Expression(Types.INT, (Object) i);
+    public Expression execArithmeticExp(Object obj1, Object obj2, String operator) throws InvalidArithmeticOpException {
+        Expression operand1 = getExpressionFromObject(obj1);
+        Expression operand2 = getExpressionFromObject(obj2);
+
+        Expression result = null;
+
+        if (operand1.getType().equals(Types.STRING) || operand2.getType().equals(Types.STRING)) {
+            throw new InvalidArithmeticOpException("O operador '" + operator + "' não suporta operandos do tipo "
+                    + operand1.getType().name() + " e " + operand2.getType().name());
+        } else if (operand1.getType().equals(Types.FLOAT) || operand2.getType().equals(Types.FLOAT)) {
+            result = arithmeticForFloat(operand1, operand2, operator);
+        } else  {
+            result = arithmeticForInt(operand1, operand2, operator);
         }
+
+        return result;
     }
 
-    public Expression checkSubCompatibility(Expression e1, Expression e2) throws InvalidAssignmentException {
-        if (e1.getType().equals(Types.STRING) && e2.getType().equals(Types.FLOAT) ||
-                e1.getType().equals(Types.STRING) && e2.getType().equals(Types.INT) ||
-                e1.getType().equals(Types.INT) && e2.getType().equals(Types.STRING) ||
-                e1.getType().equals(Types.FLOAT) && e2.getType().equals(Types.STRING)) {
-            throw new InvalidAssignmentException("Não é possível atribuir uma expressão do tipo " + e1.getType().name() +
-                    " a uma variável do tipo " + e2.getType().name());
-        } else if (e1.getType().equals(e2.getType())) {
-            if(e1.getValue() instanceof String){
-                throw new InvalidAssignmentException("Operação inválida");
-            } else if (e1.getValue() instanceof Float){
-                Float f = (Float) e1.getValue() - (Float) e2.getValue();
-                return new Expression(Types.FLOAT, (Object) f);
-            } else {
-                Integer i = (Integer) e1.getValue() - (Integer) e2.getValue();
-                return new Expression(Types.INT, (Object) i);
-            }
-        } else if (e1.getType().equals(Types.FLOAT) || e2.getType().equals(Types.FLOAT)) {
-            Float f = (Float) e1.getValue() - (Float) e2.getValue();
-            return new Expression(Types.FLOAT, (Object) f);
-        } else {
-            Integer i = (Integer) e1.getValue() - (Integer) e2.getValue();
-            return new Expression(Types.INT, (Object) i);
+    private Expression getExpressionFromObject(Object obj) {
+        Expression exp = null;
+        if (obj instanceof Expression) {
+            exp = (Expression) obj;
+        } else if (obj instanceof Variable) {
+            exp = ((Variable) obj).toExpression();
         }
+        return exp;
     }
 
-    public Expression checkMulCompatibility(Expression e1, Expression e2) throws InvalidAssignmentException {
-        System.out.println(e1.getType());
-        System.out.println(e2.getType());
-        if (e1.getType().equals(Types.STRING) && e2.getType().equals(Types.FLOAT) ||
-                e1.getType().equals(Types.STRING) && e2.getType().equals(Types.INT) ||
-                e1.getType().equals(Types.INT) && e2.getType().equals(Types.STRING) ||
-                e1.getType().equals(Types.FLOAT) && e2.getType().equals(Types.STRING)) {
-            throw new InvalidAssignmentException("Não é possível atribuir uma expressão do tipo " + e1.getType().name() +
-                    " a uma variável do tipo " + e2.getType().name());
-        } else if (e1.getType().equals(e2.getType())) {
-            if(e1.getValue() instanceof String){
-                throw new InvalidAssignmentException("Operação inválida");
-            } else if (e1.getValue() instanceof Float){
-                Float f = (Float) e1.getValue() * (Float) e2.getValue();
-                return new Expression(Types.FLOAT, (Object) f);
-            } else {
-                Integer i = (Integer) e1.getValue() * (Integer) e2.getValue();
-                return new Expression(Types.INT, (Object) i);
-            }
-        } else if (e1.getType().equals(Types.FLOAT) || e2.getType().equals(Types.FLOAT)) {
-            Float f = (Float) e1.getValue() * (Float) e2.getValue();
-            return new Expression(Types.FLOAT, (Object) f);
-        } else {
-            Integer i = (Integer) e1.getValue() * (Integer) e2.getValue();
-            return new Expression(Types.INT, (Object) i);
+    private Expression arithmeticForInt(Expression operand1, Expression operand2, String operator) {
+        Expression result = null;
+        switch (operator) {
+            case ("+"):
+                Integer f1 = (Integer) operand1.getValue() + (Integer) operand2.getValue();
+                result = new Expression(Types.FLOAT, f1);
+                break;
+            case ("-"):
+                Integer f2 = (Integer) operand1.getValue() - (Integer) operand2.getValue();
+                result = new Expression(Types.FLOAT, f2);
+                break;
+            case ("*"):
+                Integer f3 = (Integer) operand1.getValue() * (Integer) operand2.getValue();
+                result = new Expression(Types.FLOAT, f3);
+                break;
+            case ("/"):
+                Integer f4 = (Integer) operand1.getValue() / (Integer) operand2.getValue();
+                result = new Expression(Types.FLOAT, f4);
+                break;
+            case ("%"):
+                Integer f5 = (Integer) operand1.getValue() % (Integer) operand2.getValue();
+                result = new Expression(Types.FLOAT, f5);
+                break;
         }
+        return result;
     }
 
-    public Expression checkDivideCompatibility(Expression e1, Expression e2) throws InvalidAssignmentException {
-        if (e1.getType().equals(Types.STRING) && e2.getType().equals(Types.FLOAT) ||
-                e1.getType().equals(Types.STRING) && e2.getType().equals(Types.INT) ||
-                e1.getType().equals(Types.INT) && e2.getType().equals(Types.STRING) ||
-                e1.getType().equals(Types.FLOAT) && e2.getType().equals(Types.STRING)) {
-            throw new InvalidAssignmentException("Não é possível atribuir uma expressão do tipo " + e1.getType().name() +
-                    " a uma variável do tipo " + e2.getType().name());
-        } else if (e1.getType().equals(e2.getType())) {
-            if(e1.getValue() instanceof String){
-                throw new InvalidAssignmentException("Operação inválida");
-            } else if (e1.getValue() instanceof Float){
-                Float f = (Float) e1.getValue() / (Float) e2.getValue();
-                return new Expression(Types.FLOAT, (Object) f);
-            } else {
-                Integer i = (Integer) e1.getValue() / (Integer) e2.getValue();
-                return new Expression(Types.INT, (Object) i);
-            }
-        } else if (e1.getType().equals(Types.FLOAT) || e2.getType().equals(Types.FLOAT)) {
-            Float f = (Float) e1.getValue() / (Float) e2.getValue();
-            return new Expression(Types.FLOAT, (Object) f);
-        } else {
-            Integer i = (Integer) e1.getValue() / (Integer) e2.getValue();
-            return new Expression(Types.INT, (Object) i);
+    private Expression arithmeticForFloat(Expression operand1, Expression operand2, String operator) {
+        Expression result = null;
+        switch (operator) {
+            case ("+"):
+                Float f1 = (Float) operand1.getValue() + (Float) operand2.getValue();
+                result = new Expression(Types.FLOAT, f1);
+                break;
+            case ("-"):
+                Float f2 = (Float) operand1.getValue() - (Float) operand2.getValue();
+                result = new Expression(Types.FLOAT, f2);
+                break;
+            case ("*"):
+                Float f3 = (Float) operand1.getValue() * (Float) operand2.getValue();
+                result = new Expression(Types.FLOAT, f3);
+                break;
+            case ("/"):
+                Float f4 = (Float) operand1.getValue() / (Float) operand2.getValue();
+                result = new Expression(Types.FLOAT, f4);
+                break;
+            case ("%"):
+                Float f5 = (Float) operand1.getValue() % (Float) operand2.getValue();
+                result = new Expression(Types.FLOAT, f5);
+                break;
         }
+        return result;
     }
 
-    public Expression checkModulusCompatibility(Expression e1, Expression e2) throws InvalidAssignmentException {
-        if (e1.getType().equals(Types.STRING) && e2.getType().equals(Types.FLOAT) ||
-                e1.getType().equals(Types.STRING) && e2.getType().equals(Types.INT) ||
-                e1.getType().equals(Types.INT) && e2.getType().equals(Types.STRING) ||
-                e1.getType().equals(Types.FLOAT) && e2.getType().equals(Types.STRING)) {
-            throw new InvalidAssignmentException("Não é possível atribuir uma expressão do tipo " + e1.getType().name() +
-                    " a uma variável do tipo " + e2.getType().name());
-        } else if (e1.getType().equals(e2.getType())) {
-            if (e1.getValue() instanceof String) {
-                throw new InvalidAssignmentException("Operação inválida");
-            } else if (e1.getValue() instanceof Float) {
-                Float f = (Float) e1.getValue() % (Float) e2.getValue();
-                return new Expression(Types.FLOAT, (Object) f);
-            } else {
-                Integer i = (Integer) e1.getValue() % (Integer) e2.getValue();
-                return new Expression(Types.INT, (Object) i);
-            }
-        } else if (e1.getType().equals(Types.FLOAT) || e2.getType().equals(Types.FLOAT)) {
-            Float f = (Float) e1.getValue() % (Float) e2.getValue();
-            return new Expression(Types.FLOAT, (Object) f);
-        } else {
-            Integer i = (Integer) e1.getValue() % (Integer) e2.getValue();
-            return new Expression(Types.INT, (Object) i);
+    public Expression execBooleanExp(Object obj1, Object obj2, String operator) throws InvalidBooleanOpException {
+        Expression operand1 = getExpressionFromObject(obj1);
+        Expression operand2 = getExpressionFromObject(obj2);
+
+        Expression result = null;
+
+        if (operand1.getType().equals(Types.STRING) || operand2.getType().equals(Types.STRING)) {
+            throw new InvalidBooleanOpException("O operador '" + operator + "' não suporta operandos do tipo "
+                    + operand1.getType().name() + " e " + operand2.getType().name());
+        } else if (operand1.getType().equals(Types.FLOAT) || operand2.getType().equals(Types.FLOAT)) {
+            result = booleanForFloat(operand1, operand2, operator);
+        } else  {
+            result = booleanForInt(operand1, operand2, operator);
         }
+
+        return result;
     }
 
-    public Expression checkBooleanExp(Expression e1, Expression e2, Object op) throws InvalidBooleanOpException {
-        Object e1Value, e2Value;
-        if(e1.getType() == Types.STRING || e2.getType() == Types.STRING)
-            throw new InvalidBooleanOpException("Operações inválidas entre o tipo " + Types.STRING.name());
-        else if(e1.getType() == e2.getType()){
-              if (e1.getValue() instanceof Float) {
-                  e1Value = (Float) e1.getValue();
-                  e2Value = (Float) e2.getValue();
-            } else {
-                  e1Value = (Integer) e1.getValue();
-                  e2Value = (Integer) e2.getValue();
-            }
-        }
-
-        String operand = op.toString();
-
-        switch (operand){
+    private Expression booleanForInt(Expression operand1, Expression operand2, String operator) {
+        Expression result = null;
+        switch (operator) {
             case "<":
-                if(e1Value. < e2Value)
+                Integer f1 = ((Integer) operand1.getValue() < (Integer) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.INT, f1);
+                break;
+            case ">":
+                Integer f2 = ((Integer) operand1.getValue() > (Integer) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.INT, f2);
+                break;
+            case "<=":
+                Integer f3 = ((Integer) operand1.getValue() <= (Integer) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.INT, f3);
+                break;
+            case ">=":
+                Integer f4 = ((Integer) operand1.getValue() >= (Integer) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.INT, f4);
+                break;
+            case "==":
+                Integer f5 = ((Integer) operand1.getValue() == (Integer) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.INT, f5);
+                break;
+            case "!=":
+                Integer f6 = ((Integer) operand1.getValue() != (Integer) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.INT, f6);
+                break;
+        }
+        return result;
+    }
+
+    private Expression booleanForFloat(Expression operand1, Expression operand2, String operator) {
+        Expression result = null;
+        switch (operator) {
+            case "<":
+                Integer f1 = ((Float) operand1.getValue() < (Float) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.FLOAT, f1);
+                break;
+            case ">":
+                Integer f2 = ((Float) operand1.getValue() > (Float) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.FLOAT, f2);
+                break;
+            case "<=":
+                Integer f3 = ((Float) operand1.getValue() <= (Float) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.FLOAT, f3);
+                break;
+            case ">=":
+                Integer f4 = ((Float) operand1.getValue() >= (Float) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.FLOAT, f4);
+                break;
+            case "==":
+                Integer f5 = ((Float) operand1.getValue() == (Float) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.FLOAT, f5);
+                break;
+            case "!=":
+                Integer f6 = ((Float) operand1.getValue() != (Float) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.FLOAT, f6);
+                break;
+        }
+        return result;
+    }
+
+    public Expression execIfElseExp(Object obj1) throws InvalidIfElseOpException {
+        Expression operand1 = getExpressionFromObject(obj1);
+
+        if(operand1.getType() == Types.STRING){
+            throw new InvalidIfElseOpException("Operação inválida para operandos do tipo "
+                    + operand1.getType().name());
         }
 
-        return null;
+        return operand1;
     }
 
 }

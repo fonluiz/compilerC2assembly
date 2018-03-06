@@ -35,4 +35,8 @@ public class Variable {
     public void setValor(Expression valor) {
         this.valor = valor;
     }
+
+    public Expression toExpression() {
+        return new Expression(type, valor.getValue());
+    }
 }
