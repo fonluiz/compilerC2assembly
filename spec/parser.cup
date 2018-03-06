@@ -234,59 +234,61 @@ shift_expression ::= additive_expression:ae {:RESULT = ae; Logger.getInstance().
 
 relational_expression ::= shift_expression:se {: RESULT = se; Logger.getInstance().log("relational_expression 1"); :}
 		      | relational_expression:re LESS:op shift_expression:se {:
-		                                         Expression r = Semantic.getInstance().execBooleanExp(re, se, op.toString());
-                                                 RESULT = r;
 		                                         Logger.getInstance().log("relational_expression 2");
 		      :}
 		      | relational_expression:re GREATER:op shift_expression:se {:
-		                                         Expression r = Semantic.getInstance().execBooleanExp(re, se, op.toString());
-                                                 RESULT = r;
 		                                         Logger.getInstance().log("relational_expression 3");
 		                                         :}
 		      | relational_expression:re LE_OP:op shift_expression:se {:
-		                                         Expression r = Semantic.getInstance().execBooleanExp(re, se, op.toString());
-                                                 RESULT = r;
 		                                         Logger.getInstance().log("relational_expression 4");
 		                                         :}
 		      | relational_expression:re GE_OP:op shift_expression:se {:
-                                                 Expression r = Semantic.getInstance().execBooleanExp(re, se, op.toString());
-                                                 RESULT = r;
                                                  Logger.getInstance().log("relational_expression 5");
                                                  :}
 		      ;
 
 equality_expression ::= relational_expression:re {: RESULT = re; Logger.getInstance().log("equality_expression 1"); :}
 		    | equality_expression:ee EQ_OP:op relational_expression:re {:
-		                                         Expression r = Semantic.getInstance().execBooleanExp(ee, re, op.toString());
-                                                 RESULT = r;
                                                  Logger.getInstance().log("equality_expression 2");
                                                  :}
 		    | equality_expression:ee NE_OP:op relational_expression:re {:
-		                                         Expression r = Semantic.getInstance().execBooleanExp(ee, re, op.toString());
-                                                 RESULT = r;
                                                  Logger.getInstance().log("equality_expression 3");
 		    :}
 		    ;
 
 and_expression ::= equality_expression:ee {: RESULT = ee; Logger.getInstance().log("and_expression 1"); :}
-	       | and_expression:ae ADRESS equality_expression:ee {: Logger.getInstance().log("and_expression 2"); :}
+	       | and_expression:ae ADRESS:op equality_expression:ee {: Expression exp = Semantic.getInstance().execBooleanExp(ae, ee, "&");
+	                                                               RESULT = exp;
+	                                                               Logger.getInstance().log("and_expression 2"); :}
 	       ;
 
 exclusive_or_expression	::= and_expression:ae {: RESULT = ae; Logger.getInstance().log("exclusive_or_expression 1"); :}
-			| exclusive_or_expression:eoe XOR and_expression:ae {: Logger.getInstance().log("exclusive_or_expression 2"); :}
+			| exclusive_or_expression:eoe XOR:op and_expression:ae {:
+			                                                          Expression exp = Semantic.getInstance().execBooleanExp(eoe, ae, "^");
+                                                                      RESULT = exp;
+                                                                      Logger.getInstance().log("exclusive_or_expression 2"); :}
 			;
 
 
 inclusive_or_expression	::= exclusive_or_expression:eoe {: RESULT = eoe; Logger.getInstance().log("inclusive_or_expression 1"); :}
-			| inclusive_or_expression:ioe OR exclusive_or_expression:eoe {: Logger.getInstance().log("inclusive_or_expression 2"); :}
+			| inclusive_or_expression:ioe OR:op exclusive_or_expression:eoe {:
+						                                                          Expression exp = Semantic.getInstance().execBooleanExp(ioe, eoe, "|");
+                                                                                  RESULT = exp;
+                                                                                  Logger.getInstance().log("inclusive_or_expression 2"); :}
 			;
 
 logical_and_expression ::= inclusive_or_expression:ioe {: RESULT = ioe; Logger.getInstance().log("logical_and_expression 1"); :}
-		       | logical_and_expression:lae AND_OP:op inclusive_or_expression:ioe {: Logger.getInstance().log("logical_and_expression 2"); :}
+		       | logical_and_expression:lae AND_OP:op inclusive_or_expression:ioe {:
+		       			                                                            Expression exp = Semantic.getInstance().execBooleanExp(lae, ioe, op.toString());
+                                                                                    RESULT = exp;
+                                                                                    Logger.getInstance().log("logical_and_expression 2"); :}
 		       ;
 
 logical_or_expression ::= logical_and_expression:lae {: RESULT = lae; Logger.getInstance().log("logical_or_expression 1"); :}
-		      | logical_or_expression:loe OR_OP:op logical_and_expression:lae {: Logger.getInstance().log("logical_or_expression 2"); :}
+		      | logical_or_expression:loe OR_OP:op logical_and_expression:lae {:
+		      			                                                         Expression exp = Semantic.getInstance().execBooleanExp(loe, lae, op.toString());
+                                                                                 RESULT = exp;
+                                                                                 Logger.getInstance().log("logical_or_expression 2"); :}
 		      ;
 
 conditional_expression ::= logical_or_expression:loe {:
