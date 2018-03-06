@@ -1,5 +1,6 @@
 import java.io.*;
 import java_cup.runtime.ComplexSymbolFactory;
+import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
 import java_cup.runtime.Symbol;
 import java_cup.runtime.ScannerBuffer;
 import java.util.*;
@@ -18,8 +19,28 @@ import analysis.models.*;
 
 parser code {:
     public void syntax_error(Symbol cur_token){
-	System.err.println("Syntax error at "+cur_token);
+	//System.err.println("Syntax error at "+cur_token);
     }
+
+    public void report_error(String message, Object info){
+       StringBuffer m = new StringBuffer("ERRO SINTÁTICO EM: ");
+
+       if (info instanceof ComplexSymbol){
+         ComplexSymbol s = (ComplexSymbol) info;
+         if(s.value != null) m.append( s.value.toString() );
+         m.append( " - Linha: " + s.getLeft().getLine() + " - Coluna: "+s.getLeft().getColumn() );
+         }
+
+       m.append(" : "+message);
+
+       System.err.println(m);
+     }
+
+     public void report_fatal_error(String message, Object info) {
+       report_error(message, info);
+       throw new RuntimeException("Fatal Syntax Error");
+     }
+
     public static void newScope(){
 	typenames.push(new HashSet<String>());
     }
