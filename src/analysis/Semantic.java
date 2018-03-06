@@ -1,10 +1,7 @@
 package analysis;
 
-import analysis.exceptions.InvalidArithmeticOperationException;
-import analysis.exceptions.InvalidAssignmentException;
-import analysis.exceptions.VariableNotInitializedException;
-import analysis.exceptions.InvalidBooleanOpException;
-import analysis.exceptions.InvalidIfElseOpException;
+import analysis.exceptions.*;
+import analysis.models.Function;
 import analysis.models.Types;
 import analysis.models.Variable;
 import analysis.models.Expression;
@@ -16,11 +13,21 @@ public class Semantic {
     private static Semantic semantic = new Semantic();
     private HashMap<String, Variable> variables = new HashMap<>();
     private Variable tempForAssignment;
+    private HashMap<String, Function> functions = new HashMap<>();
 
     private Semantic() {}
 
     public static Semantic getInstance() {
         return semantic;
+    }
+
+    // FUNÇÕES
+    public void addFunction(Function f) {
+        functions.put(f.getId(), f);
+    }
+
+    public Function getFunctionById(String id) {
+        return functions.get(id);
     }
 
     // DECLARAÇÕES E ATRIBUIÇÕES
@@ -84,6 +91,11 @@ public class Semantic {
         Expression operand2 = getExpressionFromObject(obj2);
 
         Expression result = null;
+
+        // Para o caso de serem parâmetros de uma função
+        if (operand1.getValue() == null || operand2.getValue() == null) {
+            return result;
+        }
 
         if (operand1.getType().equals(Types.STRING) || operand2.getType().equals(Types.STRING)) {
             throw new InvalidArithmeticOperationException("O operador '" + operator + "' não suporta operandos do tipo "
@@ -247,19 +259,13 @@ public class Semantic {
         return result;
     }
 
-    public Expression execIfElseExp(Object obj1) throws InvalidIfElseOpException, VariableNotInitializedException {
-        Expression operand1 = getExpressionFromObject(obj1);
+    public void checkIfCondition(Object obj) throws InvalidIfConditionException, VariableNotInitializedException {
 
-        Expression result = null;
+        Expression exp = getExpressionFromObject(obj);
 
-        if(operand1.getType() == Types.STRING){
-            throw new InvalidIfElseOpException("Operação inválida para operandos do tipo "
-                    + operand1.getType().name());
-        }else if(operand1.getType() == Types.FLOAT){
-            result = new Expression(Types.INT, ((Float) operand1.getValue()).intValue() );
-        } else result = operand1;
-
-        return result;
+        if (! exp.getType().equals(Types.INT)) {
+            throw new InvalidIfConditionException("A expressão do comando if não pode ser do tipo " + exp.getType().name());
+        }
     }
 
 }
