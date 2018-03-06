@@ -167,5 +167,5 @@ L?\"(\\.|[^\\\"])*\"	{ return symbol(STRING_LITERAL,yytext()); }
 "?"			{ return symbol(COND,"?"); }
 
 {white_space}		{ /* ignore bad characters */ }
-.|\n			{ System.err.println("Fehler: unbekanntes Zeichen:"+yytext()+" "+(yyline+1)+"/"+(yycolumn+1)); }
+[^]			{ System.err.println("Fehler: unbekanntes Zeichen:"+yytext()+" "+(yyline+1)+"/"+(yycolumn+1)); }
 
