@@ -27,7 +27,7 @@ parser code {:
 
        if (info instanceof ComplexSymbol){
          ComplexSymbol s = (ComplexSymbol) info;
-         m.append( s.value.toString() );
+         if(s.value != null) m.append( s.value.toString() );
          m.append( " - Linha: " + s.getLeft().getLine() + " - Coluna: "+s.getLeft().getColumn() );
          }
 
