@@ -143,10 +143,13 @@ precedence nonassoc ELSE;
 start with translation_unit;
 
 
-primary_expression ::= IDENTIFIER:ident {: Expression exp = new Expression(null, null);
-                                           Variable v = new Variable(null, ident.toString(), exp);
-                                           Semantic.getInstance().addVariable(v);
-                                           RESULT = exp;
+primary_expression ::= IDENTIFIER:ident {: Variable v = Semantic.getInstance().getVariableById(ident.toString());
+                                           if (v == null) {
+                                                Expression exp = new Expression(null, null);
+                                                v = new Variable(null, ident.toString(), exp);
+                                                Semantic.getInstance().addVariable(v);
+                                           }
+                                           RESULT = v;
                                            Logger.getInstance().log("primary_expression 1"); :}
 		   | CONSTANT:constant {: Expression pexp = new Expression(Expression.getTypeOfNumber(constant.toString()),Expression.getValueOfNumber(constant.toString()));
 		                          RESULT = pexp;
@@ -313,7 +316,7 @@ assignment_operator
 	| OR_ASSIGN {: Logger.getInstance().log("assignment_operator 11"); :}
 	;
 
-expression ::= assignment_expression:ae {: Logger.getInstance().log("expression 1"); :}
+expression ::= assignment_expression:ae {: RESULT = ae; Logger.getInstance().log("expression 1"); :}
 	   | expression:e COMMA assignment_expression:ae {: Logger.getInstance().log("expression 2"); :}
 	   ;
 
@@ -352,6 +355,7 @@ init_declarator
                                      Logger.getInstance().log("init_declarator 1"); :}
 	| declarator:d ASSIGN initializer:i  {: Variable v = (Variable) d;
 	                                        v.setValor((Expression) i);
+	                                        v.setType(((Expression) i).getType());
 	                                        Semantic.getInstance().addVariable(v);
 	                                        RESULT = v;
 	                                        Logger.getInstance().log("init_declarator 2"); :}
