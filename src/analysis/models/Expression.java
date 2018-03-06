@@ -34,5 +34,8 @@ public class Expression {
         }
     }
 
-
+    @Override
+    public String toString() {
+        return "TYPE: " + type + "VALUE: " + value;
+    }
 }

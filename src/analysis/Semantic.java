@@ -27,6 +27,10 @@ public class Semantic {
         return variables;
     }
 
+    public Variable getVariableById(String id) {
+        return variables.get(id);
+    }
+
     public Types checkVariableDeclaration(Types variableType, Types expressionType) throws InvalidAssignmentException {
         if (expressionType == null) {
             return null;
@@ -49,6 +53,9 @@ public class Semantic {
         Expression operand1 = getExpressionFromObject(obj1);
         Expression operand2 = getExpressionFromObject(obj2);
 
+        System.out.println(operand1);
+        System.out.println(operand1.getType());
+
         Expression result = null;
 
         if (operand1.getType().equals(Types.STRING) || operand2.getType().equals(Types.STRING)) {
@@ -67,7 +74,9 @@ public class Semantic {
         Expression exp = null;
         if (obj instanceof Expression) {
             exp = (Expression) obj;
+            System.out.println("rola");
         } else if (obj instanceof Variable) {
+            System.out.println("cu");
             exp = ((Variable) obj).toExpression();
         }
         return exp;
