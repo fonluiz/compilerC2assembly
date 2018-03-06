@@ -39,4 +39,11 @@ public class Variable {
     public Expression toExpression() {
         return new Expression(type, valor.getValue());
     }
+
+    public boolean isDeclared() {
+        if (type == null) {
+            return false;
+        }
+        return true;
+    }
 }

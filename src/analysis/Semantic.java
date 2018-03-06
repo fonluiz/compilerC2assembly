@@ -1,9 +1,6 @@
 package analysis;
 
-import analysis.exceptions.InvalidArithmeticOpException;
-import analysis.exceptions.InvalidAssignmentException;
-import analysis.exceptions.InvalidBooleanOpException;
-import analysis.exceptions.InvalidIfElseOpException;
+import analysis.exceptions.*;
 import analysis.models.Types;
 import analysis.models.Variable;
 import analysis.models.Expression;
@@ -15,6 +12,7 @@ public class Semantic {
     private static Semantic semantic = new Semantic();
     private HashMap<String, Variable> variables = new HashMap<>();
     public static CodeGenerator codeGenerator = new CodeGenerator();
+    private Variable tempForAssignment;
 
     private Semantic() {}
 
@@ -39,6 +37,21 @@ public class Semantic {
         return codeGenerator;
     }
 
+    public void createTempForAssignment(Variable v) {
+        tempForAssignment = v;
+    }
+
+    public boolean isTempForAssignment(Variable v) {
+        if (tempForAssignment != null ){
+            return tempForAssignment.getId().equals(v.getId());
+        }
+        return false;
+    }
+
+    public void destroyTempForAssignment() {
+        tempForAssignment = null;
+    }
+
     public Types checkVariableDeclaration(Types variableType, Types expressionType) throws InvalidAssignmentException {
         if (expressionType == null) {
             return null;
@@ -57,12 +70,19 @@ public class Semantic {
         }
     }
 
-    public Expression execArithmeticExp(Object obj1, Object obj2, String operator) throws InvalidArithmeticOpException {
+    public void checkAssignment(Object obj) throws VariableNotInitializedException {
+        if (obj instanceof Variable) {
+            Variable v = (Variable) obj;
+            if (! v.isDeclared()) {
+                throw new VariableNotInitializedException("A variável " + v.getId() + " não foi inicializada.");
+            }
+        }
+    }
+
+    public Expression execArithmeticExp(Object obj1, Object obj2, String operator) throws VariableNotInitializedException, InvalidArithmeticOpException {
+
         Expression operand1 = getExpressionFromObject(obj1);
         Expression operand2 = getExpressionFromObject(obj2);
-
-        System.out.println(operand1);
-        System.out.println(operand1.getType());
 
         Expression result = null;
 
@@ -78,14 +98,18 @@ public class Semantic {
         return result;
     }
 
-    private Expression getExpressionFromObject(Object obj) {
+    private Expression getExpressionFromObject(Object obj) throws VariableNotInitializedException {
         Expression exp = null;
         if (obj instanceof Expression) {
             exp = (Expression) obj;
-            System.out.println("rola");
         } else if (obj instanceof Variable) {
-            System.out.println("cu");
-            exp = ((Variable) obj).toExpression();
+            Variable var = (Variable) obj;
+            if (isTempForAssignment(var)) {
+                var = tempForAssignment;
+            } else if (! var.isDeclared()) {
+                throw new VariableNotInitializedException("A variável " + var.getId() + " não foi inicializada.");
+            }
+            exp = var.toExpression();
         }
         return exp;
     }
@@ -144,7 +168,7 @@ public class Semantic {
         return result;
     }
 
-    public Expression execBooleanExp(Object obj1, Object obj2, String operator) throws InvalidBooleanOpException {
+    public Expression execBooleanExp(Object obj1, Object obj2, String operator) throws InvalidBooleanOpException, VariableNotInitializedException {
         Expression operand1 = getExpressionFromObject(obj1);
         Expression operand2 = getExpressionFromObject(obj2);
 
@@ -224,7 +248,7 @@ public class Semantic {
         return result;
     }
 
-    public Expression execIfElseExp(Object obj1) throws InvalidIfElseOpException {
+    public Expression execIfElseExp(Object obj1) throws InvalidIfElseOpException, VariableNotInitializedException {
         Expression operand1 = getExpressionFromObject(obj1);
 
         Expression result = null;
