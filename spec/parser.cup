@@ -311,8 +311,7 @@ logical_or_expression ::= logical_and_expression:lae {: RESULT = lae; Logger.get
 		      ;
 
 conditional_expression ::= logical_or_expression:loe {:
-                                              Expression r = Semantic.getInstance().execIfElseExp(loe);
-                                              RESULT = r;
+                                              RESULT = loe;
                                               Logger.getInstance().log("conditional_expression 1");
                                               :}
 		       | logical_or_expression:loe COND expression:e COLON conditional_expression:ce {: Logger.getInstance().log("conditional_expression 2"); :}
@@ -370,7 +369,7 @@ declaration_specifiers
 
 init_declarator_list
 	::=init_declarator:id {: RESULT = id; Logger.getInstance().log("init_declarator_list 1"); :}
-	| init_declarator_list:idl COMMA init_declarator:id {: Logger.getInstance().log("init_declarator_list 2"); :}
+	| init_declarator_list:idl COMMA init_declarator:id {: RESULT = id; Logger.getInstance().log("init_declarator_list 2"); :}
 	;
 
 init_declarator
@@ -482,7 +481,12 @@ direct_declarator
 	| PARAL declarator:d PARAR           {: RESULT = d; Logger.getInstance().log("direct_declarator 2"); :}
 	| direct_declarator:dd SQUAREDL constant_expression:ce SQUAREDR {: RESULT = dd; Logger.getInstance().log("direct_declarator 3"); :}
 	| direct_declarator:dd SQUAREDL SQUAREDR                        {: RESULT = dd; Logger.getInstance().log("direct_declarator 4"); :}
-	| direct_declarator:dd PARAL parameter_type_list:ptl PARAR      {: RESULT = dd; Logger.getInstance().log("direct_declarator 5"); :}
+	| direct_declarator:dd PARAL parameter_type_list:ptl PARAR      {: String id = ((Variable) dd).getId();
+	                                                                   List<Variable> params = (List<Variable>) ptl;
+	                                                                   Function f = new Function(id, null, null, params);
+	                                                                   Semantic.getInstance().addFunction(f);
+	                                                                   RESULT = dd;
+	                                                                   Logger.getInstance().log("direct_declarator 5"); :}
 	| direct_declarator:dd PARAL identifier_list:il PARAR           {: RESULT = dd; Logger.getInstance().log("direct_declarator 6"); :}
 	| direct_declarator:dd PARAL PARAR                              {: RESULT = dd; Logger.getInstance().log("direct_declarator 7"); :}
 	;
@@ -501,17 +505,31 @@ type_qualifier_list
 
 
 parameter_type_list
-	::=parameter_list:pl                    {: Logger.getInstance().log("parameter_type_list 1"); :}
-	| parameter_list:pl COMMA ELLIPSIS:id   {: Logger.getInstance().log("parameter_type_list 2"); :}
+	::=parameter_list:pl                    {: RESULT = pl; Logger.getInstance().log("parameter_type_list 1"); :}
+	| parameter_list:pl COMMA ELLIPSIS:id   {: RESULT = pl; Logger.getInstance().log("parameter_type_list 2"); :}
 	;
 
 parameter_list
-	::=parameter_declaration:pd                          {: Logger.getInstance().log("parameter_list 1"); :}
-	| parameter_list:pl COMMA parameter_declaration:pd   {: Logger.getInstance().log("parameter_list 2"); :}
+	::=parameter_declaration:pd                          {: List<Variable> list = new ArrayList<>();
+	                                                        list.add((Variable) pd);
+	                                                        RESULT = list;
+	                                                        Logger.getInstance().log("parameter_list 1"); :}
+	| parameter_list:pl COMMA parameter_declaration:pd   {: List<Variable> list;
+	                                                        if (pl == null) {
+	                                                            list = new ArrayList<>();
+	                                                        } else {
+	                                                            list = (List<Variable>) pl;
+	                                                        }
+	                                                        list.add((Variable) pd);
+	                                                        RESULT = list;
+	                                                        Logger.getInstance().log("parameter_list 2"); :}
 	;
 
 parameter_declaration
-	::=declaration_specifiers:ds declarator:d           {: Logger.getInstance().log("parameter_declaration 1"); :}
+	::=declaration_specifiers:ds declarator:d           {: Variable v = ((Variable) d);
+                                                           v.setType((Types) ds);
+                                                           RESULT = v;
+                                                           Logger.getInstance().log("parameter_declaration 1"); :}
 	| declaration_specifiers:ds abstract_declarator:ad  {: Logger.getInstance().log("parameter_declaration 2"); :}
 	| declaration_specifiers:ds                         {: Logger.getInstance().log("parameter_declaration 3 "); :}
 	;
@@ -593,9 +611,12 @@ expression_statement
 	;
 
 selection_statement
-	::=IF PARAL expression:e PARAR statement:s                    {: Logger.getInstance().log("selection_statement 1"); :}
-	| IF PARAL expression:e PARAR statement:s1 ELSE statement:s2  {: Logger.getInstance().log("selection_statement 2"); :}
-	| SWITCH PARAL expression:e PARAR statement:s                 {: Logger.getInstance().log("selection_statement 3"); :}
+	::=IF PARAL expression:e PARAR statement:s                    {: Semantic.getInstance().checkIfCondition(e);
+	                                                                 Logger.getInstance().log("selection_statement 1"); :}
+	| IF PARAL expression:e PARAR statement:s1 ELSE statement:s2  {: Semantic.getInstance().checkIfCondition(e);
+	                                                                 Logger.getInstance().log("selection_statement 2"); :}
+	| SWITCH PARAL expression:e PARAR statement:s                 {: Semantic.getInstance().checkIfCondition(e);
+	                                                                 Logger.getInstance().log("selection_statement 3"); :}
 	;
 
 iteration_statement
