@@ -34,6 +34,11 @@ public class Expression {
         }
     }
 
+    public String getAssemblyValue() {
+        return this.value.toString();
+    }
+
+
     @Override
     public String toString() {
         return "TYPE: " + type + "VALUE: " + value;
