@@ -1,8 +1,8 @@
 package analysis.exceptions;
 
-public class InvalidArithmeticOperationException extends Exception {
+public class InvalidArithmeticOpException extends Exception {
 
-    public InvalidArithmeticOperationException(String message){
+    public InvalidArithmeticOpException(String message){
         super("ERRO SEMÂNTICO - Operadores aritméticos: " + message);
     }
 }
