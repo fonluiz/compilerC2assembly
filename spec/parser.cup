@@ -271,7 +271,9 @@ conditional_expression ::= logical_or_expression:loe {: RESULT = loe; Logger.get
 
 
 assignment_expression ::= conditional_expression:ce {: RESULT = ce; Logger.getInstance().log("assignment_expression 1"); :}
-		      | unary_expression:ue assignment_operator:aop assignment_expression:ae {: Logger.getInstance().log("assignment_expression 2"); :}
+		      | unary_expression:ue assignment_operator:aop assignment_expression:ae {: Logger.getInstance().log("assignment_expression 2");
+		                                                                                Semantic.getInstance().checkAssignment(ue);
+		                                                                                RESULT = ae;                           :}
 		      ;
 
 assignment_operator
@@ -419,17 +421,21 @@ declarator
 	;
 
 direct_declarator
-	::=IDENTIFIER:identifier             {: Expression exp = new Expression(null, null);
-                                            Variable v = new Variable(null, identifier.toString(), exp);
-                                            Semantic.getInstance().addVariable(v);
-                                            RESULT = v;
+	::=IDENTIFIER:identifier             {: Variable v1 = Semantic.getInstance().getVariableById(identifier.toString());
+	                                        if (v1 != null) {
+	                                            Semantic.getInstance().createTempForAssignment(v1);
+	                                        }
+	                                        Expression exp = new Expression(null, null);
+                                            Variable v2 = new Variable(null, identifier.toString(), exp);
+                                            Semantic.getInstance().addVariable(v2);
+                                            RESULT = v2;
                                             Logger.getInstance().log("direct_declarator 1"); :}
 	| PARAL declarator:d PARAR           {: RESULT = d; Logger.getInstance().log("direct_declarator 2"); :}
-	| direct_declarator:dd SQUAREDL constant_expression:ce SQUAREDR {: Logger.getInstance().log("direct_declarator 3"); :}
-	| direct_declarator:dd SQUAREDL SQUAREDR                        {: Logger.getInstance().log("direct_declarator 4"); :}
-	| direct_declarator:dd PARAL parameter_type_list:ptl PARAR      {: Logger.getInstance().log("direct_declarator 5"); :}
-	| direct_declarator:dd PARAL identifier_list:il PARAR           {: Logger.getInstance().log("direct_declarator 6"); :}
-	| direct_declarator:dd PARAL PARAR                              {: Logger.getInstance().log("direct_declarator 7"); :}
+	| direct_declarator:dd SQUAREDL constant_expression:ce SQUAREDR {: RESULT = dd; Logger.getInstance().log("direct_declarator 3"); :}
+	| direct_declarator:dd SQUAREDL SQUAREDR                        {: RESULT = dd; Logger.getInstance().log("direct_declarator 4"); :}
+	| direct_declarator:dd PARAL parameter_type_list:ptl PARAR      {: RESULT = dd; Logger.getInstance().log("direct_declarator 5"); :}
+	| direct_declarator:dd PARAL identifier_list:il PARAR           {: RESULT = dd; Logger.getInstance().log("direct_declarator 6"); :}
+	| direct_declarator:dd PARAL PARAR                              {: RESULT = dd; Logger.getInstance().log("direct_declarator 7"); :}
 	;
 
 pointer
