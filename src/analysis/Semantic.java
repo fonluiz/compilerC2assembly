@@ -222,12 +222,16 @@ public class Semantic {
     public Expression execIfElseExp(Object obj1) throws InvalidIfElseOpException {
         Expression operand1 = getExpressionFromObject(obj1);
 
+        Expression result = null;
+
         if(operand1.getType() == Types.STRING){
             throw new InvalidIfElseOpException("Operação inválida para operandos do tipo "
                     + operand1.getType().name());
-        }
+        }else if(operand1.getType() == Types.FLOAT){
+            result = new Expression(Types.INT, ((Float) operand1.getValue()).intValue() );
+        } else result = operand1;
 
-        return operand1;
+        return result;
     }
 
 }
