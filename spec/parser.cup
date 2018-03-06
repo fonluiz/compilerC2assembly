@@ -233,15 +233,39 @@ shift_expression ::= additive_expression:ae {:RESULT = ae; Logger.getInstance().
 		 ;
 
 relational_expression ::= shift_expression:se {: RESULT = se; Logger.getInstance().log("relational_expression 1"); :}
-		      | relational_expression:re LESS:op shift_expression:se {: Logger.getInstance().log("relational_expression 2"); :}
-		      | relational_expression:re GREATER:op shift_expression:se {: Logger.getInstance().log("relational_expression 3"); :}
-		      | relational_expression:re LE_OP:op shift_expression:se {: Logger.getInstance().log("relational_expression 4"); :}
-		      | relational_expression:re GE_OP:op shift_expression:se {: Logger.getInstance().log("relational_expression 5"); :}
+		      | relational_expression:re LESS:op shift_expression:se {:
+		                                         Expression r = Semantic.getInstance().execBooleanExp(re, se, op.toString());
+                                                 RESULT = r;
+		                                         Logger.getInstance().log("relational_expression 2");
+		      :}
+		      | relational_expression:re GREATER:op shift_expression:se {:
+		                                         Expression r = Semantic.getInstance().execBooleanExp(re, se, op.toString());
+                                                 RESULT = r;
+		                                         Logger.getInstance().log("relational_expression 3");
+		                                         :}
+		      | relational_expression:re LE_OP:op shift_expression:se {:
+		                                         Expression r = Semantic.getInstance().execBooleanExp(re, se, op.toString());
+                                                 RESULT = r;
+		                                         Logger.getInstance().log("relational_expression 4");
+		                                         :}
+		      | relational_expression:re GE_OP:op shift_expression:se {:
+                                                 Expression r = Semantic.getInstance().execBooleanExp(re, se, op.toString());
+                                                 RESULT = r;
+                                                 Logger.getInstance().log("relational_expression 5");
+                                                 :}
 		      ;
 
 equality_expression ::= relational_expression:re {: RESULT = re; Logger.getInstance().log("equality_expression 1"); :}
-		    | equality_expression:ee EQ_OP:op relational_expression:re {: Logger.getInstance().log("equality_expression 2"); :}
-		    | equality_expression:ee NE_OP:op relational_expression:re {: Logger.getInstance().log("equality_expression 3"); :}
+		    | equality_expression:ee EQ_OP:op relational_expression:re {:
+		                                         Expression r = Semantic.getInstance().execBooleanExp(ee, re, op.toString());
+                                                 RESULT = r;
+                                                 Logger.getInstance().log("equality_expression 2");
+                                                 :}
+		    | equality_expression:ee NE_OP:op relational_expression:re {:
+		                                         Expression r = Semantic.getInstance().execBooleanExp(ee, re, op.toString());
+                                                 RESULT = r;
+                                                 Logger.getInstance().log("equality_expression 3");
+		    :}
 		    ;
 
 and_expression ::= equality_expression:ee {: RESULT = ee; Logger.getInstance().log("and_expression 1"); :}
@@ -265,7 +289,11 @@ logical_or_expression ::= logical_and_expression:lae {: RESULT = lae; Logger.get
 		      | logical_or_expression:loe OR_OP:op logical_and_expression:lae {: Logger.getInstance().log("logical_or_expression 2"); :}
 		      ;
 
-conditional_expression ::= logical_or_expression:loe {: RESULT = loe; Logger.getInstance().log("conditional_expression 1"); :}
+conditional_expression ::= logical_or_expression:loe {:
+                                              Expression r = Semantic.getInstance().execIfElseExp(loe);
+                                              RESULT = r;
+                                              Logger.getInstance().log("conditional_expression 1");
+                                              :}
 		       | logical_or_expression:loe COND expression:e COLON conditional_expression:ce {: Logger.getInstance().log("conditional_expression 2"); :}
 		       ;
 

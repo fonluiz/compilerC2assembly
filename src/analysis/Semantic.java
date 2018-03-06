@@ -1,7 +1,10 @@
 package analysis;
 
+import analysis.exceptions.InvalidArithmeticOperationException;
 import analysis.exceptions.InvalidAssignmentException;
 import analysis.exceptions.VariableNotInitializedException;
+import analysis.exceptions.InvalidBooleanOpException;
+import analysis.exceptions.InvalidIfElseOpException;
 import analysis.models.Types;
 import analysis.models.Variable;
 import analysis.models.Expression;
@@ -75,14 +78,15 @@ public class Semantic {
         }
     }
 
-    public Expression execArithmeticExp(Object obj1, Object obj2, String operator) throws InvalidAssignmentException, VariableNotInitializedException {
+    public Expression execArithmeticExp(Object obj1, Object obj2, String operator) throws VariableNotInitializedException, InvalidArithmeticOperationException {
+
         Expression operand1 = getExpressionFromObject(obj1);
         Expression operand2 = getExpressionFromObject(obj2);
 
         Expression result = null;
 
         if (operand1.getType().equals(Types.STRING) || operand2.getType().equals(Types.STRING)) {
-            throw new InvalidAssignmentException("O operador '" + operator + "' não suporte operandos do tipo "
+            throw new InvalidArithmeticOperationException("O operador '" + operator + "' não suporta operandos do tipo "
                     + operand1.getType().name() + " e " + operand2.getType().name());
         } else if (operand1.getType().equals(Types.FLOAT) || operand2.getType().equals(Types.FLOAT)) {
             result = arithmeticForFloat(operand1, operand2, operator);
@@ -163,5 +167,95 @@ public class Semantic {
         return result;
     }
 
+    public Expression execBooleanExp(Object obj1, Object obj2, String operator) throws InvalidBooleanOpException, VariableNotInitializedException {
+        Expression operand1 = getExpressionFromObject(obj1);
+        Expression operand2 = getExpressionFromObject(obj2);
+
+        Expression result = null;
+
+        if (operand1.getType().equals(Types.STRING) || operand2.getType().equals(Types.STRING)) {
+            throw new InvalidBooleanOpException("O operador '" + operator + "' não suporta operandos do tipo "
+                    + operand1.getType().name() + " e " + operand2.getType().name());
+        } else if (operand1.getType().equals(Types.FLOAT) || operand2.getType().equals(Types.FLOAT)) {
+            result = booleanForFloat(operand1, operand2, operator);
+        } else  {
+            result = booleanForInt(operand1, operand2, operator);
+        }
+
+        return result;
+    }
+
+    private Expression booleanForInt(Expression operand1, Expression operand2, String operator) {
+        Expression result = null;
+        switch (operator) {
+            case "<":
+                Integer f1 = ((Integer) operand1.getValue() < (Integer) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.INT, f1);
+                break;
+            case ">":
+                Integer f2 = ((Integer) operand1.getValue() > (Integer) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.INT, f2);
+                break;
+            case "<=":
+                Integer f3 = ((Integer) operand1.getValue() <= (Integer) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.INT, f3);
+                break;
+            case ">=":
+                Integer f4 = ((Integer) operand1.getValue() >= (Integer) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.INT, f4);
+                break;
+            case "==":
+                Integer f5 = ((Integer) operand1.getValue() == (Integer) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.INT, f5);
+                break;
+            case "!=":
+                Integer f6 = ((Integer) operand1.getValue() != (Integer) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.INT, f6);
+                break;
+        }
+        return result;
+    }
+
+    private Expression booleanForFloat(Expression operand1, Expression operand2, String operator) {
+        Expression result = null;
+        switch (operator) {
+            case "<":
+                Integer f1 = ((Float) operand1.getValue() < (Float) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.FLOAT, f1);
+                break;
+            case ">":
+                Integer f2 = ((Float) operand1.getValue() > (Float) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.FLOAT, f2);
+                break;
+            case "<=":
+                Integer f3 = ((Float) operand1.getValue() <= (Float) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.FLOAT, f3);
+                break;
+            case ">=":
+                Integer f4 = ((Float) operand1.getValue() >= (Float) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.FLOAT, f4);
+                break;
+            case "==":
+                Integer f5 = ((Float) operand1.getValue() == (Float) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.FLOAT, f5);
+                break;
+            case "!=":
+                Integer f6 = ((Float) operand1.getValue() != (Float) operand2.getValue()) ? 1 : 0;
+                result = new Expression(Types.FLOAT, f6);
+                break;
+        }
+        return result;
+    }
+
+    public Expression execIfElseExp(Object obj1) throws InvalidIfElseOpException, VariableNotInitializedException {
+        Expression operand1 = getExpressionFromObject(obj1);
+
+        if(operand1.getType() == Types.STRING){
+            throw new InvalidIfElseOpException("Operação inválida para operandos do tipo "
+                    + operand1.getType().name());
+        }
+
+        return operand1;
+    }
 
 }
