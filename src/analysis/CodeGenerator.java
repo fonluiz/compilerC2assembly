@@ -85,6 +85,13 @@ public class CodeGenerator {
         addCode(labels + ": ADD " + result + ", " + one + ", #" + exp.getAssemblyValue());
     }
 
+    public void generateADDCode(Expression e1, Expression e2){
+        labels += 8;
+        register++;
+        Register result = allocateRegister();
+        addCode(labels + ": ADD " + result + ", " + e1.getAssemblyValue() + ", " + e2.getAssemblyValue());
+    }
+
     public void generateSUBCode() {
         labels += 8;
         Register one = registers[register - 1];
@@ -95,8 +102,10 @@ public class CodeGenerator {
         addCode(labels + ": SUB " + result + ", " + one + ", " + two);
     }
 
-    public void generateSUBCode(Register result, Expression e1, Expression e2){
+    public void generateSUBCode(Expression e1, Expression e2){
         labels += 8;
+        register++;
+        Register result = allocateRegister();
         addCode(labels + ": SUB " + result + ", " + e1.getAssemblyValue() + ", " + e2.getAssemblyValue());
     }
 
@@ -245,6 +254,12 @@ public class CodeGenerator {
         this.register = -1;
     }
 
+    public void generateSTCode(Variable variable, Object obj) {
+        labels += 8;
+        addCode(labels + ": ST " + variable.getId() + ", #" + ((Expression) obj).getValue());
+        //this.register = -1;
+    }
+
     public void generateSTCode(Register one, Expression exp) {
         labels += 8;
         addCode(labels + ": ST " + one + ", " + exp.getAssemblyValue());
@@ -259,6 +274,7 @@ public class CodeGenerator {
 
     public void addCode(String assemblyString) {
         assemblyCode += assemblyString + "\n";
+        System.out.println(assemblyCode);
     }
 
     public void generateCallFunction(String functionName) {
