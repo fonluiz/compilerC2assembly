@@ -38,7 +38,7 @@ parser code {:
 
      public void report_fatal_error(String message, Object info) {
        report_error(message, info);
-       throw new RuntimeException("Fatal Syntax Error");
+       //throw new RuntimeException("Fatal Syntax Error");
      }
 
     public static void newScope(){
@@ -220,16 +220,19 @@ cast_expression
 multiplicative_expression ::= cast_expression:ce {: RESULT = ce; Logger.getInstance().log("multiplicative_expression 1"); :}
 			  | multiplicative_expression:me MUL:op cast_expression:ce {:
                                              Expression r = Semantic.getInstance().execArithmeticExp(me, ce, op.toString());
+                                             //Semantic.getInstance().getCodeGenerator().generateMULCode();
                                              RESULT = r;
                                              Logger.getInstance().log("multiplicative_expression 2");
 			  :}
 			  | multiplicative_expression:me DIVIDE:op cast_expression:ce {:
                                              Expression r = Semantic.getInstance().execArithmeticExp(me, ce, op.toString());
+                                             //Semantic.getInstance().getCodeGenerator().generateDIVCode();
                                              RESULT = r;
                                              Logger.getInstance().log("multiplicative_expression 3");
 			  :}
 			  | multiplicative_expression:me MODULUS:op cast_expression:ce {:
                                              Expression r = Semantic.getInstance().execArithmeticExp(me, ce, op.toString());
+                                             //Semantic.getInstance().getCodeGenerator().generateMODCode();
                                              RESULT = r;
 			                                 Logger.getInstance().log("multiplicative_expression 4");
 			  :}
@@ -239,12 +242,13 @@ additive_expression ::= multiplicative_expression:me {: RESULT = me; Logger.getI
 		    | additive_expression:ae PLUS:op multiplicative_expression:me {:
                                               Expression r = Semantic.getInstance().execArithmeticExp(ae, me, op.toString());
                                               RESULT = r;
+                                              Semantic.getInstance().getCodeGenerator().generateADDCode((Expression) ae,(Expression) me);
                                               Logger.getInstance().log("additive_expression 2");
 		    :}
 		    | additive_expression:ae MINUS:op multiplicative_expression:me {:
                                               Expression r = Semantic.getInstance().execArithmeticExp(ae, me, op.toString());
                                               RESULT = r;
-                                              Semantic.getInstance().getCodeGenerator().generateSUBCode(Register.R1,(Expression) ae,(Expression) me);
+                                              Semantic.getInstance().getCodeGenerator().generateSUBCode((Expression) ae,(Expression) me);
                                               Logger.getInstance().log("additive_expression 3");
 		    :}
 		    ;
@@ -382,6 +386,13 @@ init_declarator
 	                                        v.setValor((Expression) i);
 	                                        v.setType(((Expression) i).getType());
 	                                        Semantic.getInstance().addVariable(v);
+	                                        Logger.getInstance().log(v.getValor().getValue().toString());
+	                                        if(v.getValor().isFromOperation()){
+	                                            //Semantic.getInstance().getCodeGenerator().generateLDCode((Expression)i);
+	                                            Semantic.getInstance().getCodeGenerator().assignmentDeclaration(v, (Expression)i);
+	                                        } else{
+	                                            Semantic.getInstance().getCodeGenerator().generateSTCode(v, (Expression)i);
+	                                        }
 	                                        RESULT = v;
 	                                        Logger.getInstance().log("init_declarator 2"); :}
 	;
@@ -480,7 +491,6 @@ direct_declarator
                                             Variable v2 = new Variable(null, identifier.toString(), exp);
                                             Semantic.getInstance().addVariable(v2);
                                             RESULT = v2;
-                                            Semantic.getInstance().getCodeGenerator().generateLDCode(v2);
                                             Logger.getInstance().log("direct_declarator 1"); :}
 	| PARAL declarator:d PARAR           {: RESULT = d; Logger.getInstance().log("direct_declarator 2"); :}
 	| direct_declarator:dd SQUAREDL constant_expression:ce SQUAREDR {: RESULT = dd; Logger.getInstance().log("direct_declarator 3"); :}
@@ -640,7 +650,7 @@ jump_statement
 
 translation_unit
 	::=external_declaration:ed                      {: Semantic.getInstance().getCodeGenerator().generateFinalAssemblyCode(); Logger.getInstance().log("translation_unit 1"); :}
-	| translation_unit:tu external_declaration:ed   {: RESULT = ed; Logger.getInstance().log("translation_unit 2"); :}
+	| translation_unit:tu external_declaration:ed   {: RESULT = ed; Semantic.getInstance().getCodeGenerator().generateFinalAssemblyCode(); Logger.getInstance().log("translation_unit 2"); :}
 	;
 
 external_declaration
