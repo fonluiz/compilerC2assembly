@@ -4,10 +4,18 @@ public class Expression {
 
     private Types type;
     private Object value;
+    private boolean isFromOperation;
 
     public Expression(Types type, Object value) {
         this.type = type;
         this.value = value;
+        this.isFromOperation = false;
+    }
+
+    public Expression(Types type, Object value, boolean isFromOperation) {
+        this.type = type;
+        this.value = value;
+        this.isFromOperation = isFromOperation;
     }
 
     public Types getType() {
@@ -16,6 +24,14 @@ public class Expression {
 
     public Object getValue() {
         return value;
+    }
+
+    public boolean isFromOperation() {
+        return isFromOperation;
+    }
+
+    public void setFromOperation(boolean fromOperation) {
+        isFromOperation = fromOperation;
     }
 
     public static Types getTypeOfNumber(String value) {
