@@ -90,7 +90,7 @@ public class Semantic {
         }
     }
 
-    public Expression execArithmeticExp(Object obj1, Object obj2, String operator) throws VariableNotInitializedException, InvalidArithmeticOperationException {
+    public Expression execArithmeticExp(Object obj1, Object obj2, String operator) throws VariableNotInitializedException, InvalidArithmeticOpException {
 
         Expression operand1 = getExpressionFromObject(obj1);
         Expression operand2 = getExpressionFromObject(obj2);
@@ -103,7 +103,7 @@ public class Semantic {
         }
 
         if (operand1.getType().equals(Types.STRING) || operand2.getType().equals(Types.STRING)) {
-            throw new InvalidArithmeticOperationException("O operador '" + operator + "' não suporta operandos do tipo "
+            throw new InvalidArithmeticOpException("O operador '" + operator + "' não suporta operandos do tipo "
                     + operand1.getType().name() + " e " + operand2.getType().name());
         } else if (operand1.getType().equals(Types.FLOAT) || operand2.getType().equals(Types.FLOAT)) {
             result = arithmeticForFloat(operand1, operand2, operator);
@@ -135,23 +135,23 @@ public class Semantic {
         switch (operator) {
             case ("+"):
                 Integer f1 = (Integer) operand1.getValue() + (Integer) operand2.getValue();
-                result = new Expression(Types.FLOAT, f1);
+                result = new Expression(Types.FLOAT, f1, true);
                 break;
             case ("-"):
                 Integer f2 = (Integer) operand1.getValue() - (Integer) operand2.getValue();
-                result = new Expression(Types.FLOAT, f2);
+                result = new Expression(Types.FLOAT, f2, true);
                 break;
             case ("*"):
                 Integer f3 = (Integer) operand1.getValue() * (Integer) operand2.getValue();
-                result = new Expression(Types.FLOAT, f3);
+                result = new Expression(Types.FLOAT, f3, true);
                 break;
             case ("/"):
                 Integer f4 = (Integer) operand1.getValue() / (Integer) operand2.getValue();
-                result = new Expression(Types.FLOAT, f4);
+                result = new Expression(Types.FLOAT, f4, true);
                 break;
             case ("%"):
                 Integer f5 = (Integer) operand1.getValue() % (Integer) operand2.getValue();
-                result = new Expression(Types.FLOAT, f5);
+                result = new Expression(Types.FLOAT, f5, true);
                 break;
         }
         return result;
@@ -162,23 +162,23 @@ public class Semantic {
         switch (operator) {
             case ("+"):
                 Float f1 = (Float) operand1.getValue() + (Float) operand2.getValue();
-                result = new Expression(Types.FLOAT, f1);
+                result = new Expression(Types.FLOAT, f1, true);
                 break;
             case ("-"):
                 Float f2 = (Float) operand1.getValue() - (Float) operand2.getValue();
-                result = new Expression(Types.FLOAT, f2);
+                result = new Expression(Types.FLOAT, f2, true);
                 break;
             case ("*"):
                 Float f3 = (Float) operand1.getValue() * (Float) operand2.getValue();
-                result = new Expression(Types.FLOAT, f3);
+                result = new Expression(Types.FLOAT, f3, true);
                 break;
             case ("/"):
                 Float f4 = (Float) operand1.getValue() / (Float) operand2.getValue();
-                result = new Expression(Types.FLOAT, f4);
+                result = new Expression(Types.FLOAT, f4, true);
                 break;
             case ("%"):
                 Float f5 = (Float) operand1.getValue() % (Float) operand2.getValue();
-                result = new Expression(Types.FLOAT, f5);
+                result = new Expression(Types.FLOAT, f5, true);
                 break;
         }
         return result;
@@ -206,38 +206,38 @@ public class Semantic {
             switch (operator) {
                 case ("&"):
                     if ((Integer) operand1.getValue() != 0 && (Integer) operand1.getValue() != 0) {
-                        result = new Expression(Types.INT, 1);
+                        result = new Expression(Types.INT, 1, true);
                     } else {
-                        result = new Expression(Types.INT, 0);
+                        result = new Expression(Types.INT, 0, true);
                     }
                     break;
                 case ("&&"):
                     if ((Integer) operand1.getValue() != 0 && (Integer) operand1.getValue() != 0) {
-                        result = new Expression(Types.INT, 1);
+                        result = new Expression(Types.INT, 1, true);
                     } else {
-                        result = new Expression(Types.INT, 0);
+                        result = new Expression(Types.INT, 0, true);
                     }
                     break;
                 case ("|"):
                     if ((Integer) operand1.getValue() != 0 || (Integer) operand1.getValue() != 0) {
-                        result = new Expression(Types.INT, 1);
+                        result = new Expression(Types.INT, 1, true);
                     } else {
-                        result = new Expression(Types.INT, 0);
+                        result = new Expression(Types.INT, 0, true);
                     }
                     break;
                 case ("||"):
                     if ((Integer) operand1.getValue() != 0 || (Integer) operand1.getValue() != 0) {
-                        result = new Expression(Types.INT, 1);
+                        result = new Expression(Types.INT, 1,true);
                     } else {
-                        result = new Expression(Types.INT, 0);
+                        result = new Expression(Types.INT, 0, true);
                     }
                     break;
                 case ("^"):
                     if (((Integer) operand1.getValue() != 0 && (Integer) operand1.getValue() == 0) ||
                             ((Integer) operand1.getValue() == 0 && (Integer) operand1.getValue() != 0)   ) {
-                        result = new Expression(Types.INT, 1);
+                        result = new Expression(Types.INT, 1, true);
                     } else {
-                        result = new Expression(Types.INT, 0);
+                        result = new Expression(Types.INT, 0, true);
                     }
                     break;
             }
