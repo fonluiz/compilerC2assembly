@@ -300,36 +300,36 @@ public class Semantic {
         } else {
             switch (operator) {
                 case ("&"):
-                    if ((Integer) operand1.getValue() != 0 && (Integer) operand1.getValue() != 0) {
+                    if ((Integer) operand1.getValue() != 0 && (Integer) operand2.getValue() != 0) {
                         result = new Expression(Types.INT, 1, true);
                     } else {
                         result = new Expression(Types.INT, 0, true);
                     }
                     break;
                 case ("&&"):
-                    if ((Integer) operand1.getValue() != 0 && (Integer) operand1.getValue() != 0) {
+                    if ((Integer) operand1.getValue() != 0 && (Integer) operand2.getValue() != 0) {
                         result = new Expression(Types.INT, 1, true);
                     } else {
                         result = new Expression(Types.INT, 0, true);
                     }
                     break;
                 case ("|"):
-                    if ((Integer) operand1.getValue() != 0 || (Integer) operand1.getValue() != 0) {
+                    if ((Integer) operand1.getValue() != 0 || (Integer) operand2.getValue() != 0) {
                         result = new Expression(Types.INT, 1, true);
                     } else {
                         result = new Expression(Types.INT, 0, true);
                     }
                     break;
                 case ("||"):
-                    if ((Integer) operand1.getValue() != 0 || (Integer) operand1.getValue() != 0) {
+                    if ((Integer) operand1.getValue() != 0 || (Integer) operand2.getValue() != 0) {
                         result = new Expression(Types.INT, 1,true);
                     } else {
                         result = new Expression(Types.INT, 0, true);
                     }
                     break;
                 case ("^"):
-                    if (((Integer) operand1.getValue() != 0 && (Integer) operand1.getValue() == 0) ||
-                            ((Integer) operand1.getValue() == 0 && (Integer) operand1.getValue() != 0)   ) {
+                    if (((Integer) operand1.getValue() != 0 && (Integer) operand2.getValue() == 0) ||
+                            ((Integer) operand1.getValue() == 0 && (Integer) operand2.getValue() != 0)   ) {
                         result = new Expression(Types.INT, 1, true);
                     } else {
                         result = new Expression(Types.INT, 0, true);
@@ -341,6 +341,34 @@ public class Semantic {
         return result;
     }
 
+    public Expression execUnaryExp(Object obj1, String operator) throws InvalidBooleanOpException, VariableNotInitializedException {
+
+        Expression operand1 = getExpressionFromObject(obj1);
+
+        Expression result = null;
+
+        // Para o caso de serem parâmetros de uma função
+        if (operand1.getValue() == null) {
+            return new Expression(Types.INT, null);
+        }
+
+        if ((! operand1.getType().equals(Types.INT))) {
+            throw new InvalidBooleanOpException("O operador '" + operator + "' não suporta um operando do tipo "
+                    + operand1.getType().name() + ".");
+        } else {
+            switch (operator) {
+                case ("!"):
+                    if ((Integer) operand1.getValue() == 0) {
+                        result = new Expression(Types.INT, 1, true);
+                    } else {
+                        result = new Expression(Types.INT, 0, true);
+                    }
+                    break;
+            }
+        }
+
+        return result;
+    }
     public void checkIfCondition(Object obj) throws InvalidIfConditionException, VariableNotInitializedException {
 
         Expression exp = getExpressionFromObject(obj);

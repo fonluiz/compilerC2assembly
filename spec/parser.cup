@@ -201,7 +201,13 @@ postfix_expression ::= primary_expression:pe {: RESULT = pe; Logger.getInstance(
 unary_expression ::= postfix_expression:pe {: RESULT = pe; Logger.getInstance().log("unary_expression 1"); :}
 		 | INC_OP:op unary_expression:ue {: Logger.getInstance().log("unary_expression 2"); :}
 		 | DEC_OP:op unary_expression:ue {: Logger.getInstance().log("unary_expression 3"); :}
-		 | unary_operator:uo cast_expression:ce {: Logger.getInstance().log("unary_expression 4"); :}
+		 | unary_operator:uo cast_expression:ce {:
+                         Expression exp = Semantic.getInstance().execUnaryExp(ce, "!");
+                       String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                        exp.setReg(reg);
+                        RESULT = exp;
+                        Semantic.getInstance().getCodeGenerator().generateNOTCode(ce, exp);
+		                Logger.getInstance().log("unary_expression 4"); :}
 		 | SIZEOF unary_expression:ue {: Logger.getInstance().log("unary_expression 5"); :}
 		 | SIZEOF PARAL type_name:tn PARAR {: Logger.getInstance().log("unary_expression 6"); :}
 		 ;

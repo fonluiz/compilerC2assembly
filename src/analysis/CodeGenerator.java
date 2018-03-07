@@ -327,6 +327,26 @@ public class CodeGenerator {
         addCode(labels + ": XOR " + exp.getReg() + ", " + reg1 + ", " + reg2);
     }
 
+    public void generateNOTCode(Object obj1, Expression exp) throws VariableNotInitializedException {
+        String reg1;
+        if (obj1 instanceof Variable) {
+            Variable var = (Variable) obj1;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg1 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj1;
+            if (temp.getReg() == null) {
+                reg1 = temp.getValue().toString();
+            } else {
+                reg1 = temp.getReg();
+            }
+        }
+
+
+        labels += 8;
+        addCode(labels + ": NOT " + exp.getReg() + ", " + reg1);
+    }
 
 
     public void codeForLoad(Variable v) {

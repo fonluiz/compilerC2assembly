@@ -1842,7 +1842,13 @@ class CUP$Parser$actions {
 		Location cexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ce = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG16
- Logger.getInstance().log("unary_expression 4"); 
+
+                         Expression exp = Semantic.getInstance().execUnaryExp(ce, "!");
+                       String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                        exp.setReg(reg);
+                        RESULT = exp;
+                        Semantic.getInstance().getCodeGenerator().generateNOTCode(ce, exp);
+		                Logger.getInstance().log("unary_expression 4"); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("unary_expression",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
