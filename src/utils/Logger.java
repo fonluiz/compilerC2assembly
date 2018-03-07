@@ -3,7 +3,7 @@ package utils;
 public class Logger {
 	
 	private static Logger logger = new Logger();
-	private boolean isLogging = false;
+	private boolean isLogging = true;
 	
 	private Logger() {
 	}

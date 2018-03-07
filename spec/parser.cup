@@ -80,6 +80,7 @@ parser code {:
 
 	    System.out.println("Parsing finished!");
 	} catch (Exception e) {
+	    e.printStackTrace();
 	    System.err.println(e.getMessage());
 	}
     }
@@ -156,10 +157,10 @@ non terminal  declaration_list;
 non terminal  assignment_operator;
 non terminal  parameter_list;
 
+non terminal else_opt;
+
 
 precedence nonassoc ELSE;
-
-
 
 start with translation_unit;
 
@@ -403,7 +404,6 @@ declaration
 							  v.setType(type);
                               Semantic.getInstance().addVariable(v);
                               RESULT = v;
-                              Semantic.getInstance().getCodeGenerator().genCodeVariableDeclaration(v);
 							  Logger.getInstance().log("declaration 2");
 							  :} SEMI
         ;
@@ -430,6 +430,7 @@ init_declarator
 	                                        v.setType(((Expression) i).getType());
 	                                        Semantic.getInstance().addVariable(v);
 	                                        Logger.getInstance().log(v.getValor().getValue().toString());
+	                                        Semantic.getInstance().getCodeGenerator().genCodeVariableDeclaration(v);
 	                                        RESULT = v;
 	                                        Logger.getInstance().log("init_declarator 2"); :}
 	;
@@ -670,13 +671,19 @@ expression_statement
 	;
 
 selection_statement
-	::=IF PARAL expression:e PARAR statement:s                    {: Semantic.getInstance().checkIfCondition(e);
-	                                                                 Logger.getInstance().log("selection_statement 1"); :}
-	| IF PARAL expression:e PARAR statement:s1 ELSE statement:s2  {: Semantic.getInstance().checkIfCondition(e);
-	                                                                 Logger.getInstance().log("selection_statement 2"); :}
+	::=IF PARAL expression:e  PARAR {: Semantic.getInstance().getCodeGenerator().startIfScope(e); :}
+	                statement:s  {: Semantic.getInstance().getCodeGenerator().exitIfScope(); :}  else_opt {: Semantic.getInstance().checkIfCondition(e);
+                                     Semantic.getInstance().getCodeGenerator().exitIfScope();
+                                     Logger.getInstance().log("selection_statement 1"); :}
+//	| IF PARAL expression:e PARAR statement:s1 ELSE statement:s2  {: Semantic.getInstance().checkIfCondition(e);
+//	                                                                 Logger.getInstance().log("selection_statement 2"); :}
 	| SWITCH PARAL expression:e PARAR statement:s                 {: Semantic.getInstance().checkIfCondition(e);
 	                                                                 Logger.getInstance().log("selection_statement 3"); :}
 	;
+
+else_opt ::=
+            |  ELSE {: Semantic.getInstance().getCodeGenerator().startElseScope(); :} statement:s {: Semantic.getInstance().getCodeGenerator().exitElseScope();:}
+            ;
 
 iteration_statement
 	::=WHILE PARAL expression:e PARAR statement:s {: Logger.getInstance().log("iteration_statement 1"); :}
