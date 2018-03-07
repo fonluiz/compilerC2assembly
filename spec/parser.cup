@@ -186,7 +186,9 @@ primary_expression ::= IDENTIFIER:ident {: Variable v = Semantic.getInstance().g
 
 postfix_expression ::= primary_expression:pe {: RESULT = pe; Logger.getInstance().log("postfix_expression 1"); :}
 		   | postfix_expression:pe SQUAREDL expression:index SQUAREDR {: RESULT = pe; Logger.getInstance().log("postfix_expression 2"); :}
-		   | postfix_expression:pe PARAL PARAR {: RESULT = pe; Logger.getInstance().log("postfix_expression 3"); :}
+		   | postfix_expression:pe PARAL PARAR {: RESULT = pe;
+		                                          Semantic.getInstance().checkFunctionCallParams(pe);
+		                                          Logger.getInstance().log("postfix_expression 3"); :}
 		   | postfix_expression:pe PARAL expression:e PARAR {: RESULT = pe;
 		                                                       Semantic.getInstance().checkFunctionCallParams(pe);
 		                                                       Logger.getInstance().log("postfix_expression 4"); :}

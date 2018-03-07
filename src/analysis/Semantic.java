@@ -80,7 +80,7 @@ public class Semantic {
         return functions;
     }
 
-    public void checkFunctionCallParams(Object obj) throws InvalidParametersException {
+    public void checkFunctionCallParams(Object obj) throws InvalidParametersException, FunctionDefinitionException {
 
         if (obj instanceof Variable) {
             Variable v = (Variable) obj;
@@ -103,6 +103,8 @@ public class Semantic {
                         params + '.');
                     }
                 }
+            } else {
+                throw new FunctionDefinitionException("A função " + v.getId() + " não foi definida");
             }
         }
 

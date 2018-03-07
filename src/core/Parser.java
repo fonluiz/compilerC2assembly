@@ -1697,7 +1697,9 @@ class CUP$Parser$actions {
 		Location pexright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).xright;
 		Object pe = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		//@@CUPDBG7
- RESULT = pe; Logger.getInstance().log("postfix_expression 3"); 
+ RESULT = pe;
+		                                          Semantic.getInstance().checkFunctionCallParams(pe);
+		                                          Logger.getInstance().log("postfix_expression 3"); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("postfix_expression",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
