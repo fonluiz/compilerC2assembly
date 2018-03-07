@@ -6,17 +6,26 @@ import analysis.models.Types;
 import analysis.models.Variable;
 import analysis.models.Expression;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Semantic {
 
     private static Semantic semantic = new Semantic();
+    private static Semantic originalSemantic = semantic;
     private HashMap<String, Variable> variables = new HashMap<>();
     public static CodeGenerator codeGenerator = new CodeGenerator();
     private Variable tempForAssignment;
     private HashMap<String, Function> functions = new HashMap<>();
+    private HashMap<String, Semantic> functionScopes = new HashMap<>();
 
-    private Semantic() {}
+    private Expression returnExp = null; // Gambiarra para analise semantica de funções
+    public List<Expression> functionCallParams= new ArrayList<>();
+
+    public Semantic() {
+
+    }
 
     public static Semantic getInstance() {
         return semantic;
@@ -31,9 +40,83 @@ public class Semantic {
         return functions.get(id);
     }
 
+    public void newScope() {
+        semantic = new Semantic();
+        String tempId = "tempID";
+        functionScopes.put(tempId, semantic);
+    }
+
+    public void exitScope() {
+        semantic = originalSemantic;
+    }
+
+    public void setScopeId(String id) {
+        Semantic obj = functionScopes.remove("tempID");
+        functionScopes.put(id, obj);
+    }
+
+    public Expression getReturnExp() {
+        return returnExp;
+    }
+
+    public void setReturnExp(Expression returnExp) {
+        this.returnExp = returnExp;
+    }
+
+    public void checkFunctionReturnType(Types declaredType, Types returnType) throws FunctionDefinitionException {
+
+        if (declaredType.equals(Types.STRING) && returnType.equals(Types.FLOAT) ||
+                declaredType.equals(Types.STRING) && returnType.equals(Types.INT) ||
+                declaredType.equals(Types.INT) && returnType.equals(Types.STRING) ||
+                declaredType.equals(Types.FLOAT) && returnType.equals(Types.STRING) ||
+                declaredType.equals(Types.VOID) && ! returnType.equals(Types.STRING) ||
+                ! declaredType.equals(Types.VOID) && returnType.equals(Types.VOID))  {
+            throw new FunctionDefinitionException("O tipo de retorno da função (" + returnType.name() +") é incompatível" +
+                    "com o tipo declarado da função ("+ declaredType.name() + ").");
+        }
+    }
+
+    public HashMap<String, Function> getFunctions() {
+        return functions;
+    }
+
+    public void checkFunctionCallParams(Object obj) throws InvalidParametersException {
+
+        if (obj instanceof Variable) {
+            Variable v = (Variable) obj;
+            Function f = originalSemantic.getFunctionById(v.getId());
+            if (f != null) {
+                if (f.getParams().size() != functionCallParams.size()) {
+                    throw new InvalidParametersException("A função " + v.getId() + " recebe " +
+                            f.getParams().size() + " parâmetros e você a chamou passando " + functionCallParams.size() +
+                    " parâmetros");
+                }
+
+                for (int i = 0; i < functionCallParams.size(); i++) {
+                    if (! f.getParams().get(i).getType().equals(functionCallParams.get(i).getType())) {
+                        String params = v.getId() + "(";
+                        for (int j = 0; j < functionCallParams.size(); j++) {
+                            params += functionCallParams.get(i).getType().name() + ",";
+                        }
+                        params = params.substring(0, params.length() - 1) + ")";
+                        throw new InvalidParametersException("A função " + v.getId() + "não é aplicável para os parâmetros " +
+                        params + '.');
+                    }
+                }
+            }
+        }
+
+    }
+
     // DECLARAÇÕES E ATRIBUIÇÕES
     public void addVariable(Variable v) {
         variables.put(v.getId(), v) ;
+    }
+
+    public void addVariables(List<Variable> vars) {
+        for (Variable v : vars) {
+            addVariable(v);
+        }
     }
 
     public HashMap<String, Variable> getVariables() {
@@ -97,11 +180,6 @@ public class Semantic {
 
         Expression result = null;
 
-        // Para o caso de serem parâmetros de uma função
-        if (operand1.getValue() == null || operand2.getValue() == null) {
-            return result;
-        }
-
         if (operand1.getType().equals(Types.STRING) || operand2.getType().equals(Types.STRING)) {
             throw new InvalidArithmeticOperationException("O operador '" + operator + "' não suporta operandos do tipo "
                     + operand1.getType().name() + " e " + operand2.getType().name());
@@ -114,12 +192,21 @@ public class Semantic {
         return result;
     }
 
-    private Expression getExpressionFromObject(Object obj) throws VariableNotInitializedException {
+    public Expression getExpressionFromObject(Object obj) throws VariableNotInitializedException {
         Expression exp = null;
         if (obj instanceof Expression) {
             exp = (Expression) obj;
         } else if (obj instanceof Variable) {
             Variable var = (Variable) obj;
+            Function f1 = functions.get(var.getId());
+            if (f1 != null) {
+                return f1.getReturnExp();
+            } else {
+                Function f2 = originalSemantic.getFunctionById(var.getId());
+                if (f2 != null) {
+                    return f2.getReturnExp();
+                }
+            }
             if (isTempForAssignment(var)) {
                 var = tempForAssignment;
             } else if (! var.isDeclared()) {
@@ -131,6 +218,10 @@ public class Semantic {
     }
 
     private Expression arithmeticForInt(Expression operand1, Expression operand2, String operator) {
+        // Para o caso de serem parâmetros de uma função
+        if (operand1.getValue() == null || operand2.getValue() == null) {
+            return new Expression(Types.INT, null);
+        }
         Expression result = null;
         switch (operator) {
             case ("+"):
@@ -158,6 +249,10 @@ public class Semantic {
     }
 
     private Expression arithmeticForFloat(Expression operand1, Expression operand2, String operator) {
+        // Para o caso de serem parâmetros de uma função
+        if (operand1.getValue() == null || operand2.getValue() == null) {
+            return new Expression(Types.FLOAT, null);
+        }
         Expression result = null;
         switch (operator) {
             case ("+"):
@@ -187,8 +282,6 @@ public class Semantic {
     // OPERAÇÕES BOOLEANAS
     public Expression execBooleanExp(Object obj1, Object obj2, String operator) throws InvalidBooleanOpException, VariableNotInitializedException {
 
-        System.out.println(operator);
-
         Expression operand1 = getExpressionFromObject(obj1);
         Expression operand2 = getExpressionFromObject(obj2);
 
@@ -196,7 +289,7 @@ public class Semantic {
 
         // Para o caso de serem parâmetros de uma função
         if (operand1.getValue() == null || operand2.getValue() == null) {
-            return result;
+            return new Expression(Types.INT, null);
         }
 
         if ((! operand1.getType().equals(Types.INT)) || (! operand2.getType().equals(Types.INT))) {
