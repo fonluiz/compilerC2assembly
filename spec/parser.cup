@@ -1,402 +1,702 @@
 import java.io.*;
+import java_cup.runtime.ComplexSymbolFactory;
+import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
+import java_cup.runtime.Symbol;
+import java_cup.runtime.ScannerBuffer;
 import java.util.*;
-import java_cup.runtime.*;
+import java_cup.runtime.XMLElement;
 import java_cup.runtime.XMLElement.*;
-import javax.xml.stream.*;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamWriter;
+
 import javax.xml.transform.*;
 import javax.xml.transform.stream.*;
+import java.nio.file.Paths;
 
 import utils.*;
+import analysis.*;
+import analysis.models.*;
 
 parser code {:
     public void syntax_error(Symbol cur_token){
-	System.err.println("Syntax error at "+cur_token);
+	//System.err.println("Syntax error at "+cur_token);
     }
+
+    public void report_error(String message, Object info){
+       StringBuffer m = new StringBuffer("ERRO SINTÁTICO EM: ");
+
+       if (info instanceof ComplexSymbol){
+         ComplexSymbol s = (ComplexSymbol) info;
+         if(s.value != null) m.append( s.value.toString() );
+         m.append( " - Linha: " + s.getLeft().getLine() + " - Coluna: "+s.getLeft().getColumn() );
+         }
+
+       m.append(" : "+message);
+
+       System.err.println(m);
+     }
+
+     public void report_fatal_error(String message, Object info) {
+       report_error(message, info);
+       //throw new RuntimeException("Fatal Syntax Error");
+     }
+
     public static void newScope(){
 	typenames.push(new HashSet<String>());
     }
     public static void deleteScope(){
 	typenames.pop();
     }
-    public static boolean lookupType(String name){
+    public static boolean lookupType(String id){
 	for (HashSet<String> scope: typenames)
-	    if (scope.contains(name)) return true;
+	    if (scope.contains(id)) return true;
 	return false;
     }
-    public static void addType(String name){
-	typenames.peek().add(name);
+    public static void addType(String id){
+	typenames.peek().add(id);
     }
     public static LinkedList<HashSet<String>> typenames = new LinkedList<HashSet<String>>();
     public Parser(Lexer lex, ComplexSymbolFactory sf) {
-	super(lex,sf);
+	    super(lex,sf);
+    }
+
+    public static void main(String args[]) {
+	try {
+	    ComplexSymbolFactory csf = new ComplexSymbolFactory();
+	    // create a buffering scanner wrapper
+	     String rootPath = Paths.get("").toAbsolutePath().toString();
+                String subPath = "/";
+
+                String sourcecode = rootPath + subPath + "input.c";
+
+         System.out.println(sourcecode);
+
+	    ScannerBuffer lexer = new ScannerBuffer(new Lexer(new BufferedReader(new FileReader(args[0])),csf));
+	    // start parsing
+	    Parser p = new Parser(lexer,csf);
+	    System.out.println("Parser runs: ");
+	    newScope();
+	    p.parse();
+
+	    System.out.println("Parsing finished!");
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    System.err.println(e.getMessage());
+	}
     }
 :};
 
-terminal IDENTIFIER, CONSTANT, STRING_LITERAL, SIZEOF, PTR_OP, INC_OP, DEC_OP, LEFT_OP, RIGHT_OP, LE_OP, GE_OP,
-    AND_OP, OR_OP, MUL_ASSIGN, DIV_ASSIGN, MOD_ASSIGN, ADD_ASSIGN, SUB_ASSIGN, LEFT_ASSIGN, RIGHT_ASSIGN,
-    XOR_ASSIGN, OR_ASSIGN, TYPE_NAME, TYPEDEF, EXTERN, STATIC, AUTO, REGISTER, CHAR, SHORT, INT, LONG, SIGNED,
-    UNSIGNED, FLOAT, DOUBLE, CONST, VOLATILE, VOID, STRUCT, UNION, ENUM, ELLIPSIS, CASE, DEFAULT, IF, ELSE,
-    SWITCH, WHILE, DO, FOR, GOTO, CONTINUE, BREAK, RETURN, SEMI, CURLYL, CURLYR, COMMA, COLON, ASSIGN, PARAL,
-    PARAR, SQUAREDL, SQUAREDR, POINT, ADRESS, NOT, TILDE, AND_ASSIGN, EQ_OP, NE_OP, MINUS, PLUS, MUL, DIVIDE,
-    MODULUS, LESS, GREATER, XOR, OR, COND;
+terminal IDENTIFIER, CONSTANT, STRING_LITERAL, SIZEOF, PTR_OP, INC_OP, DEC_OP, LEFT_OP, RIGHT_OP, LE_OP, GE_OP, EQ_OP, NE_OP,
+    AND_OP, OR_OP, MUL_ASSIGN, DIV_ASSIGN, MOD_ASSIGN, ADD_ASSIGN, SUB_ASSIGN, LEFT_ASSIGN, RIGHT_ASSIGN, AND_ASSIGN,
+    XOR_ASSIGN, OR_ASSIGN, TYPE_NAME, TYPEDEF, EXTERN, STATIC, AUTO, REGISTER,
+    CHAR, SHORT, INT, LONG, SIGNED, UNSIGNED, FLOAT, DOUBLE, CONST, VOLATILE, VOID, STRUCT, UNION, ENUM, ELLIPSIS,
+    CASE, DEFAULT, IF, ELSE, SWITCH, WHILE, DO, FOR, GOTO, CONTINUE, BREAK, RETURN,
+    SEMI, CURLYL, CURLYR, COMMA, COLON, ASSIGN, PARAL, PARAR, SQUAREDL, SQUAREDR, POINT, ADRESS, NOT, TILDE, MINUS, PLUS, MUL, DIVIDE, MODULUS, LESS, GREATER, XOR, OR, COND;
 
-non terminal translation_unit, primary_expression, postfix_expression, expression, assignment_expression;
-non terminal unary_operator, type_name, cast_expression, multiplicative_expression, additive_expression;
-non terminal shift_expression, equality_expression,  and_expression,  exclusive_or_expression;
-non terminal logical_and_expression,  logical_or_expression,  conditional_expression,  constant_expression;
-non terminal declaration_specifiers, init_declarator_list, storage_class_specifier, type_specifier, type_qualifier;
-non terminal init_declarator, declarator, struct_or_union_specifier, struct_declaration_list, struct_declaration;
-non terminal initializer,  specifier_qualifier_list,  struct_declarator_list,  struct_declarator,  enum_specifier;
-non terminal enumerator_list,  enumerator,  pointer,  direct_declarator,  parameter_type_list,  identifier_list;
-non terminal type_qualifier_list,  parameter_declaration,  abstract_declarator,  direct_abstract_declarator;
-non terminal initializer_list,  statement,  labeled_statement,  compound_statement,  selection_statement;
-non terminal jump_statement, statement_list, expression_statement, external_declaration, function_definition;
-non terminal assignment_operator, parameter_list, unary_expression, iteration_statement, declaration_list;
-non terminal relational_expression,  inclusive_or_expression, declaration;
+non terminal translation_unit;
+non terminal primary_expression;
+non terminal postfix_expression;
+non terminal expression;
+//non terminal argument_expression_list;
+non terminal assignment_expression;
+non terminal unary_expression;
+non terminal unary_operator;
+non terminal type_name;
+non terminal  cast_expression;
+non terminal  multiplicative_expression;
+non terminal  additive_expression;
+non terminal  relational_expression;
+non terminal  shift_expression;
+non terminal  equality_expression;
+non terminal  and_expression;
+non terminal  exclusive_or_expression;
+non terminal  inclusive_or_expression;
+non terminal  logical_and_expression;
+non terminal  logical_or_expression;
+non terminal  conditional_expression;
+non terminal  constant_expression;
+non terminal  declaration;
+non terminal  declaration_specifiers;
+non terminal  init_declarator_list;
+non terminal  storage_class_specifier;
+non terminal  type_specifier;
+non terminal  type_qualifier;
+non terminal  init_declarator;
+non terminal  declarator;
+non terminal  struct_or_union_specifier;
+non terminal  struct_declaration_list;
+//non terminal struct_or_union;
+non terminal  struct_declaration;
+non terminal  initializer;
+non terminal  specifier_qualifier_list;
+non terminal  struct_declarator_list;
+non terminal  struct_declarator;
+non terminal  enum_specifier;
+non terminal  enumerator_list;
+non terminal  enumerator;
+non terminal  pointer;
+non terminal  direct_declarator;
+non terminal  parameter_type_list;
+non terminal  identifier_list;
+non terminal  type_qualifier_list;
+non terminal  parameter_declaration;
+non terminal  abstract_declarator;
+non terminal  direct_abstract_declarator;
+non terminal  initializer_list;
+non terminal  statement;
+non terminal  labeled_statement;
+non terminal  compound_statement;
+non terminal  selection_statement;
+non terminal  iteration_statement;
+non terminal  jump_statement;
+non terminal  statement_list;
+non terminal  expression_statement;
+non terminal  external_declaration;
+non terminal  function_definition;
+non terminal  declaration_list;
+non terminal  assignment_operator;
+non terminal  parameter_list;
+
 
 precedence nonassoc ELSE;
 
+
+
 start with translation_unit;
 
-primary_expression ::= IDENTIFIER:ident
-		   | CONSTANT:constant
-		   | STRING_LITERAL:stringliteral
-		   | PARAL expression:e PARAR
+
+primary_expression ::= IDENTIFIER:ident {: Variable v = Semantic.getInstance().getVariableById(ident.toString());
+                                           if (v == null) {
+                                                Expression exp = new Expression(null, null);
+                                                v = new Variable(null, ident.toString(), exp);
+                                                Semantic.getInstance().addVariable(v);
+                                           }
+                                           RESULT = v;
+                                           Logger.getInstance().log("primary_expression 1"); :}
+		   | CONSTANT:constant {: Expression pexp = new Expression(Expression.getTypeOfNumber(constant.toString()),Expression.getValueOfNumber(constant.toString()));
+		                          RESULT = pexp;
+		                          Logger.getInstance().log("primary_expression 2"); :}
+		   | STRING_LITERAL:stringliteral {: Expression pexp = new Expression(Types.STRING, stringliteral.toString());
+		                                     RESULT = pexp;
+		                                     Logger.getInstance().log("primary_expression 3"); :}
+		   | PARAL expression:e PARAR {: Expression exp = (Expression) e;
+		                                 RESULT = exp;
+		                                 Logger.getInstance().log("primary_expression 4"); :}
 		   ;
 
-postfix_expression ::= primary_expression:pe
-		   | postfix_expression:pe SQUAREDL expression:index SQUAREDR
-		   | postfix_expression:pe PARAL PARAR
-		   | postfix_expression:pe PARAL expression:e PARAR
-		   | postfix_expression:pe POINT IDENTIFIER:id
-		   | postfix_expression:pe PTR_OP IDENTIFIER:id
-		   | postfix_expression:pe INC_OP:op
-		   | postfix_expression:pe DEC_OP:op
+postfix_expression ::= primary_expression:pe {: RESULT = pe; Logger.getInstance().log("postfix_expression 1"); :}
+		   | postfix_expression:pe SQUAREDL expression:index SQUAREDR {: RESULT = pe; Logger.getInstance().log("postfix_expression 2"); :}
+		   | postfix_expression:pe PARAL PARAR {: RESULT = pe;
+		                                          Semantic.getInstance().checkFunctionCallParams(pe);
+		                                          Logger.getInstance().log("postfix_expression 3"); :}
+		   | postfix_expression:pe PARAL expression:e PARAR {: RESULT = pe;
+		                                                       Semantic.getInstance().checkFunctionCallParams(pe);
+		                                                       Logger.getInstance().log("postfix_expression 4"); :}
+		   | postfix_expression:pe POINT IDENTIFIER:id {: RESULT = pe; Logger.getInstance().log("postfix_expression 5"); :}
+		   | postfix_expression:pe PTR_OP IDENTIFIER:id {: RESULT = pe; Logger.getInstance().log("postfix_expression 6"); :}
+		   | postfix_expression:pe INC_OP:op {: RESULT = pe; Logger.getInstance().log("postfix_expression 7"); :}
+		   | postfix_expression:pe DEC_OP:op {: RESULT = pe; Logger.getInstance().log("postfix_expression 8"); :}
 		   ;
 
-unary_expression ::= postfix_expression:pe
-		 | INC_OP:op unary_expression:ue
-		 | DEC_OP:op unary_expression:ue
-		 | unary_operator:uo cast_expression:ce
-		 | SIZEOF unary_expression:ue
-		 | SIZEOF PARAL type_name:tn PARAR
+unary_expression ::= postfix_expression:pe {: RESULT = pe; Logger.getInstance().log("unary_expression 1"); :}
+		 | INC_OP:op unary_expression:ue {: Logger.getInstance().log("unary_expression 2"); :}
+		 | DEC_OP:op unary_expression:ue {: Logger.getInstance().log("unary_expression 3"); :}
+		 | unary_operator:uo cast_expression:ce {: Logger.getInstance().log("unary_expression 4"); :}
+		 | SIZEOF unary_expression:ue {: Logger.getInstance().log("unary_expression 5"); :}
+		 | SIZEOF PARAL type_name:tn PARAR {: Logger.getInstance().log("unary_expression 6"); :}
 		 ;
 
-unary_operator ::=ADRESS
-	| MUL:op
-	| PLUS:op
-	| MINUS:op
-	| TILDE
-	| NOT:op
+unary_operator
+	::=ADRESS {: Logger.getInstance().log("unary_operator 1"); :}
+	| MUL:op {: Logger.getInstance().log("unary_operator 2"); :}
+	| PLUS:op {: Logger.getInstance().log("unary_operator 3"); :}
+	| MINUS:op {: Logger.getInstance().log("unary_operator 4"); :}
+	| TILDE {: Logger.getInstance().log("unary_operator 5"); :}
+	| NOT:op {: Logger.getInstance().log("unary_operator 6"); :}
 	;
+
 
 cast_expression
-	::=unary_expression:ue
-	| PARAL type_name:tn PARAR cast_expression:ce
+	::=unary_expression:ue {: RESULT = ue; Logger.getInstance().log("cast_expression 1"); :}
+	| PARAL type_name:tn PARAR cast_expression:ce {: Logger.getInstance().log("cast_expression 2"); :}
 	;
 
-multiplicative_expression ::= cast_expression:ce
-			  | multiplicative_expression:me MUL:op cast_expression:ce
-			  | multiplicative_expression:me DIVIDE:op cast_expression:ce
-			  | multiplicative_expression:me MODULUS:op cast_expression:ce
+
+multiplicative_expression ::= cast_expression:ce {: RESULT = ce; Logger.getInstance().log("multiplicative_expression 1"); :}
+			  | multiplicative_expression:me MUL:op cast_expression:ce {:
+                                             Expression r = Semantic.getInstance().execArithmeticExp(me, ce, op.toString());
+                                             //Semantic.getInstance().getCodeGenerator().generateMULCode();
+                                             RESULT = r;
+                                             Logger.getInstance().log("multiplicative_expression 2");
+			  :}
+			  | multiplicative_expression:me DIVIDE:op cast_expression:ce {:
+                                             Expression r = Semantic.getInstance().execArithmeticExp(me, ce, op.toString());
+                                             //Semantic.getInstance().getCodeGenerator().generateDIVCode();
+                                             RESULT = r;
+                                             Logger.getInstance().log("multiplicative_expression 3");
+			  :}
+			  | multiplicative_expression:me MODULUS:op cast_expression:ce {:
+                                             Expression r = Semantic.getInstance().execArithmeticExp(me, ce, op.toString());
+                                             //Semantic.getInstance().getCodeGenerator().generateMODCode();
+                                             RESULT = r;
+			                                 Logger.getInstance().log("multiplicative_expression 4");
+			  :}
 			  ;
 
-additive_expression ::= multiplicative_expression:me
-		    | additive_expression:ae PLUS:op multiplicative_expression:me
-		    | additive_expression:ae MINUS:op multiplicative_expression:me
+additive_expression ::= multiplicative_expression:me {: RESULT = me; Logger.getInstance().log("additive_expression 1"); :}
+		    | additive_expression:ae PLUS:op multiplicative_expression:me {:
+                                              Expression r = Semantic.getInstance().execArithmeticExp(ae, me, op.toString());
+                                              RESULT = r;
+                                              Semantic.getInstance().getCodeGenerator().generateADDCode((Expression) ae,(Expression) me);
+                                              Logger.getInstance().log("additive_expression 2");
+		    :}
+		    | additive_expression:ae MINUS:op multiplicative_expression:me {:
+                                              Expression r = Semantic.getInstance().execArithmeticExp(ae, me, op.toString());
+                                              RESULT = r;
+                                              Semantic.getInstance().getCodeGenerator().generateSUBCode((Expression) ae,(Expression) me);
+                                              Logger.getInstance().log("additive_expression 3");
+		    :}
 		    ;
 
-shift_expression ::= additive_expression:ae
-		 | shift_expression:se LEFT_OP additive_expression:ae
-		 | shift_expression:se RIGHT_OP additive_expression:ae
+shift_expression ::= additive_expression:ae {:RESULT = ae; Logger.getInstance().log("shift_expression 1"); :}
+		 | shift_expression:se LEFT_OP additive_expression:ae {: Logger.getInstance().log("shift_expression 2"); :}
+		 | shift_expression:se RIGHT_OP additive_expression:ae {: Logger.getInstance().log("shift_expression 3"); :}
 		 ;
 
-relational_expression ::= shift_expression:se
-		      | relational_expression:re LESS:op shift_expression:se
-		      | relational_expression:re GREATER:op shift_expression:se
-		      | relational_expression:re LE_OP:op shift_expression:se
-		      | relational_expression:re GE_OP:op shift_expression:se
+relational_expression ::= shift_expression:se {: RESULT = se; Logger.getInstance().log("relational_expression 1"); :}
+		      | relational_expression:re LESS:op shift_expression:se {:
+		                                         Logger.getInstance().log("relational_expression 2");
+		      :}
+		      | relational_expression:re GREATER:op shift_expression:se {:
+		                                         Logger.getInstance().log("relational_expression 3");
+		                                         :}
+		      | relational_expression:re LE_OP:op shift_expression:se {:
+		                                         Logger.getInstance().log("relational_expression 4");
+		                                         :}
+		      | relational_expression:re GE_OP:op shift_expression:se {:
+                                                 Logger.getInstance().log("relational_expression 5");
+                                                 :}
 		      ;
 
-equality_expression ::= relational_expression:re
-		    | equality_expression:ee EQ_OP:op relational_expression:re
-		    | equality_expression:ee NE_OP:op relational_expression:re
+equality_expression ::= relational_expression:re {: RESULT = re; Logger.getInstance().log("equality_expression 1"); :}
+		    | equality_expression:ee EQ_OP:op relational_expression:re {:
+                                                 Logger.getInstance().log("equality_expression 2");
+                                                 :}
+		    | equality_expression:ee NE_OP:op relational_expression:re {:
+                                                 Logger.getInstance().log("equality_expression 3");
+		    :}
 		    ;
 
-and_expression ::= equality_expression:ee
-	       | and_expression:ae ADRESS equality_expression:ee
+and_expression ::= equality_expression:ee {: RESULT = ee; Logger.getInstance().log("and_expression 1"); :}
+	       | and_expression:ae ADRESS:op equality_expression:ee {: Expression exp = Semantic.getInstance().execBooleanExp(ae, ee, "&");
+	                                                               RESULT = exp;
+	                                                               Logger.getInstance().log("and_expression 2"); :}
 	       ;
 
-exclusive_or_expression	::= and_expression:ae
-			| exclusive_or_expression:eoe XOR and_expression:ae
+exclusive_or_expression	::= and_expression:ae {: RESULT = ae; Logger.getInstance().log("exclusive_or_expression 1"); :}
+			| exclusive_or_expression:eoe XOR:op and_expression:ae {:
+			                                                          Expression exp = Semantic.getInstance().execBooleanExp(eoe, ae, "^");
+                                                                      RESULT = exp;
+                                                                      Logger.getInstance().log("exclusive_or_expression 2"); :}
 			;
 
-inclusive_or_expression	::= exclusive_or_expression:eoe
-			| inclusive_or_expression:ioe OR exclusive_or_expression:eoe
+
+inclusive_or_expression	::= exclusive_or_expression:eoe {: RESULT = eoe; Logger.getInstance().log("inclusive_or_expression 1"); :}
+			| inclusive_or_expression:ioe OR:op exclusive_or_expression:eoe {:
+						                                                          Expression exp = Semantic.getInstance().execBooleanExp(ioe, eoe, "|");
+                                                                                  RESULT = exp;
+                                                                                  Logger.getInstance().log("inclusive_or_expression 2"); :}
 			;
 
-logical_and_expression ::= inclusive_or_expression:ioe
-		       | logical_and_expression:lae AND_OP:op inclusive_or_expression:ioe
+logical_and_expression ::= inclusive_or_expression:ioe {: RESULT = ioe; Logger.getInstance().log("logical_and_expression 1"); :}
+		       | logical_and_expression:lae AND_OP:op inclusive_or_expression:ioe {:
+		       			                                                            Expression exp = Semantic.getInstance().execBooleanExp(lae, ioe, op.toString());
+                                                                                    RESULT = exp;
+                                                                                    Logger.getInstance().log("logical_and_expression 2"); :}
 		       ;
 
-logical_or_expression ::= logical_and_expression:lae
-		      | logical_or_expression:loe OR_OP:op logical_and_expression:lae
+logical_or_expression ::= logical_and_expression:lae {: RESULT = lae; Logger.getInstance().log("logical_or_expression 1"); :}
+		      | logical_or_expression:loe OR_OP:op logical_and_expression:lae {:
+		      			                                                         Expression exp = Semantic.getInstance().execBooleanExp(loe, lae, op.toString());
+                                                                                 RESULT = exp;
+                                                                                 Logger.getInstance().log("logical_or_expression 2"); :}
 		      ;
 
-conditional_expression ::= logical_or_expression:loe
-		       | logical_or_expression:loe COND expression:e COLON conditional_expression:ce
+conditional_expression ::= logical_or_expression:loe {:
+                                              RESULT = loe;
+                                              Logger.getInstance().log("conditional_expression 1");
+                                              :}
+		       | logical_or_expression:loe COND expression:e COLON conditional_expression:ce {: Logger.getInstance().log("conditional_expression 2"); :}
 		       ;
 
-assignment_expression ::= conditional_expression:ce
-		      | unary_expression:ue assignment_operator:aop assignment_expression:ae
+
+assignment_expression ::= conditional_expression:ce {: RESULT = ce; Logger.getInstance().log("assignment_expression 1"); :}
+		      | unary_expression:ue assignment_operator:aop assignment_expression:ae {: Logger.getInstance().log("assignment_expression 2");
+		                                                                                Semantic.getInstance().checkAssignment(ue);
+		                                                                                RESULT = ae;                           :}
 		      ;
 
-assignment_operator ::=ASSIGN
-	| MUL_ASSIGN
-	| DIV_ASSIGN
-	| MOD_ASSIGN
-	| ADD_ASSIGN
-	| SUB_ASSIGN
-	| LEFT_ASSIGN
-	| RIGHT_ASSIGN
- 	| AND_ASSIGN
-	| XOR_ASSIGN
-	| OR_ASSIGN
+assignment_operator
+	::=ASSIGN  {: Logger.getInstance().log("assignment_operator 1"); :}
+	| MUL_ASSIGN  {: Logger.getInstance().log("assignment_operator 2"); :}
+	| DIV_ASSIGN  {: Logger.getInstance().log("assignment_operator 3"); :}
+	| MOD_ASSIGN  {: Logger.getInstance().log("assignment_operator 4"); :}
+	| ADD_ASSIGN  {: Logger.getInstance().log("assignment_operator 5"); :}
+	| SUB_ASSIGN  {: Logger.getInstance().log("assignment_operator 6"); :}
+	| LEFT_ASSIGN {: Logger.getInstance().log("assignment_operator 7"); :}
+	| RIGHT_ASSIGN {: Logger.getInstance().log("assignment_operator 8"); :}
+ 	| AND_ASSIGN {: Logger.getInstance().log("assignment_operator 9"); :}
+	| XOR_ASSIGN {: Logger.getInstance().log("assignment_operator 10"); :}
+	| OR_ASSIGN {: Logger.getInstance().log("assignment_operator 11"); :}
 	;
 
-expression ::= assignment_expression:ae
-	   | expression:e COMMA assignment_expression:ae
+expression ::= assignment_expression:ae {: RESULT = ae; Logger.getInstance().log("expression 1"); :}
+	   | expression:e COMMA assignment_expression:ae {: Logger.getInstance().log("expression 2");
+	                                                    if (Semantic.getInstance().functionCallParams.size() == 0) {
+	                                                        Semantic.getInstance().functionCallParams.add((Expression) e);
+	                                                        Semantic.getInstance().functionCallParams.add((Expression) ae);
+	                                                    } else {
+	                                                        Semantic.getInstance().functionCallParams.add((Expression) ae);
+	                                                    }
+	                                                    RESULT = ae; :}
 	   ;
 
-constant_expression ::=conditional_expression:ce
+constant_expression
+	::=conditional_expression:ce {: Logger.getInstance().log("constant_expression 1"); :}
 	;
 
-declaration ::=declaration_specifiers:ds SEMI
+declaration
+	::=declaration_specifiers:ds SEMI  {: Logger.getInstance().log("declaration 1"); :}
     | declaration_specifiers:ds init_declarator_list:idl {:
-	  if (ds.toString().indexOf(">typedef<")>0) {
-	      for (XMLElement e: ((XMLElement)idl).selectById("identifier"))
-		Parser.addType(((Terminal)e).value().toString());
-	  }
-	  :} SEMI
+                              Variable v = ((Variable) idl);
+                              Types type = Semantic.getInstance().checkVariableDeclaration((Types) ds, v.getValor().getType() );
+							  v.setType(type);
+                              Semantic.getInstance().addVariable(v);
+                              RESULT = v;
+							  Logger.getInstance().log("declaration 2");
+							  :} SEMI
         ;
 
-declaration_specifiers ::=storage_class_specifier:scc
-        | storage_class_specifier:scc declaration_specifiers:ds
-	| type_specifier:ts
-	| type_specifier:ts declaration_specifiers:ds
-	| type_qualifier:tq
-	| type_qualifier:tq declaration_specifiers:ds
+declaration_specifiers
+	::=storage_class_specifier:scc                              {: Logger.getInstance().log("declaration_specifiers 1"); :}
+        | storage_class_specifier:scc declaration_specifiers:ds {: Logger.getInstance().log("declaration_specifiers 2"); :}
+	| type_specifier:ts                                         {: RESULT = ts; Logger.getInstance().log("declaration_specifiers 3"); :}
+	| type_specifier:ts declaration_specifiers:ds               {: Logger.getInstance().log("declaration_specifiers 4"); :}
+	| type_qualifier:tq                                         {: Logger.getInstance().log("declaration_specifiers 5"); :}
+	| type_qualifier:tq declaration_specifiers:ds               {: Logger.getInstance().log("declaration_specifiers 6"); :}
 	;
 
-init_declarator_list ::=init_declarator:id
-	| init_declarator_list:idl COMMA init_declarator:id
+init_declarator_list
+	::=init_declarator:id {: RESULT = id; Logger.getInstance().log("init_declarator_list 1"); :}
+	| init_declarator_list:idl COMMA init_declarator:id {: RESULT = id; Logger.getInstance().log("init_declarator_list 2"); :}
 	;
 
-init_declarator ::=declarator:d
-	| declarator:d ASSIGN initializer:i
+init_declarator
+        ::=declarator:d           {: RESULT = d;
+                                     Logger.getInstance().log("init_declarator 1"); :}
+	| declarator:d ASSIGN initializer:i  {: Variable v = (Variable) d;
+	                                        v.setValor((Expression) i);
+	                                        v.setType(((Expression) i).getType());
+	                                        Semantic.getInstance().addVariable(v);
+	                                        Logger.getInstance().log(v.getValor().getValue().toString());
+	                                        if(v.getValor().isFromOperation()){
+	                                            //Semantic.getInstance().getCodeGenerator().generateLDCode((Expression)i);
+	                                            Semantic.getInstance().getCodeGenerator().assignmentDeclaration(v, (Expression)i);
+	                                        } else{
+	                                            Semantic.getInstance().getCodeGenerator().generateSTCode(v, (Expression)i);
+	                                        }
+	                                        RESULT = v;
+	                                        Logger.getInstance().log("init_declarator 2"); :}
 	;
 
-storage_class_specifier ::=  TYPEDEF:id
-	| EXTERN:id
-	| STATIC:id
-	| AUTO:id
-	| REGISTER:id
+storage_class_specifier
+    ::=  TYPEDEF:id {: Logger.getInstance().log("storage_class_specifier 1"); :}
+	| EXTERN:id     {: Logger.getInstance().log("storage_class_specifier 2"); :}
+	| STATIC:id     {: Logger.getInstance().log("storage_class_specifier 3"); :}
+	| AUTO:id       {: Logger.getInstance().log("storage_class_specifier 4"); :}
+	| REGISTER:id   {: Logger.getInstance().log("storage_class_specifier 5"); :}
 	;
 
-type_specifier ::=VOID:type
-	| CHAR:type
-	| SHORT:type
-	| INT:type
-	| LONG:type
-	| FLOAT:type
-	| DOUBLE:type
-	| SIGNED:type
-	| UNSIGNED:type
-	| struct_or_union_specifier:su
-	| enum_specifier:es
-	| TYPE_NAME:type
+type_specifier
+	::=VOID:type                      {: RESULT = Types.VOID; Logger.getInstance().log("type_specifier 1"); :}
+	| CHAR:type                       {: RESULT = Types.STRING; Logger.getInstance().log("type_specifier 2"); :}
+	| SHORT:type                      {: RESULT = Types.INT; Logger.getInstance().log("type_specifier 3"); :}
+	| INT:type                        {: RESULT = Types.INT; Logger.getInstance().log("type_specifier 4"); :}
+	| LONG:type                       {: Logger.getInstance().log("type_specifier 5"); :}
+	| FLOAT:type                      {: RESULT = Types.FLOAT; Logger.getInstance().log("type_specifier 6"); :}
+	| DOUBLE:type                     {: RESULT = Types.FLOAT; Logger.getInstance().log("type_specifier 7"); :}
+	| SIGNED:type                     {: RESULT = Types.INT; Logger.getInstance().log("type_specifier 8"); :}
+	| UNSIGNED:type                   {: RESULT = Types.INT; Logger.getInstance().log("type_specifier 9"); :}
+	| struct_or_union_specifier:su    {: Logger.getInstance().log("type_specifier 10"); :}
+	| enum_specifier:es               {: Logger.getInstance().log("type_specifier 11"); :}
+	| TYPE_NAME:type                  {: Logger.getInstance().log("type_specifier 12"); :}
 	;
 
-struct_or_union_specifier ::= STRUCT:s IDENTIFIER:id CURLYL struct_declaration_list:sdl CURLYR
-	|  STRUCT:s CURLYL struct_declaration_list:sdl CURLYR
-	|  STRUCT:s IDENTIFIER:id
-	|  UNION:u IDENTIFIER:id CURLYL struct_declaration_list:sdl CURLYR
-	|  UNION:u CURLYL struct_declaration_list:sdl CURLYR
-	|  UNION:u IDENTIFIER:id
+struct_or_union_specifier
+	::= STRUCT:s IDENTIFIER:id CURLYL struct_declaration_list:sdl CURLYR  {: Logger.getInstance().log("struct_or_union_specifier 1"); :}
+	|  STRUCT:s CURLYL struct_declaration_list:sdl CURLYR                 {: Logger.getInstance().log("struct_or_union_specifier 2"); :}
+	|  STRUCT:s IDENTIFIER:id                                             {: Logger.getInstance().log("struct_or_union_specifier 3"); :}
+	|  UNION:u IDENTIFIER:id CURLYL struct_declaration_list:sdl CURLYR    {: Logger.getInstance().log("struct_or_union_specifier 4"); :}
+	|  UNION:u CURLYL struct_declaration_list:sdl CURLYR                  {: Logger.getInstance().log("struct_or_union_specifier 5"); :}
+	|  UNION:u IDENTIFIER:id                                              {: Logger.getInstance().log("struct_or_union_specifier 6"); :}
 	;
 
-struct_declaration_list	::=struct_declaration:s
-	| struct_declaration_list:sl struct_declaration:s
+struct_declaration_list
+	::=struct_declaration:s      {: Logger.getInstance().log("struct_declaration_list 1"); :}
+	| struct_declaration_list:sl struct_declaration:s   {: Logger.getInstance().log("struct_declaration_list 2"); :}
 	;
 
-struct_declaration ::=specifier_qualifier_list:sq struct_declarator_list:sd SEMI
+struct_declaration
+	::=specifier_qualifier_list:sq struct_declarator_list:sd SEMI {: Logger.getInstance().log("struct_declaration 1"); :}
 	;
 
-specifier_qualifier_list ::=type_specifier:ts specifier_qualifier_list:sq
-	| type_specifier:ts
-	| type_qualifier:tq specifier_qualifier_list:sq
-	| type_qualifier:tq
+specifier_qualifier_list
+	::=type_specifier:ts specifier_qualifier_list:sq  {: Logger.getInstance().log("specifier_qualifier_list 1"); :}
+	| type_specifier:ts                               {: Logger.getInstance().log("specifier_qualifier_list 2"); :}
+	| type_qualifier:tq specifier_qualifier_list:sq   {: Logger.getInstance().log("specifier_qualifier_list 3"); :}
+	| type_qualifier:tq                               {: Logger.getInstance().log("specifier_qualifier_list 4"); :}
 	;
 
-struct_declarator_list ::=struct_declarator:s
-	| struct_declarator_list:sl COMMA struct_declarator:s
+struct_declarator_list
+	::=struct_declarator:s      {: Logger.getInstance().log("struct_declarator_list 1"); :}
+	| struct_declarator_list:sl COMMA struct_declarator:s  {: Logger.getInstance().log("struct_declarator_list 2"); :}
 	;
 
-struct_declarator ::=declarator:d
-	| COLON constant_expression:ce
-	| declarator:d COLON constant_expression:ce
+struct_declarator
+	::=declarator:d                               {: Logger.getInstance().log("struct_declarator 1"); :}
+	| COLON constant_expression:ce                {: Logger.getInstance().log("struct_declarator 2"); :}
+	| declarator:d COLON constant_expression:ce   {: Logger.getInstance().log("struct_declarator 3"); :}
 	;
 
-enum_specifier ::=ENUM CURLYL enumerator_list:el CURLYR
-	| ENUM IDENTIFIER:id CURLYL enumerator_list:el CURLYR
-	| ENUM IDENTIFIER:id
+enum_specifier
+	::=ENUM CURLYL enumerator_list:el CURLYR                {: Logger.getInstance().log("enum_specifier 1"); :}
+	| ENUM IDENTIFIER:id CURLYL enumerator_list:el CURLYR   {: Logger.getInstance().log("enum_specifier 2"); :}
+	| ENUM IDENTIFIER:id                                    {: Logger.getInstance().log("enum_specifier 3"); :}
 	;
 
-enumerator_list	::=enumerator:e
-	| enumerator_list:el COMMA enumerator:e
+enumerator_list
+	::=enumerator:e                          {: Logger.getInstance().log("enumerator_list 1"); :}
+	| enumerator_list:el COMMA enumerator:e  {: Logger.getInstance().log("enumerator_list 2"); :}
 	;
 
-enumerator ::=IDENTIFIER:id
-	| IDENTIFIER:id ASSIGN constant_expression:ce
+enumerator
+	::=IDENTIFIER:id                                {: Logger.getInstance().log("enumerator 1"); :}
+	| IDENTIFIER:id ASSIGN constant_expression:ce   {: Logger.getInstance().log("enumerator 2"); :}
 	;
 
-type_qualifier ::=CONST:id
-	| VOLATILE:id
+type_qualifier
+	::=CONST:id      {: Logger.getInstance().log("type_qualifier 1"); :}
+	| VOLATILE:id    {: Logger.getInstance().log("type_qualifier 2"); :}
 	;
 
-declarator ::=pointer:p direct_declarator:direct
-	| direct_declarator:direct
+declarator
+	::=pointer:p direct_declarator:direct  {: Logger.getInstance().log("declarator 1"); :}
+	| direct_declarator:direct             {: RESULT = direct; Logger.getInstance().log("declarator 2"); :}
 	;
 
-direct_declarator ::=IDENTIFIER:identifier
-	| PARAL declarator:d PARAR
-	| direct_declarator:dd SQUAREDL constant_expression:ce SQUAREDR
-	| direct_declarator:dd SQUAREDL SQUAREDR
-	| direct_declarator:dd PARAL parameter_type_list:ptl PARAR
-	| direct_declarator:dd PARAL identifier_list:il PARAR
-	| direct_declarator:dd PARAL PARAR
+direct_declarator
+	::=IDENTIFIER:identifier             {: Variable v1 = Semantic.getInstance().getVariableById(identifier.toString());
+	                                        if (v1 != null) {
+	                                            Semantic.getInstance().createTempForAssignment(v1);
+	                                        }
+	                                        Expression exp = new Expression(null, null);
+                                            Variable v2 = new Variable(null, identifier.toString(), exp);
+                                            Semantic.getInstance().addVariable(v2);
+                                            RESULT = v2;
+                                            Logger.getInstance().log("direct_declarator 1"); :}
+	| PARAL declarator:d PARAR           {: RESULT = d; Logger.getInstance().log("direct_declarator 2"); :}
+	| direct_declarator:dd SQUAREDL constant_expression:ce SQUAREDR {: RESULT = dd; Logger.getInstance().log("direct_declarator 3"); :}
+	| direct_declarator:dd SQUAREDL SQUAREDR                        {: RESULT = dd; Logger.getInstance().log("direct_declarator 4"); :}
+	| direct_declarator:dd PARAL parameter_type_list:ptl PARAR      {: String id = ((Variable) dd).getId();
+	                                                                   Semantic.getInstance().newScope();
+	                                                                   List<Variable> params = (List<Variable>) ptl;
+                                                                       Semantic.getInstance().addVariables(params);
+	                                                                   Function f = new Function(id, null, new Expression(Types.VOID, null), params);
+	                                                                   Semantic.getInstance().addFunction(f);
+	                                                                   RESULT = dd;
+	                                                                   Logger.getInstance().log("direct_declarator 5"); :}
+	| direct_declarator:dd PARAL identifier_list:il PARAR           {: RESULT = dd; Logger.getInstance().log("direct_declarator 6"); :}
+	| direct_declarator:dd PARAL PARAR                              {:
+	                                   String id = ((Variable) dd).getId();
+                                       Semantic.getInstance().newScope();
+                                       Function f = new Function(id, null, new Expression(Types.VOID, null), null);
+                                       Semantic.getInstance().addFunction(f);
+                                       RESULT = dd;
+	                                   RESULT = dd; Logger.getInstance().log("direct_declarator 7"); :}
 	;
 
-pointer	::=MUL:id
-	| MUL:id type_qualifier_list:tql
-	| MUL:id pointer:p
-	| MUL:id type_qualifier_list:tql pointer:p
+pointer
+	::=MUL:id                                   {: Logger.getInstance().log("pointer 1"); :}
+	| MUL:id type_qualifier_list:tql            {: Logger.getInstance().log("pointer 2"); :}
+	| MUL:id pointer:p                          {: Logger.getInstance().log("pointer 3"); :}
+	| MUL:id type_qualifier_list:tql pointer:p  {: Logger.getInstance().log("pointer 4"); :}
 	;
 
-type_qualifier_list ::=type_qualifier:tq
-	| type_qualifier_list:tql type_qualifier:tq
+type_qualifier_list
+	::=type_qualifier:tq                         {: Logger.getInstance().log("type_qualifier_list 1"); :}
+	| type_qualifier_list:tql type_qualifier:tq  {: Logger.getInstance().log("type_qualifier_list 2"); :}
 	;
 
-parameter_type_list ::=parameter_list:pl
-	| parameter_list:pl COMMA ELLIPSIS:id
+
+parameter_type_list
+	::=parameter_list:pl                    {: RESULT = pl; Logger.getInstance().log("parameter_type_list 1"); :}
+	| parameter_list:pl COMMA ELLIPSIS:id   {: RESULT = pl; Logger.getInstance().log("parameter_type_list 2"); :}
 	;
 
-parameter_list ::=parameter_declaration:pd
-	| parameter_list:pl COMMA parameter_declaration:pd
+parameter_list
+	::=parameter_declaration:pd                          {: List<Variable> list = new ArrayList<>();
+	                                                        list.add((Variable) pd);
+	                                                        RESULT = list;
+	                                                        Logger.getInstance().log("parameter_list 1"); :}
+	| parameter_list:pl COMMA parameter_declaration:pd   {: List<Variable> list;
+	                                                        if (pl == null) {
+	                                                            list = new ArrayList<>();
+	                                                        } else {
+	                                                            list = (List<Variable>) pl;
+	                                                        }
+	                                                        list.add((Variable) pd);
+	                                                        RESULT = list;
+	                                                        Logger.getInstance().log("parameter_list 2"); :}
 	;
 
-parameter_declaration ::=declaration_specifiers:ds declarator:d
-	| declaration_specifiers:ds abstract_declarator:ad
-	| declaration_specifiers:ds
+parameter_declaration
+	::=declaration_specifiers:ds declarator:d           {: Variable v = ((Variable) d);
+                                                           v.setType((Types) ds);
+                                                           RESULT = v;
+                                                           Logger.getInstance().log("parameter_declaration 1"); :}
+	| declaration_specifiers:ds abstract_declarator:ad  {: Logger.getInstance().log("parameter_declaration 2"); :}
+	| declaration_specifiers:ds                         {: Logger.getInstance().log("parameter_declaration 3 "); :}
 	;
 
-identifier_list ::=IDENTIFIER:id
-	| identifier_list:idl COMMA IDENTIFIER:id
+identifier_list
+	::=IDENTIFIER:id                           {: Logger.getInstance().log("identifier_list 1"); :}
+	| identifier_list:idl COMMA IDENTIFIER:id  {: Logger.getInstance().log("identifier_list 2"); :}
 	;
 
-type_name ::=specifier_qualifier_list:sl
-	| specifier_qualifier_list:sl abstract_declarator:ad
+type_name
+	::=specifier_qualifier_list:sl                        {: Logger.getInstance().log("type_name 1"); :}
+	| specifier_qualifier_list:sl abstract_declarator:ad  {: Logger.getInstance().log("type_name 2"); :}
 	;
 
-abstract_declarator ::=pointer:p
-	| direct_abstract_declarator:dad
-	| pointer:p direct_abstract_declarator:d
+abstract_declarator
+	::=pointer:p                               {: Logger.getInstance().log("abstract_declarator 1"); :}
+	| direct_abstract_declarator:dad           {: Logger.getInstance().log("abstract_declarator 2"); :}
+	| pointer:p direct_abstract_declarator:d   {: Logger.getInstance().log("abstract_declarator 3"); :}
 	;
 
-direct_abstract_declarator ::=PARAL:id abstract_declarator:ad PARAR
-	| SQUAREDL:id SQUAREDR
-	| SQUAREDL:id constant_expression:ce SQUAREDR
-	| direct_abstract_declarator:dad SQUAREDL:id SQUAREDR
-	| direct_abstract_declarator:dad SQUAREDL:id constant_expression:ce SQUAREDR
-	| PARAL:id PARAR
-	| PARAL:id parameter_type_list:ptl PARAR
-	| direct_abstract_declarator:dad PARAL:id PARAR
-	| direct_abstract_declarator:dad PARAL:id parameter_type_list:ptl PARAR
+direct_abstract_declarator
+	::=PARAL:id abstract_declarator:ad PARAR                                      {: Logger.getInstance().log("direct_abstract_declarator 1"); :}
+	| SQUAREDL:id SQUAREDR                                                        {: Logger.getInstance().log("direct_abstract_declarator 2"); :}
+	| SQUAREDL:id constant_expression:ce SQUAREDR                                 {: Logger.getInstance().log("direct_abstract_declarator 3"); :}
+	| direct_abstract_declarator:dad SQUAREDL:id SQUAREDR                         {: Logger.getInstance().log("direct_abstract_declarator 4"); :}
+	| direct_abstract_declarator:dad SQUAREDL:id constant_expression:ce SQUAREDR  {: Logger.getInstance().log("direct_abstract_declarator 5"); :}
+	| PARAL:id PARAR                                                              {: Logger.getInstance().log("direct_abstract_declarator 6"); :}
+	| PARAL:id parameter_type_list:ptl PARAR                                      {: Logger.getInstance().log("direct_abstract_declarator 7"); :}
+	| direct_abstract_declarator:dad PARAL:id PARAR                               {: Logger.getInstance().log("direct_abstract_declarator 8"); :}
+	| direct_abstract_declarator:dad PARAL:id parameter_type_list:ptl PARAR       {: Logger.getInstance().log("direct_abstract_declarator 9"); :}
 	;
 
-initializer ::=assignment_expression:ae
-	| CURLYL initializer_list:il CURLYR
-	| CURLYL initializer_list:il COMMA CURLYR
+initializer
+	::=assignment_expression:ae                 {: RESULT = ae; Logger.getInstance().log("initializer 1"); :}
+	| CURLYL initializer_list:il CURLYR         {: Logger.getInstance().log("initializer 2"); :}
+	| CURLYL initializer_list:il COMMA CURLYR   {: Logger.getInstance().log("initializer 3"); :}
 	;
 
-initializer_list ::=initializer:i
-	| initializer_list:il COMMA initializer:i
+initializer_list
+	::=initializer:i                            {: Logger.getInstance().log("initializer_list 1"); :}
+	| initializer_list:il COMMA initializer:i   {: Logger.getInstance().log("initializer_list 2"); :}
 	;
 
-statement ::=labeled_statement:ls
-	| {: Parser.newScope(); :}  compound_statement:cs {: Parser.deleteScope(); :}
-	| expression_statement:es
-	| selection_statement:ss
-	| iteration_statement:is
-	| jump_statement:js
+statement
+	::=labeled_statement:ls {: Logger.getInstance().log("statement 1"); :}
+	| {: Parser.newScope(); :}  compound_statement:cs {: Parser.deleteScope(); Logger.getInstance().log("statement 2"); :}
+	| expression_statement:es {: RESULT = es; Logger.getInstance().log("statement 3"); :}
+	| selection_statement:ss {: Logger.getInstance().log("statement 4"); :}
+	| iteration_statement:is {: Logger.getInstance().log("statement 5"); :}
+	| jump_statement:js {: RESULT = js; Logger.getInstance().log("statement 6"); :}
 	;
 
-labeled_statement ::=IDENTIFIER:id COLON statement:s
-	| CASE constant_expression:ce COLON statement:s
-	| DEFAULT COLON statement:s
+labeled_statement
+	::=IDENTIFIER:id COLON statement:s                {: Logger.getInstance().log("labeled_statement 1"); :}
+	| CASE constant_expression:ce COLON statement:s   {: Logger.getInstance().log("labeled_statement 2"); :}
+	| DEFAULT COLON statement:s                       {: Logger.getInstance().log("labeled_statement 3"); :}
 	;
 
-compound_statement ::=CURLYL CURLYR
-        | CURLYL statement_list:sl CURLYR
-	| CURLYL declaration_list:dl CURLYR
-	| CURLYL declaration_list:dl statement_list:sl CURLYR
+compound_statement
+	::=CURLYL CURLYR                                        {: Logger.getInstance().log("compound_statement 1"); :}
+        | CURLYL statement_list:sl CURLYR                   {: Logger.getInstance().log("compound_statement 2"); :}
+	| CURLYL declaration_list:dl CURLYR                     {: Logger.getInstance().log("compound_statement 3"); :}
+	| CURLYL declaration_list:dl statement_list:sl CURLYR   {: Logger.getInstance().log("compound_statement 4"); :}
 	;
 
-declaration_list ::=declaration:d
-	| declaration_list:dl declaration:d
+declaration_list
+	::=declaration:d                       {: Logger.getInstance().log("declaration_list 1"); :}
+	| declaration_list:dl declaration:d    {: Logger.getInstance().log("declaration_list 2"); :}
 	;
 
-statement_list ::=statement:s
-	| statement_list:sl statement:s
+statement_list
+	::=statement:s                    {: RESULT = s; Logger.getInstance().log("statement_list 1"); :}
+	| statement_list:sl statement:s   {: RESULT = s; Logger.getInstance().log("statement_list 2"); :}
 	;
 
-expression_statement ::=SEMI
-	| expression:e SEMI
+expression_statement
+	::=SEMI {: Logger.getInstance().log("expression_statement 1"); :}
+	| expression:e SEMI {: RESULT = e; Logger.getInstance().log("expression_statement 2"); :}
 	;
 
-selection_statement ::=IF PARAL expression:e PARAR statement:s
-	| IF PARAL expression:e PARAR statement:s1 ELSE statement:s2
-	| SWITCH PARAL expression:e PARAR statement:s
+selection_statement
+	::=IF PARAL expression:e PARAR statement:s                    {: Semantic.getInstance().checkIfCondition(e);
+	                                                                 Logger.getInstance().log("selection_statement 1"); :}
+	| IF PARAL expression:e PARAR statement:s1 ELSE statement:s2  {: Semantic.getInstance().checkIfCondition(e);
+	                                                                 Logger.getInstance().log("selection_statement 2"); :}
+	| SWITCH PARAL expression:e PARAR statement:s                 {: Semantic.getInstance().checkIfCondition(e);
+	                                                                 Logger.getInstance().log("selection_statement 3"); :}
 	;
 
-iteration_statement ::=WHILE PARAL expression:e PARAR statement:s
-	| DO statement:s WHILE PARAL expression:e PARAR SEMI
-	| FOR PARAL expression_statement:es1 expression_statement:es2 PARAR statement:s
-	| FOR PARAL expression_statement:es1 expression_statement:es2 expression:e PARAR statement:s
+iteration_statement
+	::=WHILE PARAL expression:e PARAR statement:s {: Logger.getInstance().log("iteration_statement 1"); :}
+	| DO statement:s WHILE PARAL expression:e PARAR SEMI {: Logger.getInstance().log("iteration_statement 2"); :}
+	| FOR PARAL expression_statement:es1 expression_statement:es2 PARAR statement:s {: Logger.getInstance().log("iteration_statement 3"); :}
+	| FOR PARAL expression_statement:es1 expression_statement:es2 expression:e PARAR statement:s {: Logger.getInstance().log("iteration_statement 4"); :}
 	;
 
-jump_statement ::=GOTO IDENTIFIER:id SEMI
-	| CONTINUE SEMI
-	| BREAK SEMI
-	| RETURN SEMI
-	| RETURN expression:e SEMI
+jump_statement
+	::=GOTO IDENTIFIER:id SEMI  {: Logger.getInstance().log("jump_statement 1"); :}
+	| CONTINUE SEMI             {: Logger.getInstance().log("jump_statement 2"); :}
+	| BREAK SEMI                {: Logger.getInstance().log("jump_statement 3"); :}
+	| RETURN SEMI               {: RESULT = null;
+	                               Semantic.getInstance().setReturnExp( new Expression(Types.VOID, null) );
+	                               Logger.getInstance().log("jump_statement 4"); :}
+	| RETURN expression:e SEMI  {: RESULT = e;
+	                               Expression exp = Semantic.getInstance().getExpressionFromObject(e);
+	                               Semantic.getInstance().setReturnExp( ((Expression) exp) );
+	                               Logger.getInstance().log("jump_statement 5"); :}
 	;
 
-translation_unit ::=external_declaration:ed {: Logger.getInstance().startLogger(); Logger.getInstance().log("linha 385"); :}
-	| translation_unit:tu external_declaration:ed {: Logger.getInstance().log("linha 386"); :}
+translation_unit
+	::=external_declaration:ed                      {: Semantic.getInstance().getCodeGenerator().generateFinalAssemblyCode(); Logger.getInstance().log("translation_unit 1"); :}
+	| translation_unit:tu external_declaration:ed   {: RESULT = ed; Semantic.getInstance().getCodeGenerator().generateFinalAssemblyCode(); Logger.getInstance().log("translation_unit 2"); :}
 	;
 
-external_declaration ::=function_definition:fd
-	| declaration:d
+external_declaration
+	::=function_definition:fd   {: RESULT = fd; Logger.getInstance().log("external_declaration 1"); :}
+	| declaration:d             {: RESULT = d; Logger.getInstance().log("external_declaration 2"); :}
 	;
 
-function_definition ::=declaration_specifiers:ds declarator:d declaration_list:dl
-		    				             {: Parser.newScope(); :}
-  compound_statement:cs 		                   {: Parser.deleteScope(); :}
-	| declaration_specifiers:ds declarator:d 	  {: Parser.newScope(); :}
-	  compound_statement:cs 	                   {: Parser.deleteScope(); :}
-	| declarator:d declaration_list:dl 	        {: Parser.newScope(); :}
-	  compound_statement:cs 	                   {: Parser.deleteScope(); :}
-	| declarator:d 	                            {: Parser.newScope(); :}
-	  compound_statement:cs 	                   {: Parser.deleteScope(); :}
+function_definition
+	::=declaration_specifiers:ds declarator:d declaration_list:dl {: Parser.newScope(); :} compound_statement:cs {: Parser.deleteScope();  Logger.getInstance().log("function_definition 1");:}
+	| declaration_specifiers:ds declarator:d {: Parser.newScope(); :}  compound_statement:cs {:
+                	               Parser.deleteScope();
+                	               Logger.getInstance().log("function_definition 2");
+                	               Variable v = ((Variable) d);
+                	               Function fun = Semantic.getInstance().getFunctionById(v.getId());
+                	               fun.setReturnExp(Semantic.getInstance().getReturnExp());
+                	               Semantic.getInstance().setScopeId(v.getId());
+                                   Semantic.getInstance().checkFunctionReturnType((Types) ds, fun.getReturnType());
+                                   fun.setDeclaredReturnType((Types) ds);
+                                   Semantic.getInstance().exitScope();
+                                   Semantic.getInstance().addFunction(fun);
+                	               :}
+	| declarator:d declaration_list:dl {: Parser.newScope(); :} compound_statement:cs {: Parser.deleteScope(); Logger.getInstance().log("function_definition 3");:}
+	| declarator:d {: Parser.newScope(); :}  compound_statement:cs {: Parser.deleteScope(); Logger.getInstance().log("function_definition 4");:}
 	;
