@@ -81,6 +81,7 @@ parser code {:
 	    System.out.println("Parsing finished!");
 	} catch (Exception e) {
 	    e.printStackTrace();
+	    System.err.println(e.getMessage());
 	}
     }
 :};
@@ -184,13 +185,17 @@ primary_expression ::= IDENTIFIER:ident {: Variable v = Semantic.getInstance().g
 		   ;
 
 postfix_expression ::= primary_expression:pe {: RESULT = pe; Logger.getInstance().log("postfix_expression 1"); :}
-		   | postfix_expression:pe SQUAREDL expression:index SQUAREDR {: Logger.getInstance().log("postfix_expression 2"); :}
-		   | postfix_expression:pe PARAL PARAR {: Logger.getInstance().log("postfix_expression 3"); :}
-		   | postfix_expression:pe PARAL expression:e PARAR {: Logger.getInstance().log("postfix_expression 4"); :}
-		   | postfix_expression:pe POINT IDENTIFIER:id {: Logger.getInstance().log("postfix_expression 5"); :}
-		   | postfix_expression:pe PTR_OP IDENTIFIER:id {: Logger.getInstance().log("postfix_expression 6"); :}
-		   | postfix_expression:pe INC_OP:op {: Logger.getInstance().log("postfix_expression 7"); :}
-		   | postfix_expression:pe DEC_OP:op {: Logger.getInstance().log("postfix_expression 8"); :}
+		   | postfix_expression:pe SQUAREDL expression:index SQUAREDR {: RESULT = pe; Logger.getInstance().log("postfix_expression 2"); :}
+		   | postfix_expression:pe PARAL PARAR {: RESULT = pe;
+		                                          Semantic.getInstance().checkFunctionCallParams(pe);
+		                                          Logger.getInstance().log("postfix_expression 3"); :}
+		   | postfix_expression:pe PARAL expression:e PARAR {: RESULT = pe;
+		                                                       Semantic.getInstance().checkFunctionCallParams(pe);
+		                                                       Logger.getInstance().log("postfix_expression 4"); :}
+		   | postfix_expression:pe POINT IDENTIFIER:id {: RESULT = pe; Logger.getInstance().log("postfix_expression 5"); :}
+		   | postfix_expression:pe PTR_OP IDENTIFIER:id {: RESULT = pe; Logger.getInstance().log("postfix_expression 6"); :}
+		   | postfix_expression:pe INC_OP:op {: RESULT = pe; Logger.getInstance().log("postfix_expression 7"); :}
+		   | postfix_expression:pe DEC_OP:op {: RESULT = pe; Logger.getInstance().log("postfix_expression 8"); :}
 		   ;
 
 unary_expression ::= postfix_expression:pe {: RESULT = pe; Logger.getInstance().log("unary_expression 1"); :}
@@ -346,7 +351,14 @@ assignment_operator
 	;
 
 expression ::= assignment_expression:ae {: RESULT = ae; Logger.getInstance().log("expression 1"); :}
-	   | expression:e COMMA assignment_expression:ae {: Logger.getInstance().log("expression 2"); :}
+	   | expression:e COMMA assignment_expression:ae {: Logger.getInstance().log("expression 2");
+	                                                    if (Semantic.getInstance().functionCallParams.size() == 0) {
+	                                                        Semantic.getInstance().functionCallParams.add((Expression) e);
+	                                                        Semantic.getInstance().functionCallParams.add((Expression) ae);
+	                                                    } else {
+	                                                        Semantic.getInstance().functionCallParams.add((Expression) ae);
+	                                                    }
+	                                                    RESULT = ae; :}
 	   ;
 
 constant_expression
@@ -496,13 +508,21 @@ direct_declarator
 	| direct_declarator:dd SQUAREDL constant_expression:ce SQUAREDR {: RESULT = dd; Logger.getInstance().log("direct_declarator 3"); :}
 	| direct_declarator:dd SQUAREDL SQUAREDR                        {: RESULT = dd; Logger.getInstance().log("direct_declarator 4"); :}
 	| direct_declarator:dd PARAL parameter_type_list:ptl PARAR      {: String id = ((Variable) dd).getId();
+	                                                                   Semantic.getInstance().newScope();
 	                                                                   List<Variable> params = (List<Variable>) ptl;
-	                                                                   Function f = new Function(id, null, null, params);
+                                                                       Semantic.getInstance().addVariables(params);
+	                                                                   Function f = new Function(id, null, new Expression(Types.VOID, null), params);
 	                                                                   Semantic.getInstance().addFunction(f);
 	                                                                   RESULT = dd;
 	                                                                   Logger.getInstance().log("direct_declarator 5"); :}
 	| direct_declarator:dd PARAL identifier_list:il PARAR           {: RESULT = dd; Logger.getInstance().log("direct_declarator 6"); :}
-	| direct_declarator:dd PARAL PARAR                              {: RESULT = dd; Logger.getInstance().log("direct_declarator 7"); :}
+	| direct_declarator:dd PARAL PARAR                              {:
+	                                   String id = ((Variable) dd).getId();
+                                       Semantic.getInstance().newScope();
+                                       Function f = new Function(id, null, new Expression(Types.VOID, null), null);
+                                       Semantic.getInstance().addFunction(f);
+                                       RESULT = dd;
+	                                   RESULT = dd; Logger.getInstance().log("direct_declarator 7"); :}
 	;
 
 pointer
@@ -590,10 +610,10 @@ initializer_list
 statement
 	::=labeled_statement:ls {: Logger.getInstance().log("statement 1"); :}
 	| {: Parser.newScope(); :}  compound_statement:cs {: Parser.deleteScope(); Logger.getInstance().log("statement 2"); :}
-	| expression_statement:es {: Logger.getInstance().log("statement 3"); :}
+	| expression_statement:es {: RESULT = es; Logger.getInstance().log("statement 3"); :}
 	| selection_statement:ss {: Logger.getInstance().log("statement 4"); :}
 	| iteration_statement:is {: Logger.getInstance().log("statement 5"); :}
-	| jump_statement:js {: Logger.getInstance().log("statement 6"); :}
+	| jump_statement:js {: RESULT = js; Logger.getInstance().log("statement 6"); :}
 	;
 
 labeled_statement
@@ -615,13 +635,13 @@ declaration_list
 	;
 
 statement_list
-	::=statement:s                    {: Logger.getInstance().log("statement_list 1"); :}
-	| statement_list:sl statement:s   {: Logger.getInstance().log("statement_list 2"); :}
+	::=statement:s                    {: RESULT = s; Logger.getInstance().log("statement_list 1"); :}
+	| statement_list:sl statement:s   {: RESULT = s; Logger.getInstance().log("statement_list 2"); :}
 	;
 
 expression_statement
 	::=SEMI {: Logger.getInstance().log("expression_statement 1"); :}
-	| expression:e SEMI {: Logger.getInstance().log("expression_statement 2"); :}
+	| expression:e SEMI {: RESULT = e; Logger.getInstance().log("expression_statement 2"); :}
 	;
 
 selection_statement
@@ -644,8 +664,13 @@ jump_statement
 	::=GOTO IDENTIFIER:id SEMI  {: Logger.getInstance().log("jump_statement 1"); :}
 	| CONTINUE SEMI             {: Logger.getInstance().log("jump_statement 2"); :}
 	| BREAK SEMI                {: Logger.getInstance().log("jump_statement 3"); :}
-	| RETURN SEMI               {: Logger.getInstance().log("jump_statement 4"); :}
-	| RETURN expression:e SEMI  {: Logger.getInstance().log("jump_statement 5"); :}
+	| RETURN SEMI               {: RESULT = null;
+	                               Semantic.getInstance().setReturnExp( new Expression(Types.VOID, null) );
+	                               Logger.getInstance().log("jump_statement 4"); :}
+	| RETURN expression:e SEMI  {: RESULT = e;
+	                               Expression exp = Semantic.getInstance().getExpressionFromObject(e);
+	                               Semantic.getInstance().setReturnExp( ((Expression) exp) );
+	                               Logger.getInstance().log("jump_statement 5"); :}
 	;
 
 translation_unit
@@ -660,7 +685,18 @@ external_declaration
 
 function_definition
 	::=declaration_specifiers:ds declarator:d declaration_list:dl {: Parser.newScope(); :} compound_statement:cs {: Parser.deleteScope();  Logger.getInstance().log("function_definition 1");:}
-	| declaration_specifiers:ds declarator:d {: Parser.newScope(); :}  compound_statement:cs {: Parser.deleteScope(); Logger.getInstance().log("function_definition 2");:}
+	| declaration_specifiers:ds declarator:d {: Parser.newScope(); :}  compound_statement:cs {:
+                	               Parser.deleteScope();
+                	               Logger.getInstance().log("function_definition 2");
+                	               Variable v = ((Variable) d);
+                	               Function fun = Semantic.getInstance().getFunctionById(v.getId());
+                	               fun.setReturnExp(Semantic.getInstance().getReturnExp());
+                	               Semantic.getInstance().setScopeId(v.getId());
+                                   Semantic.getInstance().checkFunctionReturnType((Types) ds, fun.getReturnType());
+                                   fun.setDeclaredReturnType((Types) ds);
+                                   Semantic.getInstance().exitScope();
+                                   Semantic.getInstance().addFunction(fun);
+                	               :}
 	| declarator:d declaration_list:dl {: Parser.newScope(); :} compound_statement:cs {: Parser.deleteScope(); Logger.getInstance().log("function_definition 3");:}
 	| declarator:d {: Parser.newScope(); :}  compound_statement:cs {: Parser.deleteScope(); Logger.getInstance().log("function_definition 4");:}
 	;
