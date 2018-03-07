@@ -5,9 +5,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import analysis.exceptions.VariableNotInitializedException;
 import analysis.models.*;
 
 public class CodeGenerator {
@@ -16,6 +17,9 @@ public class CodeGenerator {
     private int register;
     private String assemblyCode;
     private Register[] registers;
+    private HashMap<String, Register> variaveis = new HashMap<>();
+    private String R = "R";
+    private static int rnumber = -1;
 
     private Map<String, Integer> functionAddress;
 
@@ -31,228 +35,320 @@ public class CodeGenerator {
         return "100: LD SP, #4000\n";
     }
 
-    public void assignmentDeclaration(Variable var, Object obj) {
-        if (obj instanceof Expression) {
-            generateSTCode(var);
+    public void genCodeVariableDeclaration(Variable var) {
+        labels+=8;
+        String reg;
+        if (var.getValor().getReg() == null) {
+            reg =  var.getValor().getValue().toString();
+        } else {
+            reg = var.getValor().getReg().toString();
         }
-//        if (obj instanceof Method) {
-//            Method f = (Method) obj;
-//            generateLDCode(new Expression(f.getName()));
-//            generateSTCode(var);
-//        }
+        addCode(labels + ": ST " + var.getId() + ", " + reg);
     }
 
 
+    public void generateADDCode(Object obj1, Object obj2, Expression exp) throws VariableNotInitializedException {
+        String reg1;
+        if (obj1 instanceof Variable) {
+            Variable var = (Variable) obj1;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg1 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj1;
+            if (temp.getReg() == null) {
+                reg1 = temp.getValue().toString();
+            } else {
+                reg1 = temp.getReg();
+            }
+        }
 
-    public void generateBolExpCode(String op) {
+        String reg2;
+        if (obj2 instanceof Variable) {
+            Variable var = (Variable) obj2;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg2 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj2;
+            if (temp.getReg() == null) {
+                reg2 = temp.getValue().toString();
+            } else {
+                reg2 = temp.getReg();
+            }
+        }
+
         labels += 8;
-        Register one = registers[register - 1];
-        Register two = allocateRegister();
-
-        register++;
-        Register result = allocateRegister();
-        addCode(labels + ": " + op + " " + result + ", " + one + ", " + two);
+        addCode(labels + ": ADD " + exp.getReg() + ", " + reg1 + ", " + reg2);
     }
 
+    public void generateSUBCode(Object obj1, Object obj2, Expression exp) throws VariableNotInitializedException {
+        String reg1;
+        if (obj1 instanceof Variable) {
+            Variable var = (Variable) obj1;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg1 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj1;
+            if (temp.getReg() == null) {
+                reg1 = temp.getValue().toString();
+            } else {
+                reg1 = temp.getReg();
+            }
+        }
 
+        String reg2;
+        if (obj2 instanceof Variable) {
+            Variable var = (Variable) obj2;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg2 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj2;
+            if (temp.getReg() == null) {
+                reg2 = temp.getValue().toString();
+            } else {
+                reg2 = temp.getReg();
+            }
+        }
 
-
-    public void generateADDCode() {
         labels += 8;
-        Register one = registers[register - 1];
-        Register two = allocateRegister();
-
-        register++;
-        Register result = allocateRegister();
-        addCode(labels + ": ADD " + result + ", " + one + ", " + two);
+        addCode(labels + ": SUB " + exp.getReg() + ", " + reg1 + ", " + reg2);
     }
 
-    public void generateADDCode(String cons) {
+    public void generateMULCode(Object obj1, Object obj2, Expression exp) throws VariableNotInitializedException {
+        String reg1;
+        if (obj1 instanceof Variable) {
+            Variable var = (Variable) obj1;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg1 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj1;
+            if (temp.getReg() == null) {
+                reg1 = temp.getValue().toString();
+            } else {
+                reg1 = temp.getReg();
+            }
+        }
+
+        String reg2;
+        if (obj2 instanceof Variable) {
+            Variable var = (Variable) obj2;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg2 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj2;
+            if (temp.getReg() == null) {
+                reg2 = temp.getValue().toString();
+            } else {
+                reg2 = temp.getReg();
+            }
+        }
+
         labels += 8;
-        Register one = registers[register];
-        register++;
-        Register result = allocateRegister();
-        addCode(labels + ": ADD " + result + ", " + one + ", #" + cons);
+        addCode(labels + ": MUL " + exp.getReg() + ", " + reg1 + ", " + reg2);
     }
 
-    public void generateADDCode(Register result, Register one, String cons) {
+    public void generateDIVCode(Object obj1, Object obj2, Expression exp) throws VariableNotInitializedException {
+        String reg1;
+        if (obj1 instanceof Variable) {
+            Variable var = (Variable) obj1;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg1 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj1;
+            if (temp.getReg() == null) {
+                reg1 = temp.getValue().toString();
+            } else {
+                reg1 = temp.getReg();
+            }
+        }
+
+        String reg2;
+        if (obj2 instanceof Variable) {
+            Variable var = (Variable) obj2;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg2 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj2;
+            if (temp.getReg() == null) {
+                reg2 = temp.getValue().toString();
+            } else {
+                reg2 = temp.getReg();
+            }
+        }
+
         labels += 8;
-        addCode(labels + ": ADD " + result + ", " + one + ", " + cons);
+        addCode(labels + ": DIV " + exp.getReg() + ", " + reg1 + ", " + reg2);
     }
 
-    public void generateADDCode(Register result, Register one, Expression exp) {
+    public void generateMODCode(Object obj1, Object obj2, Expression exp) throws VariableNotInitializedException {
+        String reg1;
+        if (obj1 instanceof Variable) {
+            Variable var = (Variable) obj1;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg1 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj1;
+            if (temp.getReg() == null) {
+                reg1 = temp.getValue().toString();
+            } else {
+                reg1 = temp.getReg();
+            }
+        }
+
+        String reg2;
+        if (obj2 instanceof Variable) {
+            Variable var = (Variable) obj2;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg2 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj2;
+            if (temp.getReg() == null) {
+                reg2 = temp.getValue().toString();
+            } else {
+                reg2 = temp.getReg();
+            }
+        }
+
         labels += 8;
-        addCode(labels + ": ADD " + result + ", " + one + ", #" + exp.getAssemblyValue());
+        addCode(labels + ": MOD " + exp.getReg() + ", " + reg1 + ", " + reg2);
     }
 
-    public void generateADDCode(Expression e1, Expression e2){
+    public void generateANDCode(Object obj1, Object obj2, Expression exp) throws VariableNotInitializedException {
+        String reg1;
+        if (obj1 instanceof Variable) {
+            Variable var = (Variable) obj1;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg1 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj1;
+            if (temp.getReg() == null) {
+                reg1 = temp.getValue().toString();
+            } else {
+                reg1 = temp.getReg();
+            }
+        }
+
+        String reg2;
+        if (obj2 instanceof Variable) {
+            Variable var = (Variable) obj2;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg2 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj2;
+            if (temp.getReg() == null) {
+                reg2 = temp.getValue().toString();
+            } else {
+                reg2 = temp.getReg();
+            }
+        }
+
         labels += 8;
-        register++;
-        Register result = allocateRegister();
-        addCode(labels + ": ADD " + result + ", " + e1.getAssemblyValue() + ", " + e2.getAssemblyValue());
+        addCode(labels + ": AND " + exp.getReg() + ", " + reg1 + ", " + reg2);
     }
 
-    public void generateSUBCode() {
+    public void generateORCode(Object obj1, Object obj2, Expression exp) throws VariableNotInitializedException {
+        String reg1;
+        if (obj1 instanceof Variable) {
+            Variable var = (Variable) obj1;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg1 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj1;
+            if (temp.getReg() == null) {
+                reg1 = temp.getValue().toString();
+            } else {
+                reg1 = temp.getReg();
+            }
+        }
+
+        String reg2;
+        if (obj2 instanceof Variable) {
+            Variable var = (Variable) obj2;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg2 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj2;
+            if (temp.getReg() == null) {
+                reg2 = temp.getValue().toString();
+            } else {
+                reg2 = temp.getReg();
+            }
+        }
+
         labels += 8;
-        Register one = registers[register - 1];
-        Register two = allocateRegister();
-
-        register++;
-        Register result = allocateRegister();
-        addCode(labels + ": SUB " + result + ", " + one + ", " + two);
+        addCode(labels + ": OR " + exp.getReg() + ", " + reg1 + ", " + reg2);
     }
 
-    public void generateSUBCode(Expression e1, Expression e2){
+    public void generateXORCode(Object obj1, Object obj2, Expression exp) throws VariableNotInitializedException {
+        String reg1;
+        if (obj1 instanceof Variable) {
+            Variable var = (Variable) obj1;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg1 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj1;
+            if (temp.getReg() == null) {
+                reg1 = temp.getValue().toString();
+            } else {
+                reg1 = temp.getReg();
+            }
+        }
+
+        String reg2;
+        if (obj2 instanceof Variable) {
+            Variable var = (Variable) obj2;
+            codeForLoad(var);
+            var = Semantic.getInstance().getVariableById(var.getId());
+            reg2 = var.getValor().getReg();
+        } else {
+            Expression temp = (Expression) obj2;
+            if (temp.getReg() == null) {
+                reg2 = temp.getValue().toString();
+            } else {
+                reg2 = temp.getReg();
+            }
+        }
+
         labels += 8;
-        register++;
-        Register result = allocateRegister();
-        addCode(labels + ": SUB " + result + ", " + e1.getAssemblyValue() + ", " + e2.getAssemblyValue());
+        addCode(labels + ": XOR " + exp.getReg() + ", " + reg1 + ", " + reg2);
     }
+
+
+
+    public void codeForLoad(Variable v) {
+        v.getValor().setReg(allocateRegister());
+        Semantic.getInstance().addVariable(v);
+        labels += 8;
+        addCode(labels + ": LD " + v.getValor().getReg() +", "+ v.getId());
+    }
+
+
 
     public void generateSUBCode(Register result, Register one, Expression exp) {
         labels += 8;
         addCode(labels + ": SUB " + result + ", " + one + ", #" + exp.getAssemblyValue());
     }
 
-    public void generateSUBCode(String cons) {
-        labels += 8;
-        Register one = registers[register];
-        register++;
-        Register result = allocateRegister();
-        addCode(labels + ": SUB " + result + ", " + one + ", #" + cons);
-    }
 
     public void generateSUBCode(Register result, Register one, String cons) {
         labels += 8;
         addCode(labels + ": SUB " + result + ", " + one + ", " + cons);
     }
 
-    public void generateMULCode() {
-        labels += 8;
-
-        Register one = registers[register - 1];
-        Register two = allocateRegister();
-
-        register++;
-        Register result = allocateRegister();
-        addCode(labels + ": MUL " + result + ", " + one + ", " + two);
-    }
-
-    public void generateDIVCode() {
-        labels += 8;
-
-        Register one = registers[register - 1];
-        Register two = allocateRegister();
-
-        register++;
-        Register result = allocateRegister();
-        addCode(labels + ": DIV " + result + ", " + one + ", " + two);
-    }
-
-    public void generateMULCode(Register result, Register one, Expression exp) {
-        labels += 8;
-        addCode(labels + ": MUL " + result + ", " + one + ", #" + exp.getValue());
-    }
-
-
-    public void generateBEQCode(int br) {
-        labels += 8;
-        Register r1 = registers[register-1];
-        Register r2 = allocateRegister();
-
-        int jump = (br * 8) + labels;
-
-        addCode(labels + ": BEQ " + r1 + ", " + r2 + ", " + jump);
-    }
-
-    public void generateBNEQZCode(int br) {
-        labels += 8;
-        int jump = (br * 8) + labels;
-
-        Register current = allocateRegister();
-        addCode(labels + ": BNEQZ " + current + ", " + jump);
-    }
-
-    public void generateForCondition(String op, String jump){
-        labels += 8;
-        Register current = allocateRegister();
-        addCode(labels + ": " +op + " " + current + ", " + jump);
-    }
-
-    public void generateBGEQZCode(int br) {
-        labels += 8;
-        int jump = (br * 8) + labels;
-
-        Register current = allocateRegister();
-        addCode(labels + ": BGEQZ " + current + ", " + jump);
-    }
-
-    public void generateBLEQZCode(int br) {
-        labels += 8;
-        int jump = (br * 8) + labels;
-
-        Register current = allocateRegister();
-        addCode(labels + ": BLEQZ " + current + ", " + jump);
-    }
-
-    public void generateBLTZCode(int br) {
-        labels += 8;
-        int jump = (br * 8) + labels;
-
-        Register current = allocateRegister();
-        addCode(labels + ": BLTZ " + current + ", " + jump);
-    }
-
-    public void generateBGTZCode(int br) {
-        labels += 8;
-        int jump = (br * 8) + labels;
-
-        Register current = allocateRegister();
-        addCode(labels + ": BGTZ " + current + ", " + jump);
-    }
-
-    public void generateBRCode(int br) {
-        labels += 8;
-        int jump = (br * 8) + labels;
-        addCode(labels + ": BR " + jump);
-    }
-
-    public Register generateLDCode(Expression expression) {
-        Register r = null;
-        if ((expression.getAssemblyValue() != null) && (expression.getValue() != null)) {
-            register++;
-            labels += 8;
-            r = allocateRegister();
-            addCode(labels + ": LD " + r + ", #" + expression.getAssemblyValue());
-        }
-        return r;
-    }
-
-    public Register generateLDCode(Variable var) {
-
-        Register r = null;
-        if (var.getId() != null) {
-            register++;
-            labels += 8;
-            r = allocateRegister();
-            addCode(labels + ": LD " + r + ", " + var.getId());
-        }
-        return r;
-    }
-
-    public Register generateLDCode(Register r, Expression expression) {
-        if ((expression.getAssemblyValue() != null) && (expression.getValue() != null)) {
-            labels += 8;
-            addCode(labels + ": LD " + r + ", #" + expression.getAssemblyValue());
-        }
-        return r;
-    }
-
-    public void generateSTCode(Variable variable) {
-        labels += 8;
-        addCode(labels + ": ST " + variable.getId() + ", " + allocateRegister());
-        this.register = -1;
-    }
 
     public void generateSTCode(Variable variable, Object obj) {
         labels += 8;
@@ -274,20 +370,8 @@ public class CodeGenerator {
 
     public void addCode(String assemblyString) {
         assemblyCode += assemblyString + "\n";
-        System.out.println(assemblyCode);
     }
 
-    public void generateCallFunction(String functionName) {
-        Expression blockSize = new Expression(Types.INT,"size");
-        Integer addressFunction = functionAddress.get(functionName);
-
-        generateADDCode(Register.SP, Register.SP, blockSize);
-
-        int jump = (3 * 8) + labels;
-        generateSTCode(Register._SP, new Expression(Types.INT, Integer.toString(jump)));
-        generateBRCode(addressFunction);
-        generateSUBCode(Register._SP, Register.SP, blockSize);
-    }
 
     public void generateBRCode(Integer address) {
         labels += 8;
@@ -328,43 +412,9 @@ public class CodeGenerator {
 
     }
 
-    public void generateCodeFunctionCall(String name){
-
-
-        Integer addressfuction = functionAddress.get(name);
-
-
-        generateADDCode(Register.SP, Register.SP, "#"+name+"size");
-        generateSTCode(Register.SP0, new Expression(Types.INT, "#"+(labels+24)));
-        generateBRCode(addressfuction);
-        generateSUBCode(Register.SP, Register.SP, "#"+name+"size");
-    }
-
-    public void generateCodeFunctionCall(String name, ArrayList<Expression> args){
-
-        String key = name + " ";
-        for (Expression e: args
-                ) {
-            key += e.getType().name();
-        }
-        Integer addressfuction = functionAddress.get(key);
-
-        generateADDCode(Register.SP, Register.SP, "#"+name+"size");
-        generateSTCode(Register.SP0, new Expression(Types.INT, "#"+(labels+24)));
-
-        generateBRCode(addressfuction);
-        generateSUBCode(Register.SP, Register.SP, "#"+name+"size");
-    }
-
-
-    public Register allocateRegister(){
-        try {
-            Register allocated = registers[register];
-            return allocated;
-        } catch (Exception e) {
-            register++;
-            return allocateRegister();
-        }
+    public String allocateRegister(){
+        rnumber++;
+        return R + rnumber;
     }
 
     public int getLabels(){
@@ -382,15 +432,7 @@ public class CodeGenerator {
         writer.close();
     }
 
-    public void generateMODCode() {
-        labels += 8;
-        Register one = registers[register - 1];
-        Register two = allocateRegister();
 
-        register++;
-        Register result = allocateRegister();
-        addCode(labels + ": MOD " + result + ", " + one + ", " + two);
-    }
 
     public void generateBRCode(String s) {
         labels += 8;

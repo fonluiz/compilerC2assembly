@@ -175,7 +175,7 @@ public class Semantic {
         }
     }
 
-    public Expression execArithmeticExp(Object obj1, Object obj2, String operator) throws VariableNotInitializedException, InvalidArithmeticOpException {
+    public Expression execArithmeticExp(Object obj1, Object obj2, String operator) throws VariableNotInitializedException, InvalidArithmeticOperationException {
 
         Expression operand1 = getExpressionFromObject(obj1);
         Expression operand2 = getExpressionFromObject(obj2);
@@ -183,7 +183,7 @@ public class Semantic {
         Expression result = null;
 
         if (operand1.getType().equals(Types.STRING) || operand2.getType().equals(Types.STRING)) {
-            throw new InvalidArithmeticOpException("O operador '" + operator + "' não suporta operandos do tipo "
+            throw new InvalidArithmeticOperationException("O operador '" + operator + "' não suporta operandos do tipo "
                     + operand1.getType().name() + " e " + operand2.getType().name());
         } else if (operand1.getType().equals(Types.FLOAT) || operand2.getType().equals(Types.FLOAT)) {
             result = arithmeticForFloat(operand1, operand2, operator);
@@ -228,23 +228,23 @@ public class Semantic {
         switch (operator) {
             case ("+"):
                 Integer f1 = (Integer) operand1.getValue() + (Integer) operand2.getValue();
-                result = new Expression(Types.FLOAT, f1, true);
+                result = new Expression(Types.INT, f1, true);
                 break;
             case ("-"):
                 Integer f2 = (Integer) operand1.getValue() - (Integer) operand2.getValue();
-                result = new Expression(Types.FLOAT, f2, true);
+                result = new Expression(Types.INT, f2, true);
                 break;
             case ("*"):
                 Integer f3 = (Integer) operand1.getValue() * (Integer) operand2.getValue();
-                result = new Expression(Types.FLOAT, f3, true);
+                result = new Expression(Types.INT, f3, true);
                 break;
             case ("/"):
                 Integer f4 = (Integer) operand1.getValue() / (Integer) operand2.getValue();
-                result = new Expression(Types.FLOAT, f4, true);
+                result = new Expression(Types.INT, f4, true);
                 break;
             case ("%"):
                 Integer f5 = (Integer) operand1.getValue() % (Integer) operand2.getValue();
-                result = new Expression(Types.FLOAT, f5, true);
+                result = new Expression(Types.INT, f5, true);
                 break;
         }
         return result;

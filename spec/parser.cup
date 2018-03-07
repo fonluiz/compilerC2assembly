@@ -225,20 +225,26 @@ cast_expression
 multiplicative_expression ::= cast_expression:ce {: RESULT = ce; Logger.getInstance().log("multiplicative_expression 1"); :}
 			  | multiplicative_expression:me MUL:op cast_expression:ce {:
                                              Expression r = Semantic.getInstance().execArithmeticExp(me, ce, op.toString());
-                                             //Semantic.getInstance().getCodeGenerator().generateMULCode();
+                                             String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                             r.setReg(reg);
                                              RESULT = r;
+                                             Semantic.getInstance().getCodeGenerator().generateMULCode(me, ce, r);
                                              Logger.getInstance().log("multiplicative_expression 2");
 			  :}
 			  | multiplicative_expression:me DIVIDE:op cast_expression:ce {:
                                              Expression r = Semantic.getInstance().execArithmeticExp(me, ce, op.toString());
-                                             //Semantic.getInstance().getCodeGenerator().generateDIVCode();
+                                             String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                             r.setReg(reg);
                                              RESULT = r;
+                                             Semantic.getInstance().getCodeGenerator().generateDIVCode(me, ce, r);
                                              Logger.getInstance().log("multiplicative_expression 3");
 			  :}
 			  | multiplicative_expression:me MODULUS:op cast_expression:ce {:
                                              Expression r = Semantic.getInstance().execArithmeticExp(me, ce, op.toString());
-                                             //Semantic.getInstance().getCodeGenerator().generateMODCode();
+                                             String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                             r.setReg(reg);;
                                              RESULT = r;
+                                             Semantic.getInstance().getCodeGenerator().generateMODCode(me, ce, r);
 			                                 Logger.getInstance().log("multiplicative_expression 4");
 			  :}
 			  ;
@@ -246,14 +252,18 @@ multiplicative_expression ::= cast_expression:ce {: RESULT = ce; Logger.getInsta
 additive_expression ::= multiplicative_expression:me {: RESULT = me; Logger.getInstance().log("additive_expression 1"); :}
 		    | additive_expression:ae PLUS:op multiplicative_expression:me {:
                                               Expression r = Semantic.getInstance().execArithmeticExp(ae, me, op.toString());
+                                              String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                              r.setReg(reg);
                                               RESULT = r;
-                                              Semantic.getInstance().getCodeGenerator().generateADDCode((Expression) ae,(Expression) me);
+                                              Semantic.getInstance().getCodeGenerator().generateADDCode(ae, me, r);
                                               Logger.getInstance().log("additive_expression 2");
 		    :}
 		    | additive_expression:ae MINUS:op multiplicative_expression:me {:
                                               Expression r = Semantic.getInstance().execArithmeticExp(ae, me, op.toString());
+                                              String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                              r.setReg(reg);
                                               RESULT = r;
-                                              Semantic.getInstance().getCodeGenerator().generateSUBCode((Expression) ae,(Expression) me);
+                                              Semantic.getInstance().getCodeGenerator().generateSUBCode(ae, me, r);
                                               Logger.getInstance().log("additive_expression 3");
 		    :}
 		    ;
@@ -289,14 +299,20 @@ equality_expression ::= relational_expression:re {: RESULT = re; Logger.getInsta
 
 and_expression ::= equality_expression:ee {: RESULT = ee; Logger.getInstance().log("and_expression 1"); :}
 	       | and_expression:ae ADRESS:op equality_expression:ee {: Expression exp = Semantic.getInstance().execBooleanExp(ae, ee, "&");
-	                                                               RESULT = exp;
+	                                                               String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                                                   exp.setReg(reg);
+                                                                   RESULT = exp;
+                                                                   Semantic.getInstance().getCodeGenerator().generateANDCode(ae, ee, exp);
 	                                                               Logger.getInstance().log("and_expression 2"); :}
 	       ;
 
 exclusive_or_expression	::= and_expression:ae {: RESULT = ae; Logger.getInstance().log("exclusive_or_expression 1"); :}
 			| exclusive_or_expression:eoe XOR:op and_expression:ae {:
 			                                                          Expression exp = Semantic.getInstance().execBooleanExp(eoe, ae, "^");
+                                                                      String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                                                      exp.setReg(reg);
                                                                       RESULT = exp;
+                                                                      Semantic.getInstance().getCodeGenerator().generateXORCode(eoe, ae, exp);
                                                                       Logger.getInstance().log("exclusive_or_expression 2"); :}
 			;
 
@@ -304,21 +320,30 @@ exclusive_or_expression	::= and_expression:ae {: RESULT = ae; Logger.getInstance
 inclusive_or_expression	::= exclusive_or_expression:eoe {: RESULT = eoe; Logger.getInstance().log("inclusive_or_expression 1"); :}
 			| inclusive_or_expression:ioe OR:op exclusive_or_expression:eoe {:
 						                                                          Expression exp = Semantic.getInstance().execBooleanExp(ioe, eoe, "|");
+                                                                                  String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                                                                  exp.setReg(reg);
                                                                                   RESULT = exp;
+                                                                                  Semantic.getInstance().getCodeGenerator().generateORCode(ioe, eoe, exp);
                                                                                   Logger.getInstance().log("inclusive_or_expression 2"); :}
 			;
 
 logical_and_expression ::= inclusive_or_expression:ioe {: RESULT = ioe; Logger.getInstance().log("logical_and_expression 1"); :}
 		       | logical_and_expression:lae AND_OP:op inclusive_or_expression:ioe {:
 		       			                                                            Expression exp = Semantic.getInstance().execBooleanExp(lae, ioe, op.toString());
-                                                                                    RESULT = exp;
+                                                                                    String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                                                                  exp.setReg(reg);
+                                                                                  RESULT = exp;
+                                                                                  Semantic.getInstance().getCodeGenerator().generateANDCode(lae, ioe, exp);
                                                                                     Logger.getInstance().log("logical_and_expression 2"); :}
 		       ;
 
 logical_or_expression ::= logical_and_expression:lae {: RESULT = lae; Logger.getInstance().log("logical_or_expression 1"); :}
 		      | logical_or_expression:loe OR_OP:op logical_and_expression:lae {:
 		      			                                                         Expression exp = Semantic.getInstance().execBooleanExp(loe, lae, op.toString());
-                                                                                 RESULT = exp;
+                                                                                 String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                                                                exp.setReg(reg);
+                                                                                RESULT = exp;
+                                                                                    Semantic.getInstance().getCodeGenerator().generateORCode(loe, lae, exp);
                                                                                  Logger.getInstance().log("logical_or_expression 2"); :}
 		      ;
 
@@ -373,6 +398,7 @@ declaration
 							  v.setType(type);
                               Semantic.getInstance().addVariable(v);
                               RESULT = v;
+                              Semantic.getInstance().getCodeGenerator().genCodeVariableDeclaration(v);
 							  Logger.getInstance().log("declaration 2");
 							  :} SEMI
         ;
@@ -399,12 +425,6 @@ init_declarator
 	                                        v.setType(((Expression) i).getType());
 	                                        Semantic.getInstance().addVariable(v);
 	                                        Logger.getInstance().log(v.getValor().getValue().toString());
-	                                        if(v.getValor().isFromOperation()){
-	                                            //Semantic.getInstance().getCodeGenerator().generateLDCode((Expression)i);
-	                                            Semantic.getInstance().getCodeGenerator().assignmentDeclaration(v, (Expression)i);
-	                                        } else{
-	                                            Semantic.getInstance().getCodeGenerator().generateSTCode(v, (Expression)i);
-	                                        }
 	                                        RESULT = v;
 	                                        Logger.getInstance().log("init_declarator 2"); :}
 	;

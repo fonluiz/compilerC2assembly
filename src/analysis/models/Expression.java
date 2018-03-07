@@ -5,6 +5,7 @@ public class Expression {
     private Types type;
     private Object value;
     private boolean isFromOperation;
+    private String reg;
 
     public Expression(Types type, Object value) {
         this.type = type;
@@ -54,6 +55,13 @@ public class Expression {
         return this.value.toString();
     }
 
+    public String getReg() {
+        return reg;
+    }
+
+    public void setReg(String reg) {
+        this.reg = reg;
+    }
 
     @Override
     public String toString() {

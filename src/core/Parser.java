@@ -1509,7 +1509,7 @@ public class Parser extends java_cup.runtime.lr_parser {
 
      public void report_fatal_error(String message, Object info) {
        report_error(message, info);
-       throw new RuntimeException("Fatal Syntax Error");
+       //throw new RuntimeException("Fatal Syntax Error");
      }
 
     public static void newScope(){
@@ -2003,7 +2003,10 @@ class CUP$Parser$actions {
 		//@@CUPDBG28
 
                                              Expression r = Semantic.getInstance().execArithmeticExp(me, ce, op.toString());
+                                             String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                             r.setReg(reg);
                                              RESULT = r;
+                                             Semantic.getInstance().getCodeGenerator().generateMULCode(me, ce, r);
                                              Logger.getInstance().log("multiplicative_expression 2");
 			  
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("multiplicative_expression",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -2026,7 +2029,10 @@ class CUP$Parser$actions {
 		//@@CUPDBG29
 
                                              Expression r = Semantic.getInstance().execArithmeticExp(me, ce, op.toString());
+                                             String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                             r.setReg(reg);
                                              RESULT = r;
+                                             Semantic.getInstance().getCodeGenerator().generateDIVCode(me, ce, r);
                                              Logger.getInstance().log("multiplicative_expression 3");
 			  
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("multiplicative_expression",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -2049,7 +2055,10 @@ class CUP$Parser$actions {
 		//@@CUPDBG30
 
                                              Expression r = Semantic.getInstance().execArithmeticExp(me, ce, op.toString());
+                                             String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                             r.setReg(reg);;
                                              RESULT = r;
+                                             Semantic.getInstance().getCodeGenerator().generateMODCode(me, ce, r);
 			                                 Logger.getInstance().log("multiplicative_expression 4");
 			  
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("multiplicative_expression",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -2085,7 +2094,10 @@ class CUP$Parser$actions {
 		//@@CUPDBG32
 
                                               Expression r = Semantic.getInstance().execArithmeticExp(ae, me, op.toString());
+                                              String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                              r.setReg(reg);
                                               RESULT = r;
+                                              Semantic.getInstance().getCodeGenerator().generateADDCode(ae, me, r);
                                               Logger.getInstance().log("additive_expression 2");
 		    
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("additive_expression",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -2108,7 +2120,10 @@ class CUP$Parser$actions {
 		//@@CUPDBG33
 
                                               Expression r = Semantic.getInstance().execArithmeticExp(ae, me, op.toString());
+                                              String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                              r.setReg(reg);
                                               RESULT = r;
+                                              Semantic.getInstance().getCodeGenerator().generateSUBCode(ae, me, r);
                                               Logger.getInstance().log("additive_expression 3");
 		    
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("additive_expression",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -2340,7 +2355,10 @@ RESULT = ae; Logger.getInstance().log("shift_expression 1");
 		Object ee = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG46
  Expression exp = Semantic.getInstance().execBooleanExp(ae, ee, "&");
-	                                                               RESULT = exp;
+	                                                               String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                                                   exp.setReg(reg);
+                                                                   RESULT = exp;
+                                                                   Semantic.getInstance().getCodeGenerator().generateANDCode(ae, ee, exp);
 	                                                               Logger.getInstance().log("and_expression 2"); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("and_expression",14, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2375,7 +2393,10 @@ RESULT = ae; Logger.getInstance().log("shift_expression 1");
 		//@@CUPDBG48
 
 			                                                          Expression exp = Semantic.getInstance().execBooleanExp(eoe, ae, "^");
+                                                                      String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                                                      exp.setReg(reg);
                                                                       RESULT = exp;
+                                                                      Semantic.getInstance().getCodeGenerator().generateXORCode(eoe, ae, exp);
                                                                       Logger.getInstance().log("exclusive_or_expression 2"); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("exclusive_or_expression",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2410,7 +2431,10 @@ RESULT = ae; Logger.getInstance().log("shift_expression 1");
 		//@@CUPDBG50
 
 						                                                          Expression exp = Semantic.getInstance().execBooleanExp(ioe, eoe, "|");
+                                                                                  String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                                                                  exp.setReg(reg);
                                                                                   RESULT = exp;
+                                                                                  Semantic.getInstance().getCodeGenerator().generateORCode(ioe, eoe, exp);
                                                                                   Logger.getInstance().log("inclusive_or_expression 2"); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("inclusive_or_expression",16, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2445,7 +2469,10 @@ RESULT = ae; Logger.getInstance().log("shift_expression 1");
 		//@@CUPDBG52
 
 		       			                                                            Expression exp = Semantic.getInstance().execBooleanExp(lae, ioe, op.toString());
-                                                                                    RESULT = exp;
+                                                                                    String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                                                                  exp.setReg(reg);
+                                                                                  RESULT = exp;
+                                                                                  Semantic.getInstance().getCodeGenerator().generateANDCode(lae, ioe, exp);
                                                                                     Logger.getInstance().log("logical_and_expression 2"); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("logical_and_expression",17, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2480,7 +2507,10 @@ RESULT = ae; Logger.getInstance().log("shift_expression 1");
 		//@@CUPDBG54
 
 		      			                                                         Expression exp = Semantic.getInstance().execBooleanExp(loe, lae, op.toString());
-                                                                                 RESULT = exp;
+                                                                                 String reg = Semantic.getInstance().getCodeGenerator().allocateRegister();
+                                                                                exp.setReg(reg);
+                                                                                RESULT = exp;
+                                                                                    Semantic.getInstance().getCodeGenerator().generateORCode(loe, lae, exp);
                                                                                  Logger.getInstance().log("logical_or_expression 2"); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("logical_or_expression",18, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -2744,6 +2774,7 @@ RESULT = ae; Logger.getInstance().log("shift_expression 1");
 							  v.setType(type);
                               Semantic.getInstance().addVariable(v);
                               RESULT = v;
+                              Semantic.getInstance().getCodeGenerator().genCodeVariableDeclaration(v);
 							  Logger.getInstance().log("declaration 2");
 							  
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("NT$0",61, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -2912,6 +2943,7 @@ RESULT = ae; Logger.getInstance().log("shift_expression 1");
 	                                        v.setValor((Expression) i);
 	                                        v.setType(((Expression) i).getType());
 	                                        Semantic.getInstance().addVariable(v);
+	                                        Logger.getInstance().log(v.getValor().getValue().toString());
 	                                        RESULT = v;
 	                                        Logger.getInstance().log("init_declarator 2"); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("init_declarator",27, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -4677,7 +4709,7 @@ RESULT = ae; Logger.getInstance().log("shift_expression 1");
 		Location edxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ed = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG204
- Logger.getInstance().log("translation_unit 1"); 
+ Semantic.getInstance().getCodeGenerator().generateFinalAssemblyCode(); Logger.getInstance().log("translation_unit 1"); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("translation_unit",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -4693,7 +4725,7 @@ RESULT = ae; Logger.getInstance().log("shift_expression 1");
 		Location edxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object ed = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG205
- RESULT = ed; Logger.getInstance().log("translation_unit 2"); 
+ RESULT = ed; Semantic.getInstance().getCodeGenerator().generateFinalAssemblyCode(); Logger.getInstance().log("translation_unit 2"); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("translation_unit",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
