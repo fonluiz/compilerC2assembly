@@ -95,6 +95,11 @@ public class CodeGenerator {
         addCode(labels + ": SUB " + result + ", " + one + ", " + two);
     }
 
+    public void generateSUBCode(Register result, Expression e1, Expression e2){
+        labels += 8;
+        addCode(labels + ": SUB " + result + ", " + e1.getAssemblyValue() + ", " + e2.getAssemblyValue());
+    }
+
     public void generateSUBCode(Register result, Register one, Expression exp) {
         labels += 8;
         addCode(labels + ": SUB " + result + ", " + one + ", #" + exp.getAssemblyValue());

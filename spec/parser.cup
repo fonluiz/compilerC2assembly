@@ -244,6 +244,7 @@ additive_expression ::= multiplicative_expression:me {: RESULT = me; Logger.getI
 		    | additive_expression:ae MINUS:op multiplicative_expression:me {:
                                               Expression r = Semantic.getInstance().execArithmeticExp(ae, me, op.toString());
                                               RESULT = r;
+                                              Semantic.getInstance().getCodeGenerator().generateSUBCode(Register.R1,(Expression) ae,(Expression) me);
                                               Logger.getInstance().log("additive_expression 3");
 		    :}
 		    ;
@@ -477,6 +478,7 @@ direct_declarator
                                             Variable v2 = new Variable(null, identifier.toString(), exp);
                                             Semantic.getInstance().addVariable(v2);
                                             RESULT = v2;
+                                            Semantic.getInstance().getCodeGenerator().generateLDCode(v2);
                                             Logger.getInstance().log("direct_declarator 1"); :}
 	| PARAL declarator:d PARAR           {: RESULT = d; Logger.getInstance().log("direct_declarator 2"); :}
 	| direct_declarator:dd SQUAREDL constant_expression:ce SQUAREDR {: RESULT = dd; Logger.getInstance().log("direct_declarator 3"); :}
@@ -635,7 +637,7 @@ jump_statement
 	;
 
 translation_unit
-	::=external_declaration:ed                      {: Logger.getInstance().log("translation_unit 1"); :}
+	::=external_declaration:ed                      {: Semantic.getInstance().getCodeGenerator().generateFinalAssemblyCode(); Logger.getInstance().log("translation_unit 1"); :}
 	| translation_unit:tu external_declaration:ed   {: RESULT = ed; Logger.getInstance().log("translation_unit 2"); :}
 	;
 
